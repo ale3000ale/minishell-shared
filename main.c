@@ -6,30 +6,36 @@
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/04 15:49:55 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:34:55 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "includes/minishell.h"
 
-static void	print_logo(void)
+static int	find_command(void)
 {
-	printf("███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗\
-███████╗██╗░░░░░██╗░░░░░\n");
-	printf("████╗░████║██║████╗░██║██║██╔════╝██║░░██║\
-██╔════╝██║░░░░░██║░░░░░\n");
-	printf("██╔████╔██║██║██╔██╗██║██║╚█████╗░███████║\
-█████╗░░██║░░░░░██║░░░░░\n");
-	printf("██║╚██╔╝██║██║██║╚████║██║░╚═══██╗██╔══██║\
-██╔══╝░░██║░░░░░██║░░░░░\n");
-	printf("██║░╚═╝░██║██║██║░╚███║██║██████╔╝██║░░██║\
-███████╗███████╗███████╗\n");
-	printf("╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝\
-╚══════╝╚══════╝╚══════╝\n");
+	int		flag_stop;
+	char	**line;
+
+	line = malloc(sizeof(char *));
+	flag_stop = 1;
+	while (flag_stop > 0)
+	{
+		graphic_hub(2, "~/demo_path/Desktop");
+		flag_stop = get_next_line(0, line);
+		if (flag_stop > 0)
+		{
+			printf("%s\n", *line);
+		}
+		free(*line);
+	}
+	free(line);
+	return (1);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	print_logo();
+	printf("\e[1;1H\e[2J");
+	find_command();
 	return (0);
 }
