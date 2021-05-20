@@ -1,0 +1,17 @@
+functions:
+
+	get_next_line = solita get_next_line applicata come push_swap checker
+
+	graphic_hub = funzione che gestisce la grafica del output, completamente personalizzabile -- return int (1)
+		- print_logo = stampa il logo di minishell -- return = void
+		- print_idle = stampa l'interfaccia della shell -- return void
+	main.c
+		- main = programma principale = chiama delle semplici funzioni -- return int (0) 
+		- find_command = legge il comando dato nella shell e lo stampa con \n alla fine -- return int (1)
+variables:
+	main.c
+		- 
+
+roba speciale: 
+	- printf("\e[1;1H\e[2J"); pulisce lo schermo;
+	- printf(")

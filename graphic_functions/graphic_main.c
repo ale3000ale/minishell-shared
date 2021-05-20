@@ -6,11 +6,12 @@
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:18:50 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/20 17:34:07 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/20 18:21:41 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <term.h>
 
 static void	print_logo(void)
 {
@@ -30,9 +31,9 @@ static void	print_logo(void)
 
 static void	print_idle(char *path)
 {
-	printf("\033[0;37m┏━━━[%s]━━━━━━━ hello. Owner\n", path);
-	printf("\033[0;37m┗━━━ \033[0;31m︻┳デ═—\033[0;37m $>");
-	fflush(stdout);
+	printf("\033[0;37m┏━━━[\033[0;36m%s\033[0;37m]━━━━━━━ \
+hello. \033[0;35mOwner\033[0;37m\n", path);
+	write(1, "\033[0;37m┗━━━ \033[0;31m︻┳デ═—\033[0;37m $> ", 53);
 }
 
 int	graphic_hub(int select, char *path)

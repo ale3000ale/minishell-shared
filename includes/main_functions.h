@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main_functions.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/20 18:55:00 by dlanotte         ###   ########.fr       */
+/*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
+/*   Updated: 2021/05/20 19:08:36 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MAIN_FUNCTIONS_H
+# define MAIN_FUNCTIONS_H
 
-# include <stdio.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "main_functions.h"
+int		find_command(void);
+void	ft_signal_manager(void);
+void	clear_screen(void);
 
 #endif

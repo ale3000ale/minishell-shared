@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/20 18:55:00 by dlanotte         ###   ########.fr       */
+/*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
+/*   Updated: 2021/05/20 19:01:35 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "includes/minishell.h"
 
-# include <stdio.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "main_functions.h"
+static void	intHandler(int signal)
+{
+	if (signal == 2)
+	{
+		/* DA GESTIRE */
+	}
+}
 
-#endif
+void	ft_signal_manager(void)
+{
+	signal(SIGINT, intHandler);
+}
