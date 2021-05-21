@@ -7,10 +7,17 @@ functions:
 		- print_idle = stampa l'interfaccia della shell -- return void
 	main.c
 		- main = programma principale = chiama delle semplici funzioni -- return int (0) 
-		- find_command = legge il comando dato nella shell e lo stampa con \n alla fine -- return int (1)
+		- find_command = legge il comando dato nella shell e lo stampa con \n alla fine 
+			se non lo trova richiama error404 -- return int (1)
 variables:
 	main.c
 		- 
+
+commands:
+		- i comandi hanno un id deinito nei define
+		- exit esegue l'exit con eventuali free del programma
+		- error404 stampa il comando non trovato
+
 
 roba speciale: 
 	- printf("\e[1;1H\e[2J"); pulisce lo schermo;

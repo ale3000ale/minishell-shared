@@ -3,28 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/20 19:11:49 by dlanotte         ###   ########.fr        #
+#    Updated: 2021/05/21 12:37:35 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME	=	minishell
 
-CC = gcc
+CC		=	gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
-LIBFT = minilibft/ft_split.c \
+LIBFT	=	minilibft/ft_split.c \
 		minilibft/ft_utils_libft.c
 
-GNL = 	get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c
+GNL		= 	get_next_line/get_next_line.c \
+			get_next_line/get_next_line_utils.c
 
-GRAPH = graphic_functions/graphic_main.c
+GRAPH	=	graphic_functions/graphic_main.c
 
-SRC = ${GRAPH} ${GNL} ${LIBFT} main.c utils.c
+COMMAND	=	commands/easy_cmd.c
+
+SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c
 
 OBJ := ${SRC:.c=.o}
 

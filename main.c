@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/20 19:15:09 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:18:33 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ static int	ft_check_commands(char **operations, int index, char *line)
 	return (ft_check_commands(operations, index + 1, line));
 }
 
-static void	ft_execute_commands(int commands)
+static void	ft_execute_commands(int commands, char *line)
 {
-	if (commands == 0)
+	line[0] = line[0];
+	if (commands == CLEAR)
 		clear_screen();
-	else if (commands == 3)
-		exit(0);
+	else if (commands == EXIT)
+		quit();
 }
 
 int	find_command(void)
@@ -40,7 +41,7 @@ int	find_command(void)
 	char	**commands;
 	int		index_commands;
 
-	commands = ft_split("clear,env,echo,exit", ',');
+	commands = ft_split(COMMANDS, ',');
 	line = malloc(sizeof(char *));
 	flag_stop = 1;
 	while (flag_stop > 0)
@@ -51,7 +52,9 @@ int	find_command(void)
 		{
 			index_commands = ft_check_commands(commands, 0, *line);
 			if (index_commands > -1)
-				ft_execute_commands(index_commands);
+				ft_execute_commands(index_commands, *line);
+			else
+				error404(*line);
 		}
 		free(*line);
 	}
