@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easy_cmd.c                                         :+:      :+:    :+:   */
+/*   ft_path_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/21 22:32:57 by zxcvbinz         ###   ########.fr       */
+/*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
+/*   Updated: 2021/05/21 23:16:51 by zxcvbinz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	error404(char *line)
+char	*find_path(void)
 {
-	char	**split;
+	char	*current_path;
+	char	*buf;
 
-	split = ft_split(line, ' ');
-	if (split[0])
-		printf("command not found: %s\n", split[0]);
-	free_table(split);
+	buf = malloc((size_t) PATH_MAX + 1);
+	if (buf)
+		current_path = getcwd(buf, PATH_MAX + 1);
+	else
+		return (NULL);
+	free(buf);
+	return (current_path);
 }
 
-// some eventual free
-
-void	quit(void)
+int	change_path(char *new_path)
 {
-	exit(0);
+	if (chdir(new_path) != 0)
+	{
+		printf("cd: no such file or directory: %s\n", new_path);
+		return (0);
+	}
+	return (1);
 }
