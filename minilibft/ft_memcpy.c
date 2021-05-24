@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.h                                         :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 15:22:50 by amarcell         ###   ########.fr       */
+/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
+/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMANDS_H
-# define COMMANDS_H
+#include "../includes/minishell.h"
 
-# define COMMANDS	"clear,env,echo,exit,cd"
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char	*ds;
+	unsigned char	*sr;
+	size_t			i;
 
-# define MY_CLEAR			0
-# define MY_ENV				1
-# define MY_ECHO			2
-# define MY_EXIT			3
-# define MY_CD				4
-
-void	error404(char *line);
-void	quit(void);
-
-#endif
+	if (!dest && !src)
+		return (0);
+	ds = (unsigned char *)dest;
+	sr = (unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		ds[i] = sr[i];
+		i++;
+	}
+	return (ds);
+}

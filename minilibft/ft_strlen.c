@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_functions.h                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/21 23:13:55 by zxcvbinz         ###   ########.fr       */
+/*   Created: 2021/05/24 17:14:50 by amarcell          #+#    #+#             */
+/*   Updated: 2021/05/24 17:16:16 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_FUNCTIONS_H
-# define MAIN_FUNCTIONS_H
+#include "../includes/minishell.h"
 
-# define PATH_MAX	4096 
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
 
-int		find_command(void);
-void	ft_signal_manager(void);
-void	clear_screen(void);
-
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
