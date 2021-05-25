@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main_functions.h                                :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/25 19:54:07 by dlanotte         ###   ########.fr       */
+/*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
+/*   Updated: 2021/05/25 19:51:41 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MY_MAIN_FUNCTIONS_H
-# define MY_MAIN_FUNCTIONS_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# define PATH_MAX	4096 
-# include "struct.h"
+# include <termios.h>
 
-int		find_command(t_term *term);
-void	ft_signal_manager(void);
-void	my_clear_screen(void);
+typedef struct s_op
+{
+	int					key;
+	char				*input;
+	int					error;
+	struct s_op			*next;
+}				t_op;
+
+typedef struct s_queue
+{
+	t_op			*first;
+	int				size;
+}				t_queue;
+
+typedef struct s_term
+{
+	char			*type;
+	struct termios	dconf;
+	struct termios	cconf;
+	t_queue			queue;
+}	t_term;
 
 #endif
