@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/25 19:36:02 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/26 00:12:41 by zxcvbinz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@
 
 /* SPECIAL */
 
-# define SS_UP				"0xff52"
-# define SS_DOWN			"\033[B"
-# define SS_RIGHT			"^[[C"
-# define SS_LEFT			"^[[D"
+# define SS_MAIN			'\e'
+
+/* FUNCTIONS */
 
 void	error404(char *line);
 void	quit(void);
