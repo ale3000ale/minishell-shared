@@ -6,7 +6,7 @@
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:18:50 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/20 18:21:41 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/25 16:29:42 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	print_logo(void)
 static void	print_idle(char *path)
 {
 	printf("\033[0;37m┏━━━[\033[0;36m%s\033[0;37m]━━━━━━━ \
-hello. \033[0;35mOwner\033[0;37m\n", path);
+hello. \033[0;35m%s\033[0;37m\n", path, getenv("USER"));
 	write(1, "\033[0;37m┗━━━ \033[0;31m︻┳デ═—\033[0;37m $> ", 53);
 }
 

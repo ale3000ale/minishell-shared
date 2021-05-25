@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/24 18:35:12 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/05/25 18:50:48 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static void	ft_execute_commands(int commands, char *line)
 	else if (commands == MY_EXIT)
 		quit();
 	else if (commands == MY_CD)
-		change_path("..");
+		change_path(getenv("USER"));
 }
 
-int	find_command(void)
+int	find_command(t_term *term)
 {
 	int		flag_stop;
 	char	*line;
@@ -52,7 +52,7 @@ int	find_command(void)
 	{
 		current_path = find_path();
 		graphic_hub(2, current_path);
-		flag_stop = get_next_line(0, &line);
+		flag_stop = get_next_line(0, &line, term);
 		if (flag_stop > 0)
 		{
 			index_commands = ft_check_commands(commands, 0, line);
@@ -75,7 +75,7 @@ void	init(t_term *term)
 	term->cconf.c_lflag &= ~(ECHO | ICANON);
 	//term->cconf.c_cc[VMIN] = 1;
 	//term->cconf.c_cc[VTIME] = 0;
-	//tcsetattr(0, TCSANOW, &term->cconf);
+	//
 }
 
 int	main(void)
@@ -85,9 +85,7 @@ int	main(void)
 	init(&term);
 	fflush(stdout);
 	my_clear_screen();
-	graphic_hub(1, "");
-	my_clear_screen();
 	ft_signal_manager();
-	find_command();
+	find_command(&term);
 	return (0);
 }

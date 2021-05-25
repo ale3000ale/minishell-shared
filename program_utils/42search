@@ -23,7 +23,7 @@ WHITE='\033[1;37m';
 RED='\033[0;31m';
 
 Search(){
-	echo "${WHITE}I finded this files: ";
+	echo "${WHITE}I found these files: ";
 	find . -name $1 -print | awk 'END {print NR}'
 	find . -name $1 -print
 }
