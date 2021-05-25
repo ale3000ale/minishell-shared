@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/24 17:00:49 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/24 18:35:12 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	init(t_term *term)
 	tcgetattr(0, &term->dconf);
 	ft_memcpy(&term->cconf, &term->dconf, sizeof(struct termios));
 	term->cconf.c_lflag &= ~(ECHO | ICANON);
-	term->cconf.c_cc[VMIN] = 1;
-	term->cconf.c_cc[VTIME] = 0;
+	//term->cconf.c_cc[VMIN] = 1;
+	//term->cconf.c_cc[VTIME] = 0;
 	//tcsetattr(0, TCSANOW, &term->cconf);
 }
 
