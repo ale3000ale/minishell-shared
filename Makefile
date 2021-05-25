@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+         #
+#    By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/25 19:50:45 by dlanotte         ###   ########.fr        #
+#    Updated: 2021/05/25 23:18:55 by zxcvbinz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME	=	minishell
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_utils_libft.c \

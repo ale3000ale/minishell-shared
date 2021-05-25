@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/25 19:54:11 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/25 23:50:32 by zxcvbinz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,27 @@ static void	ft_execute_commands(int commands, char *line)
 		change_path(getenv("USER"));
 }
 
+static int	find_command_support(int flag_stop, char **commands, char *line)
+{
+	int		index_commands;
+
+	if (flag_stop > 0)
+	{
+		index_commands = ft_check_commands(commands, 0, line);
+		write(1, "\n", 1);
+		if (index_commands > -1)
+			ft_execute_commands(index_commands, line);
+		else
+			error404(line);
+	}
+	return (flag_stop);
+}
+
 int	find_command(t_term *term)
 {
 	int		flag_stop;
 	char	*line;
 	char	**commands;
-	int		index_commands;
 	char	*current_path;
 
 	commands = ft_split(COMMANDS, ',');
@@ -53,29 +68,11 @@ int	find_command(t_term *term)
 		current_path = find_path();
 		graphic_hub(2, current_path);
 		flag_stop = get_next_line(0, &line, term);
-		if (flag_stop > 0)
-		{
-			index_commands = ft_check_commands(commands, 0, line);
-			if (index_commands > -1)
-				ft_execute_commands(index_commands, line);
-			else
-				error404(line);
-		}
+		find_command_support(flag_stop, commands, line);
 		free(line);
 	}
 	free_table(commands);
 	return (1);
-}
-
-void	init(t_term *term)
-{
-	term->type = getenv("TERM");
-	tcgetattr(0, &term->dconf);
-	ft_memcpy(&term->cconf, &term->dconf, sizeof(struct termios));
-	term->cconf.c_lflag &= ~(ECHO | ICANON);
-	//term->cconf.c_cc[VMIN] = 1;
-	//term->cconf.c_cc[VTIME] = 0;
-	//
 }
 
 int	main(void)
