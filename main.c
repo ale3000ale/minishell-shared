@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/26 18:08:17 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/26 20:03:45 by zxcvbinz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	find_command_support(int flag_stop, char **commands, char *line)
 	{
 		index_commands = ft_check_commands(commands, 0, line);
 		write(1, "\n", 1);
+		printf("\033[0m\033[0;37m");
 		if (index_commands > -1)
 			ft_execute_commands(index_commands, line);
 		else

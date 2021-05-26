@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_gnl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:23:22 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/26 19:31:24 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/26 19:49:46 by zxcvbinz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	echo_input(char *buff, t_term *term)
 {
 	char	*temp;
 
-	if (term->cursor < ft_strlen(term->input))
+	if (term->cursor < (int)ft_strlen(term->input))
 	{
 		//when cursor is inside of the string trim it and put he char
 	}

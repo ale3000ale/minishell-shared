@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
+#    By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/26 18:15:45 by amarcell         ###   ########.fr        #
+#    Updated: 2021/05/26 19:54:58 by zxcvbinz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ NAME	=	minishell
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror -g
+DFLAGS	=	-Wall -Wextra -Werror -g
+
+CFLAGS	=	-Wall -Wextra -Werror
 
 LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_utils_libft.c \
@@ -61,6 +63,25 @@ $(NAME): $(OBJ)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""      
 	@ read -p "Done. Press enter to continue..."
+
+debug: 
+	@ $(CC) $(DFLAGS) $(SRC) -o $(NAME)
+	@ make clean
+	@ echo ""
+	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
+	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
+	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
+	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
+	@ echo "  gcarbone | amarcell | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  mobrycki | flwang   | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
+	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
+	@ echo ""      
+	@ read -p "Done. Press enter to continue..."
+
 clean:   
 	@ rm -f ${OBJ}
 
@@ -70,4 +91,8 @@ fclean: clean
 	@ echo ""
 	@ echo "fclean completed."
 
-re: fclean all
+debug-clean: fclean
+	@ rm -dir -f minishell.dSYM
+	@ echo "debug-clean completed."
+
+re: fclean all debug
