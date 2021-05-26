@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/25 23:18:55 by zxcvbinz         ###   ########.fr        #
+#    Updated: 2021/05/26 18:15:45 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_strlen.c \
 
 GNL		= 	get_next_line/get_next_line.c \
-
+			get_next_line/utils_gnl.c \
+			
 GRAPH	=	graphic_functions/graphic_main.c
 
 COMMAND	=	commands/easy_cmd.c
@@ -55,11 +56,11 @@ $(NAME): $(OBJ)
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  dlanotte | amarcell | gcarbone"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  fd-agnes | flwang   | mobrycki"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "  gcarbone | amarcell | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  mobrycki | flwang   | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""      
-	@ read -p "Done. Press enter to continue...."
+	@ read -p "Done. Press enter to continue..."
 clean:   
 	@ rm -f ${OBJ}
 
