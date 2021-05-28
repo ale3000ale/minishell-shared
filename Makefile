@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/28 13:13:06 by amarcell         ###   ########.fr        #
+#    Updated: 2021/05/28 18:08:35 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ LIBFT	=	minilibft/ft_split.c \
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
-			
+			get_next_line/cursor.c
+
 GRAPH	=	graphic_functions/graphic_main.c
 
 COMMAND	=	commands/easy_cmd.c

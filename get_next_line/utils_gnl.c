@@ -6,51 +6,11 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:23:22 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/28 15:34:30 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/28 18:08:15 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	cursorforward(t_term *term)
-{
-	//printf("pos: %d len: %lu\n",term->cursor, ft_strlen(term->input));
-	if ((term->cursor < (int)ft_strlen(term->input)))
-	{
-		write(1, "\033[1C", 4);
-		term->cursor++;
-	}
-	return (1);
-}
-
-int	cursorbackward(t_term *term)
-{
-	if ((term->cursor > 0))
-	{
-		write(1, "\033[1D", 4);
-		term->cursor--;
-	}
-	return (1);
-}
-
-void	cursorto(int pos, t_term *term)
-{
-	int	step;
-	int	sign;
-
-	sign = 1;
-	step = pos - term->cursor;
-	if (step < 0)
-		sign = -1;
-	while (step)
-	{
-		if (sign == -1)
-			cursorbackward(term);
-		else
-			cursorforward(term);
-		step -= sign;
-	}
-}
 
 static	void	composer(char *buff, t_term *term)
 {
@@ -75,6 +35,28 @@ static	void	composer(char *buff, t_term *term)
 	write(1, term->input, ft_strlen(term->input));
 	term->cursor = ft_strlen(term->input);
 	cursorto(ex_pos, term);
+}
+
+//ESC[0K
+int	delete(t_term *term)
+{
+	char	**cut;
+	int		ex_pos;
+
+	if (!term->cursor)
+		return (0);
+	cut = ft_strcut(term->input, term->cursor);
+	ex_pos = term->cursor - 1;
+	cut[0][strlen(cut[0]) - 1] = 0;
+	cursorto(0, term);
+	write(1, "\033[0K", 4);
+	free(term->input);
+	term->input = ft_strjoin(cut[0], cut[1]);
+	free_table(cut);
+	write(1, term->input, ft_strlen(term->input));
+	term->cursor = ft_strlen(term->input);
+	cursorto(ex_pos, term);
+	return (0);
 }
 
 int	echo_input(char *buff, t_term *term)

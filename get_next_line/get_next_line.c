@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/28 13:11:34 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/28 16:24:03 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 static int	switch_special(char *buff, t_term *term)
 {
-	/*int i = 0;
-	while (buff[i])
-		printf ("%d ", buff[i++]);
-	printf("\n");*/
 	if (!ft_strncmp(SS_UP, buff, 7))
 		write(1, "UP", 2);
 	else if (!ft_strncmp(SS_LEFT, buff, 7))
@@ -31,7 +27,7 @@ static int	switch_special(char *buff, t_term *term)
 	else if (!ft_strncmp(SHIFT_SS_RIGHT, buff, 7))
 		return (echo_input(";2C", term));
 	else if (buff[0] == SS_DEL && !buff[1])
-		return (2);
+		return (delete(term));
 	else
 		return (echo_input(buff, term));
 	return (1);
