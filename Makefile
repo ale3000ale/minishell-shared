@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/26 19:54:58 by zxcvbinz         ###   ########.fr        #
+#    Updated: 2021/05/28 13:13:06 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_bzero.c \
 			minilibft/ft_memcpy.c \
 			minilibft/ft_strlen.c \
+			minilibft/ft_strcut.c\
+			minilibft/ft_strcpy.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -61,7 +63,8 @@ $(NAME): $(OBJ)
 	@ echo "  gcarbone | amarcell | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
 	@ echo "  mobrycki | flwang   | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
-	@ echo ""      
+	@ echo ""
+	@ say -v Alice benvenuto in asci hell, premi enter per continuare      
 	@ read -p "Done. Press enter to continue..."
 
 debug: 
@@ -79,7 +82,8 @@ debug:
 	@ echo "  mobrycki | flwang   | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
-	@ echo ""      
+	@ echo ""
+	@ say -v Alice benvenuto in asci hell versione debag      
 	@ read -p "Done. Press enter to continue..."
 
 clean:   
