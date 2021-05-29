@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:23:28 by gcarbone          #+#    #+#             */
-/*   Updated: 2021/05/25 19:52:04 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:08:53 by fd-agnes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <unistd.h>
 # include "struct.h"
 
-int	get_next_line(int fd, char **line, t_term *term);
-
+int		get_next_line(int fd, t_term *term);
+int		cursorforward(t_term *term);
+int		cursorbackward(t_term *term);
+int		echo_input(char *buff, t_term *term);
+int		delete(t_term *term);
+void	cursorto(int pos, t_term *term);
 #endif

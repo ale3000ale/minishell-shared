@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main_functions.h                                :+:      :+:    :+:   */
+/*   custom_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/29 15:21:12 by dlanotte         ###   ########.fr       */
+/*   Created: 2021/05/29 16:21:21 by dlanotte          #+#    #+#             */
+/*   Updated: 2021/05/29 16:23:02 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MY_MAIN_FUNCTIONS_H
-# define MY_MAIN_FUNCTIONS_H
+#include "includes/minishell.h"
 
-# define PATH_MAX	4096 
-# include "struct.h"
+int	ft_echo(int n_flag, char *to_print)
+{
 
-void	init(t_term *term);
-int		find_command(t_term *term);
-void	ft_signal_manager(void);
-void	my_clear_screen(void);
-int		ft_parsing_hub(int index_commands, char *line, char **commands);
-void	ft_execute_commands(int commands, char *line);
+	return (1);
+}
 
-#endif
+int	ft_env()
+{
+	
+}
