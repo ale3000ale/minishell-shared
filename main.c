@@ -6,7 +6,7 @@
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/29 15:39:23 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:52:30 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	find_command(t_term *term)
 	flag_stop = 1;
 	while (flag_stop > 0)
 	{
-		current_path = find_path();
-		graphic_hub(2, current_path);
+		current_path = find_path(); // tramite la funzione getcwd trova il path della directory attuale
+		graphic_hub(2, current_path); // printa le cazzate tipo l'AK 
 		flag_stop = get_next_line(0, term);
 		find_command_support(flag_stop, commands, term->input);
 		free(term->input);
