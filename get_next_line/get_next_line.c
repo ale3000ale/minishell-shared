@@ -3,65 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/26 00:13:22 by zxcvbinz         ###   ########.fr       */
+/*   Updated: 2021/05/29 17:38:00 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	switch_special(char *buff)
+static int	switch_special(char *buff, t_term *term)
 {
-	if (buff[0] == SS_MAIN && buff[2] == 'A')
+	if (!ft_strncmp(SS_UP, buff, 7))
 		write(1, "UP", 2);
-	else if (buff[0] == SS_MAIN && buff[2] == 'D')
-		write(1, "LEFT", 5);
-	else if (buff[0] == SS_MAIN && buff[2] == 'C')
-		write(1, "RIGHT", 6);
-	else if (buff[0] == SS_MAIN && buff[2] == 'B')
+	else if (!ft_strncmp(SS_LEFT, buff, 7))
+		cursorbackward(term);
+	else if (!ft_strncmp(SS_RIGHT, buff, 7))
+		cursorforward(term);
+	else if (!ft_strncmp(SS_DOWN, buff, 7))
 		write(1, "DOWN", 4);
+	else if (!ft_strncmp(SHIFT_SS_LEFT, buff, 7))
+		return (echo_input(";2D", term));
+	else if (!ft_strncmp(SHIFT_SS_RIGHT, buff, 7))
+		return (echo_input(";2C", term));
+	else if (buff[0] == SS_DEL && !buff[1])
+		return (delete(term));
+	else if (buff[0] == SS_TAB && !buff[1])
+		return (0);
 	else
-		write(1, buff, ft_strlen(buff));
+		return (echo_input(buff, term));
 	return (1);
 }
 
-static void	check_char(char *buff, char **line)
+static void	check_char(char *buff, t_term *term)
 {
-	char	*temp;
+	int		ret;
 
-	switch_special(buff);
-	temp = *line;
-	*line = ft_strjoin(temp, buff);
-	free(temp);
+	ret = switch_special(buff, term);
 }
 
-int	get_next_line(int fd, char **line, t_term *term)
+int	get_next_line(int fd, t_term *term)
 {
 	char	buff[7];
 	int		rd;
 
-	if (fd < 0 || !line)
+	if (fd < 0)
 		return (-1);
-	*line = ft_calloc(1, 1);
-	if (!(*line))
+	term->input = ft_calloc(1, 1);
+	if (!(term->input))
 		return (-1);
-	ft_bzero(buff, 6);
-	tcsetattr(0, TCSANOW, &term->cconf);
-	rd = read(fd, buff, 6) > 0;
-	tcsetattr(0, TCSANOW, &term->dconf);
-	while (rd)
+	rd = 1;
+	term->cursor = 0;
+	while (rd > 0)
 	{
-		if (buff[0] == '\n')
-			return (1);
-		if (rd == -1)
-			return (-1);
-		check_char(buff, line);
 		ft_bzero(buff, 6);
 		tcsetattr(0, TCSANOW, &term->cconf);
-		rd = read(fd, buff, 6) > 0;
+		rd = read(fd, buff, 6);
 		tcsetattr(0, TCSANOW, &term->dconf);
+		if (buff[0] == '\n')
+			return (1);
+		if (rd > 0)
+			check_char(buff, term);
 	}
-	return (0);
+	return (rd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/26 00:13:17 by zxcvbinz         ###   ########.fr       */
+/*   Updated: 2021/05/29 17:37:36 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init(t_term *term)
 	tcgetattr(0, &term->dconf);
 	ft_memcpy(&term->cconf, &term->dconf, sizeof(struct termios));
 	term->cconf.c_lflag &= ~(ECHO | ICANON);
+	term->cursor = 0;
 	//term->cconf.c_cc[VMIN] = 1;
 	//term->cconf.c_cc[VTIME] = 0;
 }

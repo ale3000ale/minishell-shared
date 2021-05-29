@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easy_cmd.c                                         :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/29 17:38:03 by dlanotte         ###   ########.fr       */
+/*   Created: 2021/05/27 17:07:33 by amarcell          #+#    #+#             */
+/*   Updated: 2021/05/27 17:07:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	error404(char *line)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	char	**split;
+	size_t	i;
 
-	split = ft_split(line, ' ');
-	if (split[0])
-		printf("command not found: %s\n", split[0]);
-	free_table(split);
-}
-
-// some eventual free
-
-void	quit(void)
-{
-	exit(0);
+	i = 0;
+	while (src[i] && i + 1 < size)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (size)
+		dest[i] = '\0';
+	return (ft_strlen(src));
 }

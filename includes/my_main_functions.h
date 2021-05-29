@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_main_functions.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/26 00:12:58 by zxcvbinz         ###   ########.fr       */
+/*   Updated: 2021/05/29 17:37:50 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	init(t_term *term);
 int		find_command(t_term *term);
 void	ft_signal_manager(void);
 void	my_clear_screen(void);
+int		ft_parsing_hub(int index_commands, char *line, char **commands);
+void	ft_execute_commands(int commands, char *line);
 
 #endif

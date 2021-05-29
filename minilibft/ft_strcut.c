@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easy_cmd.c                                         :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/29 17:38:03 by dlanotte         ###   ########.fr       */
+/*   Created: 2021/05/27 17:03:41 by amarcell          #+#    #+#             */
+/*   Updated: 2021/05/28 16:06:48 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	error404(char *line)
+char	**ft_strcut(char *s, int pos)
 {
-	char	**split;
+	char	**new;
+	int		size1;
 
-	split = ft_split(line, ' ');
-	if (split[0])
-		printf("command not found: %s\n", split[0]);
-	free_table(split);
-}
-
-// some eventual free
-
-void	quit(void)
-{
-	exit(0);
+	new = ft_calloc(3, sizeof(char *));
+	size1 = ft_strlen(s) - pos + 1;
+	new[1] = ft_calloc(size1, 1);
+	new[0] = ft_calloc(pos + 1, 1);
+	ft_strlcpy(new[1], &s[pos], size1);
+	ft_strlcpy(new[0], s, pos + 1);
+	return (new);
 }
