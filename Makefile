@@ -6,7 +6,7 @@
 #    By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/29 17:37:34 by dlanotte         ###   ########.fr        #
+#    Updated: 2021/05/29 17:39:26 by dlanotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,13 +114,8 @@ fclean: clean
 	@ echo ""
 	@ echo "fclean completed."
 
-<<<<<<< HEAD
-re: fclean all
-       
-=======
 debug-clean: fclean
 	@ rm -dir -f minishell.dSYM
 	@ echo "debug-clean completed."
 
 re: fclean all debug slim
->>>>>>> master
