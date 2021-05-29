@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
+#    By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/28 18:08:35 by amarcell         ###   ########.fr        #
+#    Updated: 2021/05/29 15:15:25 by dlanotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ GRAPH	=	graphic_functions/graphic_main.c
 
 COMMAND	=	commands/easy_cmd.c
 
-SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c
+SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c parsing.c
 
 OBJ := ${SRC:.c=.o}
 
@@ -61,11 +61,29 @@ $(NAME): $(OBJ)
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  gcarbone | amarcell | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  mobrycki | flwang   | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "  dlanotte | gcarbone | amarcell"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  fd-agnes | mobrycki | flwang  "$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""
-	@ say -v Alice benvenuto in asci hell, premi enter per continuare      
+	#@ say -v Alice benvenuto in asci hell, premi enter per continuare      
+	@ read -p "Done. Press enter to continue..."
+
+slim: 
+	@ $(CC) -g $(SRC) -o $(NAME)
+	@ make clean
+	@ echo ""
+	@ echo $(YELLOW)" SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM  " $(COLOR_OFF)
+	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
+	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
+	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
+	@ echo "  dlanotte | gcarbone | amarcell"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  fd-agnes | mobrycki | flwang  "$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
+	@ echo $(YELLOW)" SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM  " $(COLOR_OFF)
+	@ echo ""
 	@ read -p "Done. Press enter to continue..."
 
 debug: 
@@ -79,8 +97,8 @@ debug:
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  gcarbone | amarcell | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  mobrycki | flwang   | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "  dlanotte | gcarbone | amarcell"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  fd-agnes | mobrycki | flwang  "$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
 	@ echo ""
@@ -100,4 +118,4 @@ debug-clean: fclean
 	@ rm -dir -f minishell.dSYM
 	@ echo "debug-clean completed."
 
-re: fclean all debug
+re: fclean all debug slim
