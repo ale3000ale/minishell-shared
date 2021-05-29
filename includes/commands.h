@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/26 16:45:15 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:41:57 by fd-agnes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define SHIFT_SS_RIGHT			"\e[1;2C"
 
 # define SS_DEL					127
+# define SS_TAB                 9
 /* FUNCTIONS */
 
 void	error404(char *line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/28 16:24:03 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:42:55 by fd-agnes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	switch_special(char *buff, t_term *term)
 		return (echo_input(";2C", term));
 	else if (buff[0] == SS_DEL && !buff[1])
 		return (delete(term));
+	else if (buff[0] == SS_TAB && !buff[1])
+		return (0);
 	else
 		return (echo_input(buff, term));
 	return (1);

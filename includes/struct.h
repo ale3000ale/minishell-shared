@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/26 17:48:35 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:33:49 by fd-agnes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_term
 	struct termios	cconf;
 	t_queue			queue;
 	char			*input;
-	int				cursor;
+	int				cursor; // indice del cursore
 }	t_term;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/26 20:03:45 by zxcvbinz         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:44:34 by fd-agnes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	find_command(t_term *term)
 	flag_stop = 1;
 	while (flag_stop > 0)
 	{
-		current_path = find_path();
-		graphic_hub(2, current_path);
+		current_path = find_path(); // tramite la funzione getcwd trova il path della directory attuale
+		graphic_hub(2, current_path); // printa le cazzate tipo l'AK 
 		flag_stop = get_next_line(0, term);
 		find_command_support(flag_stop, commands, term->input);
 		free(term->input);
