@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/29 16:15:03 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:19:04 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define COMMANDS	"clear,env,echo,exit,cd,pwd,export,unset"
 
+# define ERROR				-1
 # define MY_CLEAR			0
 # define MY_ENV				1
 # define MY_ECHO			2
@@ -37,6 +38,6 @@
 /* FUNCTIONS */
 
 void	error404(char *line);
-void	quit(void);
+void	quit(char *input);
 
 #endif

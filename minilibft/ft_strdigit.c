@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_path_utils.c                                    :+:      :+:    :+:   */
+/*   ft_strdigit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
-/*   Updated: 2021/05/31 16:05:39 by amarcell         ###   ########.fr       */
+/*   Created: 2021/05/31 15:00:11 by amarcell          #+#    #+#             */
+/*   Updated: 2021/05/31 15:18:26 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*find_path(void)
+int	ft_isdigit(int c)
 {
-	char	*current_path;
-	char	*buf;
-
-	buf = malloc((size_t) PATH_MAX + 1);
-	if (buf)
-		current_path = getcwd(buf, PATH_MAX + 1);
-	else
-		return (NULL);
-	free(buf);
-	return (current_path);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }
 
-int	change_path(char *new_path)
+int	ft_strdigit(char *s)
 {
-	if (chdir(new_path) != 0)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		printf("cd: %s: No such file or directory\n", new_path);
-		return (0);
+		if (!ft_isdigit(s[i++]))
+			return (0);
 	}
 	return (1);
 }

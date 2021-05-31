@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/29 15:15:25 by dlanotte         ###   ########.fr        #
+#    Updated: 2021/05/31 15:23:20 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,11 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_memcpy.c \
 			minilibft/ft_strlen.c \
 			minilibft/ft_strcut.c\
-			minilibft/ft_strcpy.c
+			minilibft/ft_strcpy.c\
+			minilibft/ft_itoa.c\
+			minilibft/ft_putstr.c\
+			minilibft/ft_strdigit.c\
+			minilibft/ft_atoi.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \

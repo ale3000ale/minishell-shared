@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/29 15:54:30 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:03:14 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,18 @@
 
 void	ft_execute_commands(int commands, char *line)
 {
-	line[0] = line[0];
 	if (commands == MY_CLEAR)
 		my_clear_screen();
 	else if (commands == MY_EXIT)
-		quit();
+		quit(line);
 	else if (commands == MY_CD)
 		change_path(line);
 }
 
 static int	find_command_support(int flag_stop, char **commands, char *line)
 {
-	int		index_commands;
-
 	if (flag_stop > 0)
-	{
-		flag_stop = ft_parsing_hub(index_commands, line, commands);
-	}
+		flag_stop = ft_parsing_hub(line, commands);
 	return (flag_stop);
 }
 

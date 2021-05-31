@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/28 13:15:17 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:23:02 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,11 @@ void			*ft_calloc(size_t count, size_t size);
 char			*ft_strjoin(char const *s1, char const *s2);
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);
 char			**ft_strcut(char *s, int pos);
+int				ft_strdigit(char *s);
+int				ft_putstr_fd(char *s, int fd);
+char			*ft_itoa(int n);
+int				ft_isdigit(int c);
+long			ft_latoi(const char *str);
+int				ft_atoi(const char *str);
 
 #endif

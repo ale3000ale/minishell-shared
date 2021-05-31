@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/21 22:32:57 by zxcvbinz         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:10:07 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,21 @@ void	error404(char *line)
 
 // some eventual free
 
-void	quit(void)
+void	quit(char *input)
 {
-	exit(0);
+	int	neg;
+
+	ft_putstr_fd("exit\n", 1);
+	neg = 0;
+	if (!input[0])
+		exit (0);
+	if (input[0] == '-' && input[1])
+		neg = 1;
+	if (!ft_strdigit(&input[neg]))
+	{
+		ft_putstr_fd(input, 1);
+		ft_putstr_fd(": numeric argument required\n", 1);
+		exit(255);
+	}
+	exit(ft_latoi(input));
 }
