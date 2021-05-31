@@ -6,13 +6,11 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/31 16:03:14 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/31 19:25:46 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-
-/* CD use test path */
 
 void	ft_execute_commands(int commands, char *line)
 {
@@ -22,6 +20,14 @@ void	ft_execute_commands(int commands, char *line)
 		quit(line);
 	else if (commands == MY_CD)
 		change_path(line);
+	else if (commands == MY_PWD)
+		pwd();
+	else if (commands == MY_EXPORT)
+		export(line);
+	else if (commands == MY_UNSET)
+		unsetenv(line);
+	else if (commands == MY_ENV)
+		env();
 }
 
 static int	find_command_support(int flag_stop, char **commands, char *line)

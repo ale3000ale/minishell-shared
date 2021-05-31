@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/31 15:23:02 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:24:43 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ char			*ft_itoa(int n);
 int				ft_isdigit(int c);
 long			ft_latoi(const char *str);
 int				ft_atoi(const char *str);
+char			*ft_strchr(const char *str, int c);
+char			*ft_strnstr(const char *haystack, \
+					const char *needle, size_t len);
+int				ft_strccount(char *s, char c);
+int				ft_strchrid(const char *str, int c);
 
 #endif

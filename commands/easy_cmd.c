@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/31 16:10:07 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:50:30 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,10 @@ void	quit(char *input)
 		exit(255);
 	}
 	exit(ft_latoi(input));
+}
+
+void	pwd(void)
+{
+	ft_putstr_fd(getenv("PWD"), 1);
+	ft_putstr_fd("\n", 1);
 }

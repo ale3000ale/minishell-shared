@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/31 15:23:20 by amarcell         ###   ########.fr        #
+#    Updated: 2021/05/31 17:00:11 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_itoa.c\
 			minilibft/ft_putstr.c\
 			minilibft/ft_strdigit.c\
-			minilibft/ft_atoi.c
+			minilibft/ft_atoi.c	\
+			minilibft/ft_strfind.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -44,7 +45,8 @@ GNL		= 	get_next_line/get_next_line.c \
 
 GRAPH	=	graphic_functions/graphic_main.c
 
-COMMAND	=	commands/easy_cmd.c
+COMMAND	=	commands/easy_cmd.c\
+			commands/env_cmd.c
 
 SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c parsing.c
 
