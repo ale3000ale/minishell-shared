@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main_functions.h                                :+:      :+:    :+:   */
+/*   ft_stralpha.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/04 15:55:49 by amarcell         ###   ########.fr       */
+/*   Created: 2021/06/03 16:58:43 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/03 17:01:03 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MY_MAIN_FUNCTIONS_H
-# define MY_MAIN_FUNCTIONS_H
+#include "../includes/minishell.h"
 
-# define PATH_MAX	4096 
-# include "struct.h"
+int	ft_isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') \
+		 || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
 
-void	init(t_term *term);
-int		find_command(t_term *term);
-void	ft_signal_manager(void);
-void	my_clear_screen(void);
-int		ft_parsing_hub(char *line, char **commands, t_term *term);
-void	ft_execute_commands(int commands, char *line, t_term *term, int pipe);
+int	ft_stralpha(char *s)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isalpha(s[i++]))
+			return (0);
+	}
+	return (1);
+}

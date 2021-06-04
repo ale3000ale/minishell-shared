@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/31 17:00:11 by amarcell         ###   ########.fr        #
+#    Updated: 2021/06/03 18:49:12 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,9 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_putstr.c\
 			minilibft/ft_strdigit.c\
 			minilibft/ft_atoi.c	\
-			minilibft/ft_strfind.c
+			minilibft/ft_strfind.c\
+			minilibft/mat_row.c\
+			minilibft/ft_stralpha.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \

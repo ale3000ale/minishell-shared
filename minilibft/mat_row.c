@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main_functions.h                                :+:      :+:    :+:   */
+/*   mat_row.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/04 15:55:49 by amarcell         ###   ########.fr       */
+/*   Created: 2021/03/17 14:19:31 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/03 16:48:58 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MY_MAIN_FUNCTIONS_H
-# define MY_MAIN_FUNCTIONS_H
+#include "../includes/minishell.h"
 
-# define PATH_MAX	4096 
-# include "struct.h"
+size_t	mat_row(void **str)
+{
+	size_t	i;
 
-void	init(t_term *term);
-int		find_command(t_term *term);
-void	ft_signal_manager(void);
-void	my_clear_screen(void);
-int		ft_parsing_hub(char *line, char **commands, t_term *term);
-void	ft_execute_commands(int commands, char *line, t_term *term, int pipe);
-
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

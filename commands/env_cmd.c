@@ -6,34 +6,81 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/31 19:25:17 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:50:37 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	export(char *input)
+static char	**export_segmentation(char *input, int size)
 {
-	char	*name;
-	char	*value;
+	char	**seg;
 	int		i;
 
-	i = ft_strchrid(input, '=');
-	if (i < ft_strchrid(input, ' ') || ft_strchrid(input, ' ') == -1)
-	{
-		if (!input[i + 1])
-			return ;
-		name = ft_calloc(i + 2, 1);
-		ft_strlcpy(name, input, i + 1);
-		input += i + 1;
-		// todo parsing " and '
-		value = ft_calloc(strlen(input), 1);
-		ft_strlcpy(value, input, strlen(input));
-		setenv(name, value, 1);
-	}
+	seg = ft_calloc(sizeof(char *), 4);
+	seg[0] = ft_calloc(sizeof(char *), size + 1);
+	seg[1] = ft_calloc(sizeof(char *), size + 1);
+	seg[2] = ft_calloc(sizeof(char *), size + 1);
+	i = 0;
+	while (!input[i])
+		if (input[i] == EXPORT_OP[0] || input[i++] == EXPORT_OP[1])
+			break ;
+	ft_strlcpy(seg[0], input, i);
+	input += i;
+	i = 0;
+	while (!input[i])
+		if (input[i] != EXPORT_OP[0] || input[i++] != EXPORT_OP[1])
+			break ;
+	ft_strlcpy(seg[1], input, i);
+	input += i;
+	ft_strlcpy(seg[2], input, size);
+	return (seg);
 }
 
-void	env(void)
+int	export(char *input, int pid)
+{
+	char	**ck;
+	int		rows;
+
+	if (!input[0])
+		exit(0);
+	ck = ft_split(input, ' ');
+	if (mat_row((void **)ck) > 1)				// todo print of all segment
+	{
+		if (!pid)
+			exit(printf("export: '%s': not a valid identifier\n", input) * 0 * \
+				free_table(ck) + 1);
+		return (printf("export: '%s': not a valid identifier\n", input) * 0 * \
+				free_table(ck) + 1);
+	}
+	free_table(ck);
+	ck = export_segmentation(input, ft_strlen(input));
+	rows = mat_row((void **)ck);
+	if (rows == 1 && ft_stralpha(ck[0]))
+	{
+		if (!pid)
+			exit(free_table(ck) * 0);
+		else
+			return (free_table(ck) * 0);
+	}
+	else if (rows == 2 && strlen(ck[1]) < 3 \
+	 && ((ck[1][0] == EXPORT_OP[0] && ck[1][1] == EXPORT_OP[1]) \
+	 || (ck[1][0] == EXPORT_OP[1] && !ck[1][1])))
+		if (!setenv(ck[0], ck[2], 1))
+		{
+			if (!pid)
+				exit(0);
+			else
+				return(0);
+		}
+	if (!pid)
+		exit(printf("export: '%s': not a valid identifier\n", input) * 0 * \
+			free_table(ck) + 1);
+	return (printf("export: '%s': not a valid identifier\n", input) * 0 * \
+			free_table(ck) + 1);
+}
+
+int	env(int pid)
 {
 	extern char	**environ;
 	int			i;
@@ -44,9 +91,20 @@ void	env(void)
 		ft_putstr_fd(environ[i++], 1);
 		ft_putstr_fd("\n", 1);
 	}
+	if (!pid)
+		exit(0);
+	return (0);
 }
 
-void	unset(char *input)
+int	unset(char *input, int pid)
 {
-	unsetenv(input);
+	if (!unsetenv(input))
+	{
+		if (!pid)
+			exit(0);
+		return (0);
+	}
+	if (!pid)
+		exit(1);
+	return (1);
 }

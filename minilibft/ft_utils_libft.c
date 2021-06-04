@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:32:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/24 15:02:27 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/03 18:56:52 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_table_len(char **table)
 	return (i);
 }
 
-void	free_table(char **table)
+int	free_table(char **table)
 {
 	int	i;
 
@@ -35,6 +35,7 @@ void	free_table(char **table)
 			free(table[i]);
 		free(table);
 	}
+	return (1);
 }
 
 /* ft_strlen from get_next_line */

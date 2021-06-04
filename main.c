@@ -6,34 +6,48 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/31 19:25:46 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/04 16:29:17 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	ft_execute_commands(int commands, char *line)
+void	ft_execute_commands(int commands, char *line, t_term *term, int pipe)
 {
-	if (commands == MY_CLEAR)
-		my_clear_screen();
-	else if (commands == MY_EXIT)
-		quit(line);
-	else if (commands == MY_CD)
-		change_path(line);
-	else if (commands == MY_PWD)
-		pwd();
-	else if (commands == MY_EXPORT)
-		export(line);
-	else if (commands == MY_UNSET)
-		unsetenv(line);
-	else if (commands == MY_ENV)
-		env();
+	int	pid;
+
+	pid = getpid();
+	if (pipe)
+		pid = fork();
+	if (!pipe || pid)  // if pid == 0 is the child
+	{
+		if (commands == MY_CLEAR)
+			term->last_status = clear_cmd(pid);
+		else if (commands == MY_EXIT)
+			quit(line);
+		else if (commands == MY_CD)
+			term->last_status = cd(line, pid);
+		else if (commands == MY_PWD)
+			term->last_status = pwd(pid);
+		else if (commands == MY_EXPORT)
+			term->last_status = export(line, pid);
+		else if (commands == MY_UNSET)
+			term->last_status = unset(line, pid);
+		else if (commands == MY_ENV)
+			term->last_status = env(pid);
+	}
+	else
+	{
+		wait(&term->last_status);
+		term->last_status = term->last_status >> 8;
+	}
 }
 
-static int	find_command_support(int flag_stop, char **commands, char *line)
+static int	find_command_support(int flag_stop, char **commands, \
+								char *line, t_term *term)
 {
 	if (flag_stop > 0)
-		flag_stop = ft_parsing_hub(line, commands);
+		flag_stop = ft_parsing_hub(line, commands, term);
 	return (flag_stop);
 }
 
@@ -53,7 +67,7 @@ int	find_command(t_term *term)
 		current_path = find_path();
 		graphic_hub(2, current_path);
 		flag_stop = get_next_line(0, term);
-		find_command_support(flag_stop, commands, term->input);
+		find_command_support(flag_stop, commands, term->input, term);
 		free(term->input);
 	}
 	free_table(commands);

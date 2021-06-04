@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/29 15:33:49 by fd-agnes         ###   ########.fr       */
+/*   Updated: 2021/06/03 16:15:29 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_term
 	t_queue			queue;
 	char			*input;
 	int				cursor; // indice del cursore
+	int				last_status;
 }	t_term;
 
 #endif
