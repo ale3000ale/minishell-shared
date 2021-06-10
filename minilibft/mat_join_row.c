@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   mat_join_row.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/29 15:02:58 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/10 15:45:09 by amarcell         ###   ########.fr       */
+/*   Created: 2021/03/17 14:34:32 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 16:40:19 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/libft.h"
 
-int	ft_parsing_hub(char *line, char **commands, t_term *term)
+void	**mat_join_row(void **mat, void *row)
 {
-	char	**string_parsing;
+	int		i;
+	void	**new;
+	int		dim;
 
-	commands[0] = commands[0];
-	string_parsing = ft_split(line, ' ');
-	write(1, "\n", 1);
-	printf("\033[0m\033[0;37m");
-	ft_execute_commands(string_parsing[0], &line[ft_strlen(string_parsing[0]) + 1], \
-		term, 0);
-	free_table(string_parsing);
-	return (1);
+	i = 0;
+	dim = mat_row(mat) + 1;
+	new = mat_init(sizeof(void *), dim);
+	if (!new)
+		return (0);
+	while (i < dim - 1)
+	{
+		new[i] = (mat)[i];
+		i++;
+	}
+	free(mat);
+	new[i] = row;
+	return (new);
 }

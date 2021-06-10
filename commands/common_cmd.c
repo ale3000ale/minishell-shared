@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:12:51 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/10 15:12:34 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:21:20 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	exec_cmd(char *cmd, char *input, int pid)
 		pid = fork();
 	if (!pid)
 	{
+		input = ft_strjoin(" ", input);
 		input = ft_strjoin(cmd, input);
 		args = ft_split(input, ' ');
 		cmd = ft_strjoin(BIN, cmd);
@@ -37,6 +38,5 @@ int	exec_cmd(char *cmd, char *input, int pid)
 		}
 	}
 	wait(&ret);
-	printf("ret: %d\n",ret >> 8);
 	return (ret);
 }

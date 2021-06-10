@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/29 15:02:58 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/10 15:45:09 by amarcell         ###   ########.fr       */
+/*   Created: 2021/01/16 16:23:01 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 17:34:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	ft_parsing_hub(char *line, char **commands, t_term *term)
+void	ft_clstadd_front(t_clist **lst, t_clist *new)
 {
-	char	**string_parsing;
-
-	commands[0] = commands[0];
-	string_parsing = ft_split(line, ' ');
-	write(1, "\n", 1);
-	printf("\033[0m\033[0;37m");
-	ft_execute_commands(string_parsing[0], &line[ft_strlen(string_parsing[0]) + 1], \
-		term, 0);
-	free_table(string_parsing);
-	return (1);
+	if (lst)
+	{
+		if (lst[0])
+		{
+			new->next = lst[0];
+			new->pre = lst[0]->pre;
+			new->last = 0;
+			lst[0]->pre = new;
+			new->pre->next = new;
+			lst[0] = new;
+		}
+		else
+		{
+			lst[0] = new;
+			new->last = 1;
+		}
+	}
 }

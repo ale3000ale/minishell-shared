@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/03 16:15:29 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:51:26 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_term
 	char			*input;
 	int				cursor; // indice del cursore
 	int				last_status;
+	t_history		history;
 }	t_term;
 
 #endif

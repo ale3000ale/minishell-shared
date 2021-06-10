@@ -6,13 +6,21 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/03 18:54:01 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/10 17:32:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include "minishell.h"
+
+typedef struct s_clist
+{
+	void			*content;
+	struct s_clist	*next;
+	struct s_clist	*pre;
+	int				last;
+}				t_clist;
 
 char			**ft_split(char const *s, char c);
 size_t			ft_strlen(const char *s);
@@ -40,5 +48,17 @@ int				ft_strchrid(const char *str, int c);
 size_t			mat_row(void **str);
 int				ft_stralpha(char *s);
 int				ft_isalpha(int c);
+void			**mat_join_row(void **mat, void *row);
+void			**mat_init(int dim, int h);
+
+t_clist			*ft_clstnew(void *content);
+void			ft_clstadd_front(t_clist **lst, t_clist *new);
+int				ft_clstsize(t_clist *lst);
+t_clist			*ft_clstlast(t_clist *lst);
+void			ft_clstadd_back(t_clist **lst, t_clist *new);
+void			ft_clstdelone(t_clist *lst, void (*del)(void*));
+void			ft_clstclear(t_clist **lst, void (*del)(void*));
+void			ft_clstiter(t_clist *lst, void (*f)(void *));
+t_clist			*ft_clst_export(t_clist *lst);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/09 18:46:49 by amarcell         ###   ########.fr        #
+#    Updated: 2021/06/10 17:53:39 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,17 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_atoi.c	\
 			minilibft/ft_strfind.c\
 			minilibft/mat_row.c\
-			minilibft/ft_stralpha.c
+			minilibft/ft_stralpha.c\
+			minilibft/mat_join_row.c\
+			minilibft/mat_init.c	\
+			minilibft/ft_lstadd_back.c	\
+			minilibft/ft_lstadd_front.c	\
+			minilibft/ft_lstclear.c	\
+			minilibft/ft_lstdelone.c\
+			minilibft/ft_lstiter.c	\
+			minilibft/ft_lstlast.c	\
+			minilibft/ft_lstnew.c	\
+			minilibft/ft_lstsize.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -52,7 +62,9 @@ COMMAND	=	commands/easy_cmd.c\
 			commands/common_cmd.c\
 			commands/utils.c
 
-SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c parsing.c
+HISTORY	=	history/history.c
+
+SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c
 
 OBJ := ${SRC:.c=.o}
 

@@ -6,11 +6,13 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
-/*   Updated: 2021/06/04 16:18:11 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/10 15:42:01 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//
 
 char	*find_path(void)
 {
@@ -25,6 +27,8 @@ char	*find_path(void)
 	free(buf);
 	return (current_path);
 }
+
+//
 
 int	change_path(char *new_path)
 {
