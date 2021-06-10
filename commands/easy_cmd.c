@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/04 14:30:16 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/09 19:21:46 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	error404(char *line, int pid)
 
 	split = ft_split(line, ' ');
 	if (split[0])
-		printf("command not found: %s\n", split[0]);
+		printf("%s: command not found\n", split[0]);
 	free_table(split);
 	if (!pid)
 		exit(127);

@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/04 15:52:11 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/10 15:04:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 
 # define EXPORT_OP				"+="
 
+# define BIN					"/bin/"
+
 /* FUNCTIONS */
 
 int		error404(char *line, int pid);
@@ -50,5 +52,7 @@ int		pwd(int pid);
 int		env(int pid);
 int		cd(char *input, int pid);
 int		clear_cmd(int pid);
+int		exec_cmd(char *cmd, char *input, int pid);
+int		cmd_id(char *cmd);
 
 #endif

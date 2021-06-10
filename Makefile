@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/03 18:49:12 by amarcell         ###   ########.fr        #
+#    Updated: 2021/06/09 18:46:49 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ GNL		= 	get_next_line/get_next_line.c \
 GRAPH	=	graphic_functions/graphic_main.c
 
 COMMAND	=	commands/easy_cmd.c\
-			commands/env_cmd.c
+			commands/env_cmd.c	\
+			commands/common_cmd.c\
+			commands/utils.c
 
 SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c parsing.c
 

@@ -6,20 +6,22 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/04 16:29:17 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/10 14:59:01 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	ft_execute_commands(int commands, char *line, t_term *term, int pipe)
+void	ft_execute_commands(char *cmd, char *line, t_term *term, int pipe)
 {
 	int	pid;
+	int	commands;
 
+	commands = cmd_id(cmd);
 	pid = getpid();
 	if (pipe)
 		pid = fork();
-	if (!pipe || pid)  // if pid == 0 is the child
+	if ((!pipe && pid) && (!pipe || pid))  // if pid == 0 is the child
 	{
 		if (commands == MY_CLEAR)
 			term->last_status = clear_cmd(pid);
@@ -35,12 +37,14 @@ void	ft_execute_commands(int commands, char *line, t_term *term, int pipe)
 			term->last_status = unset(line, pid);
 		else if (commands == MY_ENV)
 			term->last_status = env(pid);
+		else
+			term->last_status = exec_cmd(cmd, line, pid);
 	}
 	else
-	{
 		wait(&term->last_status);
-		term->last_status = term->last_status >> 8;
-	}
+	printf("exit: %d\n", term->last_status >> 8);
+	if (term->last_status >> 8 == 127)
+		error404(cmd, 1);
 }
 
 static int	find_command_support(int flag_stop, char **commands, \

@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/04 15:55:49 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/09 18:57:18 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int		find_command(t_term *term);
 void	ft_signal_manager(void);
 void	my_clear_screen(void);
 int		ft_parsing_hub(char *line, char **commands, t_term *term);
-void	ft_execute_commands(int commands, char *line, t_term *term, int pipe);
+void	ft_execute_commands(char *cmd, char *line, t_term *term, int pipe);
 
 #endif
