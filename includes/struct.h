@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/10 16:51:26 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/11 15:58:47 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ typedef struct s_queue
 	int				size;
 }				t_queue;
 
+typedef struct s_clist
+{
+	void			*content;
+	struct s_clist	*next;
+	struct s_clist	*pre;
+	int				last;
+}				t_clist;
+
+typedef struct s_history
+{
+	int		fd;
+	t_clist	*history;
+	int		count_new;
+}	t_history;
+
 typedef struct s_term
 {
 	char			*type;
@@ -40,5 +55,7 @@ typedef struct s_term
 	int				last_status;
 	t_history		history;
 }	t_term;
+
+
 
 #endif

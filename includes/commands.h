@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/10 15:04:55 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:32:23 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 /* FUNCTIONS */
 
 int		error404(char *line, int pid);
-void	quit(char *input);
+void	quit(char *input, t_term *term);
 int		export(char *input, int pid);
 int		unset(char *input, int pid);
 int		pwd(int pid);

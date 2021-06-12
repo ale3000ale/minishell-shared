@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/10 14:59:01 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/12 15:12:01 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_execute_commands(char *cmd, char *line, t_term *term, int pipe)
 		if (commands == MY_CLEAR)
 			term->last_status = clear_cmd(pid);
 		else if (commands == MY_EXIT)
-			quit(line);
+			quit(line, term);
 		else if (commands == MY_CD)
 			term->last_status = cd(line, pid);
 		else if (commands == MY_PWD)

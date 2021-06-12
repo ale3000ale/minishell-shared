@@ -6,21 +6,13 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/10 17:32:55 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/11 15:56:43 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include "minishell.h"
-
-typedef struct s_clist
-{
-	void			*content;
-	struct s_clist	*next;
-	struct s_clist	*pre;
-	int				last;
-}				t_clist;
 
 char			**ft_split(char const *s, char c);
 size_t			ft_strlen(const char *s);

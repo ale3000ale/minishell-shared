@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/09 19:21:46 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:32:09 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int	error404(char *line, int pid)
 
 // some eventual free
 
-void	quit(char *input)
+void	quit(char *input, t_term *term)
 {
 	int	neg;
 
+	close_history(&term->history);
 	ft_putstr_fd("exit\n", 1);
 	neg = 0;
 	if (!input[0])
