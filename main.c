@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 16:02:45 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 17:43:24 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	son_generation(t_clist *queque)
 	return (pid);
 }
 
-// Execute the commands if it aren't a build-in cmd, set the correct in/out fd whit dup
+// Execute the commands if it aren't a build-in cmd, set the correct
+// in/out fd whit dup
 
 void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 {
@@ -86,7 +87,6 @@ void	exec_manager(t_clist *queque, t_term *term)
 	if (term->last_status >> 8 == 127)
 		error404(get_op(queque)->cmd, 1);
 }
-
 
 // tramite la funzione getcwd trova il path della directory attuale
 // printa le cazzate tipo l'AK 

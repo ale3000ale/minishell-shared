@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:12:51 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 16:18:28 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 16:45:26 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	son_exe(char *cmd, char **args, char **env)
 
 int	exec_cmd(char *cmd, char *input, int pid, char **env)
 {
-	int		ret;
 	char	**args;
 	char	*temp;
 

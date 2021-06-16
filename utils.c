@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/15 19:00:53 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 16:44:45 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init(t_term *term, char **env)
 	ft_memcpy(&term->cconf, &term->dconf, sizeof(struct termios));
 	term->cconf.c_lflag &= ~(ECHO | ICANON);
 	term->cursor = 0;
-	term->env = env;
+	term->env = table_dup(env);
 	open_history(term);
 }
 

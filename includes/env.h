@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 16:37:37 by amarcell         ###   ########.fr       */
+/*   Created: 2021/06/16 16:38:35 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/16 17:52:01 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/errno.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <fcntl.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "my_main_functions.h"
-# include "commands.h"
-# include "struct.h"
-# include "history.h"
-# include "env.h"
+# define	OVERWRITE		2
+# define	JOIN			1
+# define	NONE			0
 
 #endif
