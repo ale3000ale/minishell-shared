@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:32:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/12 15:35:33 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/14 16:35:16 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,7 @@ void	my_clear_screen(void)
 	printf("\e[1;1H\e[2J");
 }
 
+char	*ft_strdup(char *s)
+{
+	return (ft_strjoin("", s));
+}

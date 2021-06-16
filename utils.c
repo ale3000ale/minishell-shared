@@ -6,13 +6,13 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/12 17:41:11 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/15 19:00:53 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-void	init(t_term *term)
+void	init(t_term *term, char **env)
 {
 	char	*level;
 
@@ -24,6 +24,7 @@ void	init(t_term *term)
 	ft_memcpy(&term->cconf, &term->dconf, sizeof(struct termios));
 	term->cconf.c_lflag &= ~(ECHO | ICANON);
 	term->cursor = 0;
+	term->env = env;
 	open_history(term);
 }
 

@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/11 15:58:47 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:21:27 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@
 
 typedef struct s_op
 {
-	int					key;
+	char				*cmd;
 	char				*input;
+	int					pipe;
 	int					error;
-	struct s_op			*next;
+	int					fd[2];
 }				t_op;
-
-typedef struct s_queue
-{
-	t_op			*first;
-	int				size;
-}				t_queue;
 
 typedef struct s_clist
 {
@@ -36,6 +31,12 @@ typedef struct s_clist
 	struct s_clist	*pre;
 	int				last;
 }				t_clist;
+
+typedef struct s_queque
+{
+	t_clist			*first;
+	int				size;
+}				t_queque;
 
 typedef struct s_history
 {
@@ -49,11 +50,12 @@ typedef struct s_term
 	char			*type;
 	struct termios	dconf;
 	struct termios	cconf;
-	t_queue			queue;
+	t_queque		queque;
 	char			*input;
 	int				cursor; // indice del cursore
 	int				last_status;
 	t_history		history;
+	char			**env;
 }	t_term;
 
 

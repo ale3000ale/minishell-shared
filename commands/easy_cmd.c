@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/11 16:32:09 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 15:42:15 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	quit(char *input, t_term *term)
 	exit(ft_latoi(input));
 }
 
-int	pwd(int pid)
+int	pwd(int pid, int fd[2])
 {
-	ft_putstr_fd(find_path(), 1);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd(find_path(), fd[WRITE]);
+	ft_putstr_fd("\n", fd[WRITE]);
 	if (!pid)
 		exit(0);
 	return (0);

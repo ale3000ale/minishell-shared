@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/04 15:50:37 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 15:43:35 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,15 @@ int	export(char *input, int pid)
 			free_table(ck) + 1);
 }
 
-int	env(int pid)
+int	env(int pid, char **environ, int fd[2])
 {
-	extern char	**environ;
 	int			i;
 
 	i = 0;
 	while (environ[i])
 	{
-		ft_putstr_fd(environ[i++], 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd(environ[i++], fd[WRITE]);
+		ft_putstr_fd("\n", fd[WRITE]);
 	}
 	if (!pid)
 		exit(0);
