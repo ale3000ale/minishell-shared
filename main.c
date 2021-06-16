@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 17:43:24 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 17:59:33 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	son_generation(t_clist *queque)
 	return (pid);
 }
 
-// Execute the commands if it aren't a build-in cmd, set the correct
-// in/out fd whit dup
+// Execute the commands if it aren't a build-in cmd, set the correct in/out fd whit dup
 
 void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 {
@@ -88,6 +87,7 @@ void	exec_manager(t_clist *queque, t_term *term)
 		error404(get_op(queque)->cmd, 1);
 }
 
+
 // tramite la funzione getcwd trova il path della directory attuale
 // printa le cazzate tipo l'AK 
 
@@ -104,6 +104,7 @@ int	find_command(t_term *term)
 		current_path = find_path();
 		graphic_hub(2, current_path);
 		flag_stop = get_next_line(0, term);
+		printf("trans = %s\n", ft_translate(term->input, term->env));
 		ft_parsing_hub(term);
 		free(term->input);
 	}

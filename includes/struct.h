@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 16:42:31 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 18:05:32 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_op
 	char				*cmd;
 	char				*input;
 	int					pipe;
+	char				*red;
+	char				**flags;
 	int					error;
 	int					fd[2];
 }				t_op;

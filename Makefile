@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
+#    By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/14 17:39:48 by amarcell         ###   ########.fr        #
+#    Updated: 2021/06/16 17:00:00 by mobrycki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ COMMAND	=	commands/easy_cmd.c\
 
 HISTORY	=	history/history.c
 
-SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c
+SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c parsing_3.c
 
 OBJ := ${SRC:.c=.o}
 
