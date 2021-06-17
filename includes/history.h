@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   history.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/06/10 15:56:33 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/11 19:32:23 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef HISTORY_H
+# define HISTORY_H
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+# define HISTORY		".history"
 
-	if (!dest && !src)
-		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
-	i = 0;
-	while (i < n)
-	{
-		ds[i] = sr[i];
-		i++;
-	}
-	return (ds);
-}
+# define NEXT			1
+# define PREC			-1
+
+void	close_history(t_history *history);
+void	history_change(t_history *history, char *line);
+char	*get_history(int dir, t_history *history);
+int		append_history(t_history *history, char *line);
+void	open_history(t_term *term);
+void	move_history(t_term *term, int dir);
+
+#endif

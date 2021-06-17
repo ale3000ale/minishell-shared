@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:32:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/24 15:02:27 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/14 16:35:16 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_table_len(char **table)
 	return (i);
 }
 
-void	free_table(char **table)
+int	free_table(char **table)
 {
 	int	i;
 
@@ -35,6 +35,7 @@ void	free_table(char **table)
 			free(table[i]);
 		free(table);
 	}
+	return (1);
 }
 
 /* ft_strlen from get_next_line */
@@ -56,4 +57,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 void	my_clear_screen(void)
 {
 	printf("\e[1;1H\e[2J");
+}
+
+char	*ft_strdup(char *s)
+{
+	return (ft_strjoin("", s));
 }

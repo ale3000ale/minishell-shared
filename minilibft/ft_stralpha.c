@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_stralpha.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/06/03 16:58:43 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/03 17:01:03 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	ft_isalpha(int c)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	if ((c >= 'a' && c <= 'z') \
+		 || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
 
-	if (!dest && !src)
-		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
+int	ft_stralpha(char *s)
+{
+	int	i;
+
 	i = 0;
-	while (i < n)
+	while (s[i])
 	{
-		ds[i] = sr[i];
-		i++;
+		if (!ft_isalpha(s[i++]))
+			return (0);
 	}
-	return (ds);
+	return (1);
 }

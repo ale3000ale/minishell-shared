@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   mat_row.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/03/17 14:19:31 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/03 16:48:58 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+size_t	mat_row(void **str)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	size_t	i;
 
-	if (!dest && !src)
-		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
 	i = 0;
-	while (i < n)
-	{
-		ds[i] = sr[i];
+	while (str[i])
 		i++;
-	}
-	return (ds);
+	return (i);
 }

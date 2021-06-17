@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   mat_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/03/17 12:49:37 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/15 18:37:38 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	**mat_init(int dim, int h)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	void	**mat;
 
-	if (!dest && !src)
+	mat = ft_calloc(1, dim * (h + 1));
+	if (!mat)
 		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
+	return (mat);
+}
+
+char	**table_dup(char **mat)
+{
+	int		i;
+	char	**new;
+
+	new = ft_calloc(mat_row((void **)mat) + 1, 1);
 	i = 0;
-	while (i < n)
+	while (mat[i])
 	{
-		ds[i] = sr[i];
+		new[i] = ft_strdup(mat[i]);
 		i++;
 	}
-	return (ds);
+	new[i] = 0;
+	return (new);
 }

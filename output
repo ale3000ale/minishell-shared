@@ -1,0 +1,22 @@
+total 152
+drwxr-xr-x  21 amarcell  2020_roma    714 Jun 16 15:14 .
+drwxr-xr-x  25 amarcell  2020_roma    850 Jun 15 18:04 ..
+drwxr-xr-x  14 amarcell  2020_roma    476 Jun 12 17:44 .git
+-rwxr-xr-x   1 amarcell  2020_roma   2662 Jun 16 15:14 .history
+drwxr-xr-x   3 amarcell  2020_roma    102 Jun 15 19:07 .vscode
+-rw-r--r--   1 amarcell  2020_roma   7667 Jun 14 17:39 Makefile
+-rw-r--r--   1 amarcell  2020_roma   2554 Jun  9 15:11 README.md
+-rwxr-xr-x   1 amarcell  2020_roma   8432 Jun 15 19:00 a.out
+-rw-r--r--   1 amarcell  2020_roma     65 Jun 15 19:00 ciccio.c
+drwxr-xr-x   6 amarcell  2020_roma    204 Jun 16 14:59 commands
+drwxr-xr-x   5 amarcell  2020_roma    170 Jun 16 14:59 get_next_line
+drwxr-xr-x   3 amarcell  2020_roma    102 Jun 16 14:59 graphic_functions
+drwxr-xr-x   3 amarcell  2020_roma    102 Jun 16 14:59 history
+drwxr-xr-x  10 amarcell  2020_roma    340 Jun 12 17:44 includes
+-rw-r--r--   1 amarcell  2020_roma   3611 Jun 16 14:59 main.c
+drwxr-xr-x  29 amarcell  2020_roma    986 Jun 16 14:59 minilibft
+-rwxr-xr-x   1 amarcell  2020_roma  29952 Jun 16 14:59 minishell
+-rw-r--r--   1 amarcell  2020_roma      0 Jun 16 15:15 output
+-rw-r--r--   1 amarcell  2020_roma   2592 Jun 16 14:50 parsing.c
+drwxr-xr-x   4 amarcell  2020_roma    136 Jun  9 15:11 program_utils
+-rw-r--r--   1 amarcell  2020_roma   1472 Jun 15 19:00 utils.c

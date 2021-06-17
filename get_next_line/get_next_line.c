@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/29 15:42:55 by fd-agnes         ###   ########.fr       */
+/*   Updated: 2021/06/14 17:38:17 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static int	switch_special(char *buff, t_term *term)
 {
 	if (!ft_strncmp(SS_UP, buff, 7))
-		write(1, "UP", 2);
+		move_history(term, PREC);
 	else if (!ft_strncmp(SS_LEFT, buff, 7))
 		cursorbackward(term);
 	else if (!ft_strncmp(SS_RIGHT, buff, 7))
 		cursorforward(term);
 	else if (!ft_strncmp(SS_DOWN, buff, 7))
-		write(1, "DOWN", 4);
+		move_history(term, NEXT);
 	else if (!ft_strncmp(SHIFT_SS_LEFT, buff, 7))
 		return (echo_input(";2D", term));
 	else if (!ft_strncmp(SHIFT_SS_RIGHT, buff, 7))
@@ -61,9 +61,38 @@ int	get_next_line(int fd, t_term *term)
 		rd = read(fd, buff, 6);
 		tcsetattr(0, TCSANOW, &term->dconf);
 		if (buff[0] == '\n')
-			return (1);
+			return (append_history(&term->history, \
+			ft_strjoin("", term->input)));
 		if (rd > 0)
 			check_char(buff, term);
 	}
 	return (rd);
+}
+
+int	get_next_line_basic(int fd, char **line)
+{
+	char	buff[2];
+	char	*temp;
+	int		rd;
+
+	if (fd < 0 || !line)
+		return (-1);
+	*line = ft_calloc(1, 1);
+	if (!(*line))
+		return (-1);
+	buff[0] = 0;
+	buff[1] = 0;
+	rd = read(fd, buff, 1) > 0;
+	while (rd)
+	{
+		if (buff[0] == '\n')
+			return (1);
+		if (rd == -1)
+			return (-1);
+		temp = *line;
+		*line = ft_strjoin(temp, buff);
+		free(temp);
+		rd = read(fd, buff, 1) > 0;
+	}
+	return (0);
 }

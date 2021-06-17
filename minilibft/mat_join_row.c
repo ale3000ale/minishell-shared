@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   mat_join_row.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/03/17 14:34:32 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 16:40:19 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	**mat_join_row(void **mat, void *row)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	int		i;
+	void	**new;
+	int		dim;
 
-	if (!dest && !src)
-		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
 	i = 0;
-	while (i < n)
+	dim = mat_row(mat) + 1;
+	new = mat_init(sizeof(void *), dim);
+	if (!new)
+		return (0);
+	while (i < dim - 1)
 	{
-		ds[i] = sr[i];
+		new[i] = (mat)[i];
 		i++;
 	}
-	return (ds);
+	free(mat);
+	new[i] = row;
+	return (new);
 }

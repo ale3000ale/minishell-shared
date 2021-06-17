@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/01/16 16:46:06 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 17:34:34 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	ft_clstsize(t_clist *lst)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	int	i;
 
-	if (!dest && !src)
+	if (!lst)
 		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
-	i = 0;
-	while (i < n)
+	i = 1;
+	while (!lst->last || !i)
 	{
-		ds[i] = sr[i];
+		lst = lst->next;
 		i++;
 	}
-	return (ds);
+	return (i);
 }

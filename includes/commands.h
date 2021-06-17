@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/31 19:20:21 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 15:52:08 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,22 @@
 # define SS_DEL					127
 # define SS_TAB                 9
 
+# define EXPORT_OP				"+="
+
+# define WRITE					1
+# define READ					0
+
 /* FUNCTIONS */
 
-void	error404(char *line);
-void	quit(char *input);
-void	export(char *input);
-void	unset(char *input);
-void	pwd(void);
-void	env(void);
+int		error404(char *line, int pid);
+void	quit(char *input, t_term *term);
+int		export(char *input, int pid);
+int		unset(char *input, int pid);
+int		pwd(int pid, int fd[2]);
+int		env(int pid, char **environ, int fd[2]);
+int		cd(char *input, int pid);
+int		clear_cmd(int pid);
+int		exec_cmd(char *cmd, char *input, int pid, char **env);
+int		cmd_id(char *cmd);
 
 #endif
