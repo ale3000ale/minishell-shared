@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/14 17:39:48 by amarcell         ###   ########.fr        #
+#    Updated: 2021/06/18 19:01:46 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,11 @@ COMMAND	=	commands/easy_cmd.c\
 			commands/common_cmd.c\
 			commands/utils.c
 
+ENV		=	env/env_manager.c
+
 HISTORY	=	history/history.c
 
-SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c
+SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c
 
 OBJ := ${SRC:.c=.o}
 
@@ -124,7 +126,7 @@ debug:
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
 	@ echo ""
-	@ say -v Alice benvenuto in asci hell versione debag      
+	#@ say -v Alice benvenuto in asci hell versione debag      
 	@ read -p "Done. Press enter to continue..."
 
 clean:   

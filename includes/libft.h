@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/15 16:46:19 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/17 18:42:44 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ void			ft_clstiter(t_clist *lst, void (*f)(void *));
 t_clist			*ft_clst_export(t_clist *lst);
 char			*ft_strdup(char *s);
 char			**table_dup(char **mat);
+int				ft_isalnum(int c);
+int				ft_stralnum(char *s);
 
 #endif

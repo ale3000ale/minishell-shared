@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 15:52:08 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:14:04 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 
 int		error404(char *line, int pid);
 void	quit(char *input, t_term *term);
-int		export(char *input, int pid);
-int		unset(char *input, int pid);
+int		export(char *input, int pid, t_term *term);
+int		unset(char *input, int pid, char **env);
 int		pwd(int pid, int fd[2]);
 int		env(int pid, char **environ, int fd[2]);
 int		cd(char *input, int pid);

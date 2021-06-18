@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:34:32 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/10 16:40:19 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/18 19:00:28 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	**mat_join_row(void **mat, void *row)
 	void	**new;
 	int		dim;
 
+	printf("join %s\n", (char *)row);
 	i = 0;
 	dim = mat_row(mat) + 1;
 	new = mat_init(sizeof(void *), dim);

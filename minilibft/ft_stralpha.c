@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 16:58:43 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/03 17:01:03 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/17 18:42:21 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	ft_isalpha(int c)
 	return (0);
 }
 
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
 int	ft_stralpha(char *s)
 {
 	int	i;
@@ -28,6 +33,19 @@ int	ft_stralpha(char *s)
 	while (s[i])
 	{
 		if (!ft_isalpha(s[i++]))
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_stralnum(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isalnum(s[i++]))
 			return (0);
 	}
 	return (1);

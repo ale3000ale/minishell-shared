@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 15:02:58 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 16:18:01 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/17 17:23:21 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ int	ft_parsing_hub(t_term *term)
 			term->queque.first, get_op(term->queque.first)->cmd, get_op(term->queque.first)->input, \
 			term->queque.first->next);*/
 	}
+	else
+		write(1,"\n",1);
 	return (1);
 }
