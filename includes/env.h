@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 16:38:35 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/18 19:08:38 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/19 02:11:52 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define ENV_H
 
 # define	EMPTY			0
-# define	JOIN			1
+# define	OVERWRITE		1
+# define	JOIN			2
 
 int		ft_unsetenv(char *name, char **env);
 int		ft_setenv(char *name, char *content, int option, t_term *terms);

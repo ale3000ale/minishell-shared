@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 16:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/18 19:07:35 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/19 02:12:36 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static int	id_env(char *name, char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n",env[i]);
-		//printf("AO%zu %s =%d= %s\n",ft_strlen(name) , name,ft_strncmp(name, env[i], ft_strlen(name)), env[i]);
 		if (!ft_strncmp(name, env[i], ft_strlen(name)))
 			return (i);
 		i++;
@@ -92,12 +90,12 @@ int	ft_setenv(char *name, char *content, int option, t_term *term)
 	int	id;
 
 	id = id_env(name, term->env);
-	printf("setenv name:|%s| cont:|%s|  id: %d\n",name, content, id);
+	printf("setenv OPTION: %d name:|%s| cont:|%s|  id: %d\n",option, name, content, id);
 	if (id == -1 && option == EMPTY)
 		term->env = (char **)mat_join_row((void **)term->env, (void *)new_var(name, content, 1));
 	else if (id == -1 && option != EMPTY)
 		term->env = (char **)mat_join_row((void **)term->env, (void *)new_var(name, content, 0));
-	else if (option != EMPTY)
+	else if (option == OVERWRITE)
 	{
 		free(term->env[id]);
 		term->env[id] = new_var(name, content, 0);

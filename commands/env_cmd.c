@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/18 19:31:12 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/19 02:16:27 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	export(char *input, int pid, t_term *term)
 {
 	char	**var;
 	int		ck;
-	int		plus;
 	int		equal;
 
 	ck = ck_input(input);
@@ -93,13 +92,12 @@ int	export(char *input, int pid, t_term *term)
 		var = export_segmentation(input);
 		printf("name: |%s|  cont: |%s|\n", var[0], var[1]);
 		equal = ft_strchrid(input, '=');
-		plus = 0;
-		if (equal != -1)
-			plus = (input[equal - 1] == '+');
-		if (equal != -1)
-			ft_setenv(var[0], var[1], plus, term);
-		else
+		if (equal == -1)
 			ft_setenv(var[0], var[1], EMPTY, term);
+		else if(input[equal - 1] == '+')
+			ft_setenv(var[0], var[1], JOIN, term);
+		else
+			ft_setenv(var[0], var[1], OVERWRITE, term);
 		free_table(var);
 	}
 	else
@@ -111,16 +109,17 @@ int	export(char *input, int pid, t_term *term)
 
 int	env(int pid, char **environ, int fd[2])
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (environ[i])
 	{
 		if ((ft_strccount(environ[i], '=') > 0))
 		{
-			ft_putstr_fd(environ[i++], fd[WRITE]);
+			ft_putstr_fd(environ[i], fd[WRITE]);
 			ft_putstr_fd("\n", fd[WRITE]);
 		}
+		i++;
 	}
 	if (!pid)
 		exit(0);
