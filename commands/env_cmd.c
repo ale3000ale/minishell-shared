@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/19 02:16:27 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/06/19 16:35:20 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,46 @@ static int	ck_input(char *input)
 	return (ft_isalpha(input[0]) && strck(&input[1]));
 }
 
-int	export(char *input, int pid, t_term *term)
+static int	export_view(int pid, char **environ, int fd[2])
+{
+	int		i;
+	char	**spl;
+
+	i = 0;
+	while (environ[i])
+	{
+		spl = ft_strcut(environ[i], ft_strchrid(environ[i], '=') + 1);
+		ft_putstr_fd("declare -x ", fd[WRITE]);
+		ft_putstr_fd(spl[0], fd[WRITE]);
+		ft_putstr_fd("\"", fd[WRITE]);
+		ft_putstr_fd(spl[1], fd[WRITE]);
+		ft_putstr_fd("\"", fd[WRITE]);
+		ft_putstr_fd("\n", fd[WRITE]);
+		i++;
+	}
+	if (!pid)
+		exit(0);
+	return (0);
+}
+
+int	export(char *input, int pid, t_term *term, int *fd)
 {
 	char	**var;
 	int		ck;
 	int		equal;
 
 	ck = ck_input(input);
-	if (ck)
+	printf("|%s|\n", input);
+	if (!input[0])
+		ck = export_view(pid, term->env, fd);
+	else if (ck)
 	{
 		var = export_segmentation(input);
 		printf("name: |%s|  cont: |%s|\n", var[0], var[1]);
 		equal = ft_strchrid(input, '=');
 		if (equal == -1)
 			ft_setenv(var[0], var[1], EMPTY, term);
-		else if(input[equal - 1] == '+')
+		else if (input[equal - 1] == '+')
 			ft_setenv(var[0], var[1], JOIN, term);
 		else
 			ft_setenv(var[0], var[1], OVERWRITE, term);

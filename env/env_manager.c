@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 16:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/19 02:12:36 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/06/19 15:17:06 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ int	ft_setenv(char *name, char *content, int option, t_term *term)
 	int	id;
 
 	id = id_env(name, term->env);
-	printf("setenv OPTION: %d name:|%s| cont:|%s|  id: %d\n",option, name, content, id);
 	if (id == -1 && option == EMPTY)
-		term->env = (char **)mat_join_row((void **)term->env, (void *)new_var(name, content, 1));
+		term->env = (char **)mat_join_row((void **)term->env, \
+			(void *)new_var(name, content, 1));
 	else if (id == -1 && option != EMPTY)
-		term->env = (char **)mat_join_row((void **)term->env, (void *)new_var(name, content, 0));
+		term->env = (char **)mat_join_row((void **)term->env, \
+			(void *)new_var(name, content, 0));
 	else if (option == OVERWRITE)
 	{
 		free(term->env[id]);

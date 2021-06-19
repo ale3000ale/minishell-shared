@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/18 19:12:48 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/19 15:24:58 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 	else if (commands == MY_PWD)
 		term->last_status = pwd(pid, get_op(queque)->fd);
 	else if (commands == MY_EXPORT)
-		term->last_status = export(get_op(queque)->input, pid, term);
+		term->last_status = export(get_op(queque)->input, pid, term, \
+			get_op(queque)->fd);
 	else if (commands == MY_UNSET)
 		term->last_status = unset(get_op(queque)->input, pid, term->env);
 	else if (commands == MY_ENV)
