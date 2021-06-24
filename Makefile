@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
+#    By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/18 19:01:46 by amarcell         ###   ########.fr        #
+#    Updated: 2021/06/23 11:45:48 by alexmarcell      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_lstiter.c	\
 			minilibft/ft_lstlast.c	\
 			minilibft/ft_lstnew.c	\
-			minilibft/ft_lstsize.c
+			minilibft/ft_lstsize.c	\
+			minilibft/ft_matsort.c	\
+			minilibft/mat_dup.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -66,7 +68,8 @@ ENV		=	env/env_manager.c
 
 HISTORY	=	history/history.c
 
-SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c
+SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c \
+			parsing_3.c ft_dollar.c redirect.c
 
 OBJ := ${SRC:.c=.o}
 
@@ -85,7 +88,7 @@ $(NAME): $(OBJ)
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  amarcell | gcarbone | fwang   "$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
 	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""

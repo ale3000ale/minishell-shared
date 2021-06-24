@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_gnl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:23:22 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/12 16:28:53 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:31:38 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	echo_input(char *buff, t_term *term)
 		term->cursor++;
 		temp = term->input;
 		term->input = ft_strjoin(temp, buff);
-		history_change(&term->history, ft_strjoin("", term->input));
+		history_change(&term->history, ft_strdup(term->input));
 		free(temp);
 		write(1, buff, ft_strlen(buff));
 	}

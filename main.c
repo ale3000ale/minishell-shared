@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/19 15:24:58 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:30:50 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ int	son_generation(t_clist *queque)
 		get_op(queque->next)->fd[READ] = pp[READ];
 	}
 	pid = getpid();
+	if (get_op(queque)->red_read)
+		red_read(get_op(queque));
+	if (get_op(queque)->red_write)
+		red_write(get_op(queque));
+	if (get_op(queque)->append)
+		red_append(get_op(queque));
 	if (get_op(queque)->pipe || cmd_id(get_op(queque)->cmd) == -1)
 		pid = fork();
 	return (pid);
@@ -46,14 +52,14 @@ void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 	else if (commands == MY_EXIT)
 		quit(get_op(queque)->input, term);
 	else if (commands == MY_CD)
-		term->last_status = cd(get_op(queque)->input, pid);
+		term->last_status = cd(get_op(queque)->input, pid, term);
 	else if (commands == MY_PWD)
 		term->last_status = pwd(pid, get_op(queque)->fd);
 	else if (commands == MY_EXPORT)
 		term->last_status = export(get_op(queque)->input, pid, term, \
 			get_op(queque)->fd);
 	else if (commands == MY_UNSET)
-		term->last_status = unset(get_op(queque)->input, pid, term->env);
+		term->last_status = unset(get_op(queque)->input, pid, term);
 	else if (commands == MY_ENV)
 		term->last_status = env(pid, term->env, get_op(queque)->fd);
 	else
@@ -84,9 +90,10 @@ void	exec_manager(t_clist *queque, t_term *term)
 		if (get_op(queque)->fd[READ] > 0)
 			close(get_op(queque)->fd[READ]);
 	}
-	printf("exit: %d\n", term->last_status >> 8);
-	if (term->last_status >> 8 == 127)
-		error404(get_op(queque)->cmd, 1);
+	term->last_status = term->last_status >> 8;
+	printf("exit: %d\n", term->last_status);
+	if (term->last_status == 127)
+		error404(get_op(queque)->cmd, 1, term);
 }
 
 // tramite la funzione getcwd trova il path della directory attuale

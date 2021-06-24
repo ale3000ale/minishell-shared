@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/17 18:42:44 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/23 11:15:44 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int				ft_stralpha(char *s);
 int				ft_isalpha(int c);
 void			**mat_join_row(void **mat, void *row);
 void			**mat_init(int dim, int h);
+char			**mat_dup(char **mat);
+void			ft_sort_matrix(char **tab, int size);
 
 t_clist			*ft_clstnew(void *content);
 void			ft_clstadd_front(t_clist **lst, t_clist *new);

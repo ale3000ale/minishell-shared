@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   history.h                                          :+:      :+:    :+:   */
+/*   mat_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/10 15:56:33 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/24 11:49:36 by alexmarcell      ###   ########.fr       */
+/*   Created: 2021/06/23 11:07:38 by alexmarcell       #+#    #+#             */
+/*   Updated: 2021/06/23 11:12:47 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HISTORY_H
-# define HISTORY_H
+#include "../includes/libft.h"
 
-# define HISTORY		".history"
+char	**mat_dup(char **mat)
+{
+	int		i;
+	char	**new;
 
-# define NEXT			1
-# define PREC			-1
-
-void	close_history(t_history *history);
-void	history_change(t_history *history, char *line);
-char	*get_history(int dir, t_history *history);
-int		append_history(t_history *history);
-void	open_history(t_term *term);
-void	move_history(t_term *term, int dir);
-void 	print_history(t_clist *cls);
-
-#endif
+	new = ft_calloc(mat_row((void **)mat) + 1, sizeof(char *));
+	i = 0;
+	while (mat[i])
+	{
+		new[i] = ft_strdup(mat[i]);
+		i++;
+	}
+	return (new);
+}

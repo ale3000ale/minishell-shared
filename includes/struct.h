@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 16:42:31 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:26:19 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,25 @@
 
 # include <termios.h>
 
+typedef struct s_str2
+{
+	char		*s1;
+	char		*s2;
+}			t_str2;
+
 typedef struct s_op
 {
-	char				*cmd;
-	char				*input;
-	int					pipe;
-	int					error;
-	int					fd[2];
-}				t_op;
+	char		*cmd;
+	char		*input;
+	int			pipe;
+	char		*red_write;
+	char		*red_read;
+	char		*append;
+	char		*red_stdin;
+	int			error;
+	int			fd[2];
+	int			oldfd[2];
+}			t_op;
 
 typedef struct s_clist
 {
@@ -52,12 +63,10 @@ typedef struct s_term
 	struct termios	cconf;
 	t_queque		queque;
 	char			*input;
-	int				cursor; // indice del cursore
+	int				cursor; 	// indice del cursore
 	int				last_status;
 	t_history		history;
 	char			**env;
 }	t_term;
-
-
 
 #endif

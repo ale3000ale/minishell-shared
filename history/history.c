@@ -3,61 +3,136 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:57:36 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/12 16:28:08 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:28:24 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+
+void print_history(t_clist *cls)
+{
+	int ex;
+
+	ex = 1;
+	printf("\n");
+	while (ex)
+	{
+		printf("ACTUAL %p L:%d   [%10s,%10s]    %p <--> %p\n", cls, cls->last, \
+			((t_str2 *)cls->content)->s1 , ((t_str2 *)cls->content)->s2, cls->pre, cls->next);
+		ex = !cls->last;
+		cls = cls->next;
+	}
+	
+}
+
+static t_str2	*get_str2(t_clist *cls)
+{
+	return ((t_str2 *)cls->content);
+}
+
+static void	free_str2(void *content)
+{
+	t_str2	*str2;
+
+	str2 = (t_str2 *)content;
+	if (str2->s1)
+	{
+		free(str2->s1);
+		str2->s1 = 0;
+	}
+	if (str2->s2)
+	{
+		free(str2->s2);
+		str2->s2 = 0;
+	}
+}
+
 void	open_history(t_term *term)
 {
-	char	*line;
+	t_str2	*line;
 	int		rd;
 
-	line = 0;
+	line = calloc(1, sizeof(t_str2));
 	term->history.fd = open(HISTORY, O_RDWR | O_APPEND | O_CREAT, 0755);
 	if (term->history.fd < 0)
 		exit(1);
-	rd = get_next_line_basic(term->history.fd, &line);
+	rd = get_next_line_basic(term->history.fd, &line->s1);
+	line->s2 = ft_strdup(line->s1);
 	term->history.history = 0;
-	if (rd > 0 && line)
+	if (rd > 0 && line->s1)
 		ft_clstadd_front(&term->history.history, ft_clstnew(line));
 	while (rd > 0)
 	{
-		rd = get_next_line_basic(term->history.fd, &line);
+		line = calloc(1, sizeof(t_str2));
+		rd = get_next_line_basic(term->history.fd, &line->s1);
+		line->s2 = ft_strdup(line->s1);
 		if (!rd)
 			continue ;
 		ft_clstadd_front(&term->history.history, ft_clstnew(line));
 	}
-	if (line)
-		free(line);
 	if (rd < 0)
-		ft_clstclear(&term->history.history, free);
-	ft_clstadd_front(&term->history.history, ft_clstnew(ft_strjoin("", "")));
+		ft_clstclear(&term->history.history, free_str2);
+	ft_clstadd_front(&term->history.history, ft_clstnew(line));
 	term->history.count_new = 0;
+	print_history(term->history.history);
 }
 
 void	history_change(t_history *history, char *line)
 {
-	free(history->history->content);
-	history->history->content = line;
+	t_str2	*str2;
+	str2 = get_str2(history->history);
+	free(str2->s2);
+	if (line)
+		str2->s2 = line;
+	else
+		str2->s2 = ft_strdup("");
 	//printf("change finish |%s| %p\n", (char*)history->history->content, history->history);
 }
 
-int	append_history(t_history *history, char *line)
+static int	append_empty(t_history *history)
 {
+	t_str2	*str2;
 	t_clist	*new;
 
-	history->history = ft_clstlast(history->history)->next;
-	free(history->history->content);
-	history->history->content = ft_strjoin(line, "");
-	new = ft_clstnew(ft_strjoin("", ""));
+	str2 = calloc(1, sizeof(t_str2));
+	str2->s1 = ft_strdup("");
+	str2->s2 = ft_strdup("");
+	new = ft_clstnew(str2);
 	ft_clstadd_front(&history->history, new);
 	history->count_new++;
 	return (1);
+}
+
+int	append_history(t_history *history)
+{
+	t_str2	*str2;
+	t_str2	*line;
+
+	line = get_str2(history->history);
+	if (history->history->pre->last)
+	{
+		str2 = get_str2(history->history);
+		free(str2->s1);
+		str2->s1 = ft_strdup(line->s2);
+	}
+	else
+	{
+		history->history = ft_clstlast(history->history)->next;
+		str2 = get_str2(history->history);
+		free_str2(str2);
+		str2->s1 = ft_strdup(line->s2);
+		str2->s2 = ft_strdup(line->s2);
+		if (ft_strncmp(line->s1, line->s2, ft_strlen(line->s1) + ft_strlen(line->s2) + 1))
+		{
+			free(line->s2);
+			line->s2 = ft_strdup(line->s1);
+		}
+	}
+	return (append_empty(history));
 }
 
 char	*get_history(int dir, t_history *history)
@@ -66,7 +141,7 @@ char	*get_history(int dir, t_history *history)
 		history->history = history->history->next;
 	else if (dir == NEXT && !history->history->pre->last)
 		history->history = history->history->pre;
-	return ((char *)history->history->content);
+	return (get_str2(history->history)->s2);
 }
 
 void	close_history(t_history *history)
@@ -78,18 +153,15 @@ void	close_history(t_history *history)
 	while (history->history && i > 1)
 	{
 		history->history = history->history->next;
-		/*printf("exixXx i %d n %d |%s| %p\n",i, history->count_new, \
-			(char*)history->history->content, history->history);*/
 		i--;
 	}
 	while (history->history && history->count_new > 0)
 	{
-		ft_putstr_fd((char *)history->history->content, history->fd);
+		ft_putstr_fd(get_str2(history->history)->s2, history->fd);
 		ft_putstr_fd("\n", history->fd);
-		/*printf("exixXx n %d |%s| %p\n", history->count_new, \
-			(char*)history->history->content, history->history);*/
 		history->count_new--;
 		history->history = history->history->pre;
 	}
 	close(history->fd);
+	ft_clstclear(&history->history, free_str2);
 }

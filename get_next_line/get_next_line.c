@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 17:05:08 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:49:47 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ int	get_next_line(int fd, t_term *term)
 		tcsetattr(0, TCSANOW, &term->cconf);
 		rd = read(fd, buff, 6);
 		tcsetattr(0, TCSANOW, &term->dconf);
-		if (buff[0] == '\n')
-			return (append_history(&term->history, \
-			ft_strjoin("", term->input)));
+		if (buff[0] == '\n' && term->input[0])
+			return (append_history(&term->history));
+		if (buff[0] == '\n' && !term->input[0])
+			return (1);
 		if (rd > 0)
 			check_char(buff, term);
 	}
