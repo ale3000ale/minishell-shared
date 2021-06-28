@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_libft.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:32:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/17 16:02:46 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:43:58 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ int	free_table(char **table)
 	{
 		i = ft_table_len(table);
 		while (--i >= 0)
+		{
 			free(table[i]);
+			table[i] = 0;
+		}
 		free(table);
+		table = 0;
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:12:51 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 16:45:26 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/28 18:54:34 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ int	exec_cmd(char *cmd, char *input, int pid, char **env)
 		if (execve(cmd, args, env) == -1)
 		{
 			free_table(args);
+			args = 0;
 			free(cmd);
+			cmd = 0;
 			free(input);
+			input = 0;
 			exit(127);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:57:36 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/24 12:28:24 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/06/28 19:39:30 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void print_history(t_clist *cls)
 	printf("\n");
 	while (ex)
 	{
-		printf("ACTUAL %p L:%d   [%10s,%10s]    %p <--> %p\n", cls, cls->last, \
-			((t_str2 *)cls->content)->s1 , ((t_str2 *)cls->content)->s2, cls->pre, cls->next);
+		printf("ACTUAL %p L:%d   [%10s,%10s]    %p <--> %p\n", cls, \
+			cls->last, ((t_str2 *)cls->content)->s1 , \
+			((t_str2 *)cls->content)->s2, cls->pre, cls->next);
 		ex = !cls->last;
 		cls = cls->next;
 	}
-	
 }
 
 static t_str2	*get_str2(t_clist *cls)
@@ -84,6 +84,7 @@ void	open_history(t_term *term)
 void	history_change(t_history *history, char *line)
 {
 	t_str2	*str2;
+
 	str2 = get_str2(history->history);
 	free(str2->s2);
 	if (line)

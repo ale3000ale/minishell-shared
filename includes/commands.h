@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/21 17:02:00 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/28 19:13:28 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@
 /* FUNCTIONS */
 
 int		error404(char *line, int pid, t_term *term);
-void	quit(char *input, t_term *term);
-int		export(char *input, int pid, t_term *term, int *fd);
-int		unset(char *input, int pid, t_term *term);
+int		quit(t_op *op, t_term *term);
+int		export(char **input, int pid, t_term *term, int *fd);
+int		unset(char **input, int pid, t_term *term);
 int		pwd(int pid, int fd[2]);
 int		env(int pid, char **environ, int fd[2]);
-int		cd(char *input, int pid, t_term *term);
+int		cd(t_op *op, int pid);
 int		clear_cmd(int pid);
 int		exec_cmd(char *cmd, char *input, int pid, char **env);
 int		cmd_id(char *cmd);
+int		my_echo(t_op *op, int pid);
 
 #endif

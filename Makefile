@@ -6,7 +6,7 @@
 #    By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/23 11:45:48 by alexmarcell      ###   ########.fr        #
+#    Updated: 2021/06/24 16:22:27 by alexmarcell      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ ENV		=	env/env_manager.c
 HISTORY	=	history/history.c
 
 SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c \
-			parsing_3.c ft_dollar.c redirect.c
+			translate.c ft_dollar.c redirect.c parsing_utils.c matrix_arg.c
 
 OBJ := ${SRC:.c=.o}
 

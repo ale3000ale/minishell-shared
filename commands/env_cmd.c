@@ -6,7 +6,7 @@
 /*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/23 11:42:15 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/06/28 19:16:16 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,32 +112,40 @@ static int	export_view(int pid, char **environ, int fd[2])
 	return (0);
 }
 
-int	export(char *input, int pid, t_term *term, int *fd)
+int	export(char **input, int pid, t_term *term, int *fd)
 {
 	char	**var;
 	int		ck;
 	int		equal;
+	int		i;
 
-	input = ft_translate(input, term);
-	ck = ck_input(input);
-	printf("|%s|\n", input);
-	if (!input[0])
+	i = 0;
+	if (!input[i])
 		ck = export_view(pid, term->env, fd);
-	else if (ck)
+	while (input[i])
 	{
-		var = export_segmentation(input);
-		printf("name: |%s|  cont: |%s|\n", var[0], var[1]);
-		equal = ft_strchrid(input, '=');
-		if (equal == -1)
-			ft_setenv(var[0], var[1], EMPTY, term);
-		else if (input[equal - 1] == '+')
-			ft_setenv(var[0], var[1], JOIN, term);
+		ck = ck_input(input[i]);
+		//printf("|%s|\n", input[i]);
+		if (ck)
+		{
+			var = export_segmentation(input[i]);
+			//printf("name: |%s|  cont: |%s|\n", var[0], var[1]);
+			equal = ft_strchrid(input[i], '=');
+			if (equal == -1)
+				ft_setenv(var[0], var[1], EMPTY, term);
+			else if (input[i][equal - 1] == '+')
+				ft_setenv(var[0], var[1], JOIN, term);
+			else
+				ft_setenv(var[0], var[1], OVERWRITE, term);
+			free_table(var);
+		}
 		else
-			ft_setenv(var[0], var[1], OVERWRITE, term);
-		free_table(var);
+		{
+			printf("export: '%s': not a valid identifier", input[i]);
+			break ;
+		}
+		i++;
 	}
-	else
-		printf("export: '%s': not a valid identifier", input);
 	if (!pid)
 		exit(!ck);
 	return (!ck);
@@ -162,14 +170,19 @@ int	env(int pid, char **environ, int fd[2])
 	return (0);
 }
 
-int	unset(char *input, int pid, t_term *term)
+int	unset(char **input, int pid, t_term *term)
 {
-	input = ft_translate(input, term);
-	if (!ft_unsetenv(input, term->env))
+	int	i;
+
+	i = 0;
+	while(input[i])
 	{
-		if (!pid)
-			exit(0);
-		return (0);
+		if (!ft_unsetenv(input[i], term->env))
+		{
+			if (!pid)
+				exit(0);
+			return (0);
+		}
 	}
 	if (!pid)
 		exit(1);

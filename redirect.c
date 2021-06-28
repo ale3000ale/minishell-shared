@@ -3,53 +3,91 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 17:45:45 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/21 19:58:35 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/28 17:31:24 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int	red_write(t_op *op)
+static int	red_stdin(t_op *op, t_red *tmp)
 {
-	if (op->fd[WRITE] > 1)
-	{
-		close(op->fd[WRITE]);
-		op->fd[WRITE] = WRITE;
-	}
-	op->fd[WRITE] = open(op->red_write, O_RDWR | O_CREAT, 0755);
-	return (1);
-}
+	char	*line;
+	int		pp[2];
 
-//todo gestione errori
-
-int	red_read(t_op *op)
-{
 	if (op->fd[READ] > READ)
+		close (op->fd[READ]);
+	if (pipe(pp) == -1)
+		return (1);
+	op->fd[READ] = pp[READ];
+	ft_putstr_fd(">", 1);
+	line = 0;
+	while (get_next_line_basic(0, &line) != -1 \
+	 && ft_strncmp(line, tmp->input, ft_strlen(tmp->input) + 1))
 	{
-		close(op->fd[READ]);
-		op->fd[READ] = READ;
+		ft_putstr_fd(line, pp[WRITE]);
+		ft_putstr_fd("\n", pp[WRITE]);
+		ft_putstr_fd(">", 1);
+		free(line);
+		line = 0;
 	}
-	op->fd[READ] = open(op->red_read, O_RDONLY, 0755);
-	if (op->fd[READ] < 0)
-	{
-		ft_putstr_fd(op->red_read, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		return (0);
-	}
-	return (1);
+	close(pp[WRITE]);
+	if (!line)
+		return (1);
+	free(line);
+	line = 0;
+	return (0);
 }
 
-int	red_append(t_op *op)
+static int	red_support(t_op *op, t_red *tmp)
 {
-	if (op->fd[WRITE] > 1)
+	if (tmp->type == RED_WRITE || tmp->type == RED_APPEND)
 	{
-		close(op->fd[WRITE]);
-		op->fd[WRITE] = WRITE;
+		if (op->fd[WRITE] > 1)
+			close(op->fd[WRITE]);
+		if (tmp->type == RED_WRITE)
+			op->fd[WRITE] = open(tmp->input, O_RDWR | O_TRUNC | O_CREAT, 0755);
+		else
+			op->fd[WRITE] = open(tmp->input, O_RDWR | O_APPEND | O_CREAT, 0755);
+		if (op->fd[WRITE] < 0)
+			return (1);
 	}
-	op->fd[WRITE] = open(op->append, O_RDWR | O_APPEND | O_CREAT, 0755);
-	printf("FD: %d\n", op->fd[WRITE]);
-	return (1);
+	else if (tmp->type == RED_READ)
+	{
+		if (op->fd[READ] > 0)
+			close(op->fd[READ]);
+		op->fd[READ] = open(tmp->input, O_RDONLY);
+		if (op->fd[READ] < 0)
+			return (1);
+	}
+	else if (tmp->type == RED_STDIN)
+		return(red_stdin(op, tmp));
+	return (0);
+}
+
+int	redirection(t_op *op, char **fd_error, int pid)
+{
+	t_red	*tmp;
+	int	ex;
+
+	ex = 0;
+	if (pid == getpid() || !pid)
+	{
+		while (!ex)
+		{
+			
+			tmp = (t_red *)op->red->content;
+			//printf("red = %s", tmp->input);
+			if (red_support(op, tmp))
+			{
+				*fd_error = ft_strjoin("", tmp->input);
+				return (-1);
+			}
+			ex = op->red->last;
+			op->red = op->red->next;
+		}
+	}
+	return (0);
 }

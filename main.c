@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/21 19:30:50 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/28 19:13:41 by alexmarcell      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ int	son_generation(t_clist *queque)
 		get_op(queque->next)->fd[READ] = pp[READ];
 	}
 	pid = getpid();
-	if (get_op(queque)->red_read)
-		red_read(get_op(queque));
-	if (get_op(queque)->red_write)
-		red_write(get_op(queque));
-	if (get_op(queque)->append)
-		red_append(get_op(queque));
 	if (get_op(queque)->pipe || cmd_id(get_op(queque)->cmd) == -1)
 		pid = fork();
 	return (pid);
@@ -42,26 +36,35 @@ int	son_generation(t_clist *queque)
 // Execute the commands if it aren't a build-in cmd, set the correct
 // in/out fd whit dup
 
-void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
+void	ft_execute_commands(t_clist *queque, t_term *term, int pid, int red)
 {
 	int	commands;
 
+	if (red == -1 && !pid )
+		exit(1);
+	else if (red == -1)
+	{
+		term->last_status = 1;
+		return ;
+	}
 	commands = cmd_id(get_op(queque)->cmd);
 	if (commands == MY_CLEAR)
 		term->last_status = clear_cmd(pid);
 	else if (commands == MY_EXIT)
-		quit(get_op(queque)->input, term);
+		term->last_status = quit(get_op(queque), term);
 	else if (commands == MY_CD)
-		term->last_status = cd(get_op(queque)->input, pid, term);
+		term->last_status = cd(get_op(queque), pid);
 	else if (commands == MY_PWD)
 		term->last_status = pwd(pid, get_op(queque)->fd);
 	else if (commands == MY_EXPORT)
-		term->last_status = export(get_op(queque)->input, pid, term, \
+		term->last_status = export(get_op(queque)->argv, pid, term, \
 			get_op(queque)->fd);
 	else if (commands == MY_UNSET)
-		term->last_status = unset(get_op(queque)->input, pid, term);
+		term->last_status = unset(get_op(queque)->argv, pid, term);
 	else if (commands == MY_ENV)
 		term->last_status = env(pid, term->env, get_op(queque)->fd);
+	else if (commands == MY_ECHO)
+		term->last_status = my_echo(get_op(queque), pid);
 	else
 	{
 		if (get_op(queque)->fd[WRITE] > 1 )
@@ -77,21 +80,32 @@ void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 void	exec_manager(t_clist *queque, t_term *term)
 {
 	int	pid;
+	int	red;
+	char	*fd_error;
 
 	pid = son_generation(queque);
+	fd_error = 0;
+	red = 0;
+	if (get_op(queque)->red)
+		red = redirection(get_op(queque), &fd_error, pid);
 	if ((pid && !get_op(queque)->pipe \
 	 && cmd_id(get_op(queque)->cmd) > -1) || (!pid))
-		ft_execute_commands(queque, term, pid);
+		ft_execute_commands(queque, term, pid, red);
 	else
 	{
 		waitpid(pid, &term->last_status, 0);
+		if (red == -1)
+		{
+			ft_putstr_fd("miniascell: ", 1);
+			ft_putstr_fd(fd_error, 1);
+			ft_putstr_fd(": No such file or directory", 1);
+		}
 		if (get_op(queque)->fd[WRITE] > 1)
 			close(get_op(queque)->fd[WRITE]);
 		if (get_op(queque)->fd[READ] > 0)
 			close(get_op(queque)->fd[READ]);
 	}
 	term->last_status = term->last_status >> 8;
-	printf("exit: %d\n", term->last_status);
 	if (term->last_status == 127)
 		error404(get_op(queque)->cmd, 1, term);
 }
@@ -113,7 +127,6 @@ int	find_command(t_term *term)
 		graphic_hub(2, current_path);
 		flag_stop = get_next_line(0, term);
 		ft_parsing_hub(term);
-		free(term->input);
 	}
 	free_table(commands);
 	return (1);
