@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/24 11:49:47 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/01 15:43:23 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,20 @@ int	get_next_line(int fd, t_term *term)
 		return (-1);
 	rd = 1;
 	term->cursor = 0;
-	while (rd > 0)
+	while (rd >= 0)
 	{
 		ft_bzero(buff, 6);
 		tcsetattr(0, TCSANOW, &term->cconf);
 		rd = read(fd, buff, 6);
 		tcsetattr(0, TCSANOW, &term->dconf);
+		if (buff[0] == EOT && term->input[0])
+			continue ;
+		else if (buff[0] == EOT && !term->input[0])
+		{
+			free(term->input);
+			term->input = ft_strdup("exit");
+			return (0);
+		}
 		if (buff[0] == '\n' && term->input[0])
 			return (append_history(&term->history));
 		if (buff[0] == '\n' && !term->input[0])

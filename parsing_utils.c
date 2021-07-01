@@ -54,13 +54,15 @@ void	find_cmd(t_term *term, int *iter, t_op **new)
 	int	iter2;
 
 	iter2 = *iter;
-	while (term->input[iter2] && term->input[iter2] != ' ')
+	while (term->input[iter2] && term->input[iter2] != ' '
+		&& term->input[iter2] != '>' && term->input[iter2] != '<')
 		iter2++;
 	(*new)->cmd = calloc(iter2 + 1, 1);
 	if (term->input[*iter] == '\"')
 		(*new)->cmd = ft_strjoin((*new)->cmd, double_quotes(iter, term->input));
 	iter2 = ft_strlen((*new)->cmd);
-	while (term->input[*iter] && term->input[*iter] != ' ')
+	while (term->input[*iter] && term->input[*iter] != ' '
+		&& term->input[*iter] != '>' && term->input[*iter] != '<')
 		(*new)->cmd[iter2++] = term->input[(*iter)++];
 	(*new)->cmd = ft_translate((*new)->cmd, term);
 	//printf("\ncmd = %s\n", (*new)->cmd);

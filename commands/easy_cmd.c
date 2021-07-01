@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/28 19:19:27 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/01 15:44:26 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	error404(char *line, int pid, t_term *term)
 
 	if (line)
 	{
-		printf("error = %d\n", term->last_status);
 		tmp = ft_translate(line, term);
 		printf("%s: command not found\n", tmp);
 		free(tmp);

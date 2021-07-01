@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 17:45:45 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/28 17:31:24 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/01 17:10:29 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	red_support(t_op *op, t_red *tmp)
 	{
 		if (op->fd[READ] > 0)
 			close(op->fd[READ]);
-		op->fd[READ] = open(tmp->input, O_RDONLY);
+		op->fd[READ] = open(tmp->input, O_RDONLY, 0444);
 		if (op->fd[READ] < 0)
 			return (1);
 	}
@@ -67,27 +67,23 @@ static int	red_support(t_op *op, t_red *tmp)
 	return (0);
 }
 
-int	redirection(t_op *op, char **fd_error, int pid)
+int	redirection(t_op *op, char **fd_error)
 {
 	t_red	*tmp;
 	int	ex;
 
 	ex = 0;
-	if (pid == getpid() || !pid)
+	while (!ex)
 	{
-		while (!ex)
+		tmp = (t_red *)op->red->content;
+		//printf("red = %s", tmp->input);
+		if (red_support(op, tmp))
 		{
-			
-			tmp = (t_red *)op->red->content;
-			//printf("red = %s", tmp->input);
-			if (red_support(op, tmp))
-			{
-				*fd_error = ft_strjoin("", tmp->input);
-				return (-1);
-			}
-			ex = op->red->last;
-			op->red = op->red->next;
+			*fd_error = ft_strjoin("", tmp->input);
+			return (-1);
 		}
+		ex = op->red->last;
+		op->red = op->red->next;
 	}
 	return (0);
 }

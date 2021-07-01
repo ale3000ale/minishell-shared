@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/28 17:47:24 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/01 17:27:13 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,41 @@ int	cmd_id(char *cmd)
 	return (ret);
 }
 
-int	my_echo(t_op *op, int pid)
+int	n_flag(char *input)
 {
 	int		i;
 	int		n;
 
 	i = 1;
 	n = 0;
-	if (op->argv[0] && !ft_strncmp(op->argv[0], "-n", 1))
+	if (input && !ft_strncmp(input, "-n", 1))
 	{
 		n = 1;
-		while (i != -1 && op->argv[0][i])
+		while (i != -1 && input[i])
 		{
-			if (op->argv[0][i++] != 'n')
-			{
-				n = 0;
-				break ;
-			}
+			if (input[i++] != 'n')
+				return (0);
 		}
 	}
-	i = n;
+	return (n);
+}
+
+int	my_echo(t_op *op, int pid)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	while (n_flag(op->argv[i]))
+		i++;
+	n = i;
 	while (op->argv[i])
 	{
 		if (n != i)
 			ft_putstr_fd(" ", op->fd[WRITE]);
 		ft_putstr_fd(op->argv[i++], op->fd[WRITE]);
 	}
-	if(!n)
+	if (!n)
 		ft_putstr_fd("\n", 1);
 	if (!pid)
 		exit(0);

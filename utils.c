@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/16 16:44:45 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/01 15:44:07 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void	init(t_term *term, char **env)
 
 static void	intHandler(int signal)
 {
-	if (signal == 2)
+	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
 		graphic_hub(2, find_path());
+		free(g_term->input);
+		g_term->input = ft_strdup("");
+		g_term->cursor = 0;
 		ft_signal_manager();
 	}
 }
@@ -41,4 +44,5 @@ static void	intHandler(int signal)
 void	ft_signal_manager(void)
 {
 	signal(SIGINT, intHandler);
+	signal(SIGQUIT, intHandler);
 }

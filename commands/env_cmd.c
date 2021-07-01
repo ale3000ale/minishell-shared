@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/28 19:16:16 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/01 13:02:27 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static int	ck_input(char *input)
 	{
 		cut = ft_strcut(input, ft_strchrid(input, '='));
 		plus = (cut[0][ft_strchrid(input, '=') - 1] == '+');
-		len = ft_strlen(cut[0]) - plus - 1;
+		len = ft_strlen(cut[0]) - plus;
 		if (len && ft_isalpha(cut[0][0]))
 		{
 			free_table(cut);
-			cut = ft_strcut(input, len - 1);
+			cut = ft_strcut(input, len);
 			len = strck(&cut[0][1]);
 			free_table(cut);
 			return (len);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_main_functions.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/28 16:25:47 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/01 17:51:57 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # define RED_STDIN	0
 # define RED_APPEND	3
 # include "struct.h"
-
 
 void	init(t_term *term, char **env);
 int		find_command(t_term *term);
@@ -38,5 +37,5 @@ void	find_cmd(t_term *term, int *iter, t_op **new);
 void	find_cmd_input(t_term *term, int *iter, t_op **new);
 void	find_red(t_term *term, int *iter, t_op **new);
 char	**arg_matrix(char *input, t_term *term);
-int		redirection(t_op *op, char **fd_error, int pid);
+int		redirection(t_op *op, char **fd_error);
 #endif
