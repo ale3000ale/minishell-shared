@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/01 15:44:26 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:43:26 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,29 @@ int	quit(t_op *op, t_term *term)
 {
 	int		neg;
 
-	ft_putstr_fd("exit\n", 1);
 	neg = 0;
 	if (mat_row((void **)op->argv) > 1)
 		return (ft_putstr_fd("exit: too many argument\n", 1) * 0 + 1);
 	close_history(&term->history);
+	free(term->input);
 	if (!mat_row((void **)op->argv))
 	{
+		ft_putstr_fd("exit\n", 1);
 		ft_clstclear(&term->queque.first, free_op);
-		exit(0);
+		exit(term->last_status);
 	}
 	if (op->argv[0][0] == '-' && op->argv[0][0])
 		neg = 1;
 	if (!ft_strdigit(&op->argv[0][neg]))
 	{
 		ft_putstr_fd(op->argv[0], 1);
-		ft_putstr_fd(": numeric argument required\n", 1);
+		ft_putstr_fd("exit: numeric argument required\n", 1);
 		ft_clstclear(&term->queque.first, free_op);
 		exit (255);
 	}
 	neg = ft_latoi(op->argv[0]);
 	ft_clstclear(&term->queque.first, free_op);
+	ft_putstr_fd("exit\n", 1);
 	exit(neg);
 }
 

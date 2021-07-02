@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/01 13:02:27 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:42:34 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	export(char **input, int pid, t_term *term, int *fd)
 		}
 		else
 		{
-			printf("export: '%s': not a valid identifier", input[i]);
+			printf("export: '%s': not a valid identifier\n", input[i]);
 			break ;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 17:45:59 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/02 16:07:58 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	main(int argc, char **argv, char **env)
 	argc = 0;
 	argv[0] = argv[0];
 	init(&term, env);
+	g_term = &term;
 	write(1, "", 1);
 	my_clear_screen();
 	ft_signal_manager();

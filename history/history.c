@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:57:36 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/28 19:39:30 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/02 15:10:06 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void print_history(t_clist *cls)
 	printf("\n");
 	while (ex)
 	{
-		printf("ACTUAL %p L:%d   [%10s,%10s]    %p <--> %p\n", cls, \
-			cls->last, ((t_str2 *)cls->content)->s1 , \
+		printf("ACTUAL %p L:%d   %p [%10s,%10s] %p   %p <--> %p\n", cls, \
+			cls->last, ((t_str2 *)cls->content)->s1, ((t_str2 *)cls->content)->s1 , ((t_str2 *)cls->content)->s2, \
 			((t_str2 *)cls->content)->s2, cls->pre, cls->next);
 		ex = !cls->last;
 		cls = cls->next;
@@ -49,6 +49,7 @@ static void	free_str2(void *content)
 		free(str2->s2);
 		str2->s2 = 0;
 	}
+	free(str2);
 }
 
 void	open_history(t_term *term)
@@ -56,7 +57,7 @@ void	open_history(t_term *term)
 	t_str2	*line;
 	int		rd;
 
-	line = calloc(1, sizeof(t_str2));
+	line = ft_calloc(1, sizeof(t_str2));
 	term->history.fd = open(HISTORY, O_RDWR | O_APPEND | O_CREAT, 0755);
 	if (term->history.fd < 0)
 		exit(1);
@@ -67,7 +68,7 @@ void	open_history(t_term *term)
 		ft_clstadd_front(&term->history.history, ft_clstnew(line));
 	while (rd > 0)
 	{
-		line = calloc(1, sizeof(t_str2));
+		line = ft_calloc(1, sizeof(t_str2));
 		rd = get_next_line_basic(term->history.fd, &line->s1);
 		line->s2 = ft_strdup(line->s1);
 		if (!rd)
@@ -91,7 +92,6 @@ void	history_change(t_history *history, char *line)
 		str2->s2 = line;
 	else
 		str2->s2 = ft_strdup("");
-	//printf("change finish |%s| %p\n", (char*)history->history->content, history->history);
 }
 
 static int	append_empty(t_history *history)
@@ -99,7 +99,7 @@ static int	append_empty(t_history *history)
 	t_str2	*str2;
 	t_clist	*new;
 
-	str2 = calloc(1, sizeof(t_str2));
+	str2 = ft_calloc(1, sizeof(t_str2));
 	str2->s1 = ft_strdup("");
 	str2->s2 = ft_strdup("");
 	new = ft_clstnew(str2);
@@ -124,10 +124,12 @@ int	append_history(t_history *history)
 	{
 		history->history = ft_clstlast(history->history)->next;
 		str2 = get_str2(history->history);
-		free_str2(str2);
+		free(str2->s1);
+		free(str2->s2);
 		str2->s1 = ft_strdup(line->s2);
 		str2->s2 = ft_strdup(line->s2);
-		if (ft_strncmp(line->s1, line->s2, ft_strlen(line->s1) + ft_strlen(line->s2) + 1))
+		if (ft_strncmp(line->s1, line->s2, \
+			ft_strlen(line->s1) + ft_strlen(line->s2) + 1))
 		{
 			free(line->s2);
 			line->s2 = ft_strdup(line->s1);

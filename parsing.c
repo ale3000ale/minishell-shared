@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 15:02:58 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/28 18:48:23 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/02 13:20:29 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	new_node(t_term *term, int *iter, t_op **new)
 			(*iter)++;
 		while (term->input[*iter] && term->input[*iter] == ' ')
 			(*iter)++;
-		}
+	}
 	else if (!term->input[*iter])
 		ft_clstadd_back(&(term->queque.first), ft_clstnew(*new));
 }

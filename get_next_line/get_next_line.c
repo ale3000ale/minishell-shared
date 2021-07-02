@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 15:43:23 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:54:14 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ static int	switch_special(char *buff, t_term *term)
 
 static void	check_char(char *buff, t_term *term)
 {
-	int		ret;
-
-	ret = switch_special(buff, term);
+	switch_special(buff, term);
 }
 
 int	get_next_line(int fd, t_term *term)
@@ -56,7 +54,7 @@ int	get_next_line(int fd, t_term *term)
 	term->cursor = 0;
 	while (rd >= 0)
 	{
-		ft_bzero(buff, 6);
+		ft_bzero(buff, 7);
 		tcsetattr(0, TCSANOW, &term->cconf);
 		rd = read(fd, buff, 6);
 		tcsetattr(0, TCSANOW, &term->dconf);
@@ -64,9 +62,9 @@ int	get_next_line(int fd, t_term *term)
 			continue ;
 		else if (buff[0] == EOT && !term->input[0])
 		{
-			free(term->input);
-			term->input = ft_strdup("exit");
-			return (0);
+			ft_strlcpy(buff, "exit", 5);
+			check_char(buff, term);
+			return (append_history(&term->history));
 		}
 		if (buff[0] == '\n' && term->input[0])
 			return (append_history(&term->history));

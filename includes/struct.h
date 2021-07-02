@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/24 16:23:34 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/02 12:39:04 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ typedef struct s_str2
 	char		*s2;
 }			t_str2;
 
-typedef	struct		s_red
+typedef struct		s_red
 {
 	char		*input;
-	int		type;
+	int			type;
 }			t_red;
 
 typedef struct s_clist
@@ -40,11 +40,11 @@ typedef struct s_op
 	char		*cmd;
 	char		*input;
 	char		**argv;
-	int		pipe;
+	int			pipe;
 	t_clist		*red;
-	int		error;
-	int		fd[2];
-	int		oldfd[2];
+	int			error;
+	int			fd[2];
+	int			oldfd[2];
 }			t_op;
 
 typedef struct s_queque

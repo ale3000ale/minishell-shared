@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 15:44:07 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:37:35 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init(t_term *term, char **env)
 
 static void	intHandler(int signal)
 {
+	//char	*tmp;
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -37,7 +38,7 @@ static void	intHandler(int signal)
 		free(g_term->input);
 		g_term->input = ft_strdup("");
 		g_term->cursor = 0;
-		ft_signal_manager();
+		g_term->last_status = 1;
 	}
 }
 
