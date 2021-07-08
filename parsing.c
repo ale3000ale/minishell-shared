@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
 #include "includes/minishell.h"
-#include "includes/my_main_functions.h"
-#include <stdlib.h>
 //todo: togliere spazi fine stringa
 //		matrice degli argomenti in t_op
 
@@ -36,8 +33,8 @@ void	free_red(void *red)
 		free(tmp->input);
 		tmp->input = 0;
 	}
-	free(red);
-	red = 0;
+	free(tmp);
+	tmp = 0;
 }
 
 void	free_op(void *op)
@@ -63,6 +60,10 @@ void	free_op(void *op)
 
 void	new_node(t_term *term, int *iter, t_op **new)
 {
+	(*new)->fd[WRITE] = WRITE;
+	(*new)->oldfd[WRITE] = WRITE;
+	(*new)->fd[READ] = READ;
+	(*new)->oldfd[READ] = READ;
 	if (term->input[*iter] == '|')
 	{
 		(*new)->pipe = 1;
@@ -71,6 +72,7 @@ void	new_node(t_term *term, int *iter, t_op **new)
 			(*iter)++;
 		while (term->input[*iter] && term->input[*iter] == ' ')
 			(*iter)++;
+		*new = ft_calloc(1, sizeof(t_op));
 	}
 	else if (!term->input[*iter])
 		ft_clstadd_back(&(term->queque.first), ft_clstnew(*new));
@@ -86,36 +88,22 @@ static void	parse_cmd(t_term *term)
 	while (term->input[iter] == ' ')
 		iter++;
 	iter2 = iter;
+	new = ft_calloc(1, sizeof(t_op));
 	while (term->input[iter])
 	{
-		new = ft_calloc(1, sizeof(t_op));
 		// find cmd
-		find_cmd(term, &iter, &new);
+		if (!new->cmd || !(new->cmd)[0])
+			find_cmd(term, &iter, &new);
 		// find cmd input
 		find_cmd_input(term, &iter, &new);
 		// if there are redirectiono
-		while (term->input[iter] && term->input[iter] != '|')
+		while (term->input[iter] && term->input[iter] != '|' && term->input[iter] != ' ')
 			find_red(term, &iter, &new);
-		//set fd
-		new->fd[WRITE] = WRITE;
-		new->oldfd[WRITE] = WRITE;
-		new->fd[READ] = READ;
-		new->oldfd[READ] = READ;
-		//check if there are pipes or is end of string
-		new_node(term, &iter, &new);
+				//check if there are pipes or is end of string
+		if (!term->input[iter] || term->input[iter] == '|')
+			new_node(term, &iter, &new);
 	}
-	/*while (!new->red->last)
-	{
-		t_red *prova = (t_red *)new->red->content; 
-		printf("red = %s\n", prova->input);
-		new->red = new->red->next;
-	}
-	t_red *prova = (t_red *)new->red->content; 
-	printf("red = %s\n", prova->input);*/
-	//printf("fine\n");
 }
-
-//	make the cmd queque and execute the command 
 
 int	ft_parsing_hub(t_term *term)
 {
@@ -137,6 +125,7 @@ int	ft_parsing_hub(t_term *term)
 			cmds = cmds->next;
 		}
 		ft_clstclear(&term->queque.first, free_op);
+		free(term->input);
 	}
 	else
 		ft_putstr_fd("\n", 1);

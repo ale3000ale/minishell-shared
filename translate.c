@@ -16,18 +16,30 @@
 int	if1(char **input, char **trans, int *iter)
 {
 	int	flag;
+	int	quotes;
+	int	i;
 
+	i = -1;
+	quotes = 0;
 	flag = 0;
 	if (**input == 39)
 	{
 		(*input)++;
-		while (**input && **input != 39)
+		while ((*input)[++i] && !quotes)
+			if ((*input)[i] == '\'')
+				quotes = 1;
+		if (quotes)
 		{
-			(*trans)[(*iter)++] = **input;
-			(*input)++;
+			while (**input && **input != 39)
+			{
+				(*trans)[(*iter)++] = **input;
+				(*input)++;
+			}
+			if (**input)
+				(*input)++;
 		}
-		if (**input)
-			(*input)++;
+		else
+			(*trans)[(*iter)++] = '\'';
 		flag = 1;
 	}
 	return (flag);
@@ -36,24 +48,37 @@ int	if1(char **input, char **trans, int *iter)
 //search for double quotes and dollars, else just copy the char in trans
 void	if2(char **input, char **trans, int *iter, t_term *term)
 {
+	int	i;
+	int	quotes;
+
+	quotes = 0;
+	i = -1;
 	if (**input == '\"')
 	{
 		(*input)++;
-		while (**input && **input != '\"')
+		while ((*input)[++i] && !quotes)
+			if ((*input)[i] == '\"')
+				quotes = 1;
+		if (quotes)
 		{
-			if (**input == '$')
-				*trans = ft_dollar(input, term, trans, iter);
-			else
+			while (**input && **input != '\"')
 			{
-				(*trans)[(*iter)++] = **input;
-				(*input)++;
+				if (**input == '$')
+					ft_dollar(input, term, trans, iter);
+				else
+				{
+					(*trans)[(*iter)++] = **input;
+					(*input)++;
+				}
 			}
+			if (**input)
+				(*input)++;
 		}
-		if (**input)
-			(*input)++;
+		else
+			(*trans)[(*iter)++] = '\"';
 	}
 	else if (**input == '$')
-		*trans = ft_dollar(input, term, trans, iter);
+		ft_dollar(input, term, trans, iter);
 	else if (**input)
 	{
 		(*trans)[(*iter)++] = **input;

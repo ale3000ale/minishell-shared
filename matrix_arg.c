@@ -1,4 +1,5 @@
 #include "includes/minishell.h"
+#include "includes/my_main_functions.h"
 
 void	alloc_matrix(char ***matrix, char *input)
 {
@@ -49,10 +50,15 @@ char	**arg_matrix(char *input, t_term *term)
 	alloc_matrix(&matrix, input);
 	iter = 0;
 	i = 0;
+	to_trans = 0;
 	while (input[iter])
 	{
 		if (input[iter] == '\"')
-			matrix[i++] = ft_translate(double_quotes(&iter, input), term);
+		{
+			double_quotes(&iter, input, &to_trans);
+			matrix[i++] = ft_translate(to_trans, term);
+			free(to_trans);
+		}
 		else
 		{	
 			to_trans = get_to_trans(&iter, input);

@@ -29,8 +29,8 @@ void	ft_execute_commands(t_clist *queque, t_term *term, int pid, int red);
 void	exec_manager(t_clist *queque, t_term *term);
 t_op	*get_op(t_clist *cls);
 char	*ft_translate(char *input, t_term *term);
-char	*ft_dollar(char **input, t_term *term, char **trans, int *iter);
-char	*double_quotes(int *iter, char *input);
+void	ft_dollar(char **input, t_term *term, char **trans, int *iter);
+void	double_quotes(int *iter, char *input, char **new);
 void	free_op(void *op);
 
 void	find_cmd(t_term *term, int *iter, t_op **new);

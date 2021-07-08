@@ -92,3 +92,11 @@ echo $?
 exit
 exit
 exit
+echo $"
+make debug-clean
+make fclean
+git add .
+git status
+git commit -m "fix export env ctrl-C no leaks"
+git push
+exit

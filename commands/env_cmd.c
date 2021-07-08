@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/02 17:42:34 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/08 15:49:46 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	strck(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!(ft_isalnum(s[i]) || s[i] != '_'))
+		if (!(ft_isalnum(s[i]) || s[i] == '_'))
 			return (0);
 		i++;
 	}
@@ -66,7 +66,7 @@ static int	ck_input(char *input)
 		cut = ft_strcut(input, ft_strchrid(input, '='));
 		plus = (cut[0][ft_strchrid(input, '=') - 1] == '+');
 		len = ft_strlen(cut[0]) - plus;
-		if (len && ft_isalpha(cut[0][0]))
+		if (len && (ft_isalpha(cut[0][0]) || cut[0][0] ==  '_'))
 		{
 			free_table(cut);
 			cut = ft_strcut(input, len);
@@ -77,7 +77,7 @@ static int	ck_input(char *input)
 		free_table(cut);
 		return (0);
 	}
-	return (ft_isalpha(input[0]) && strck(&input[1]));
+	return ((ft_isalpha(input[0]) || input[0] ==  '_' )&& strck(&input[1]));
 }
 
 static int	export_view(int pid, char **environ, int fd[2])
@@ -177,7 +177,7 @@ int	unset(char **input, int pid, t_term *term)
 	i = 0;
 	while(input[i])
 	{
-		if (!ft_unsetenv(input[i], term->env))
+		if (ft_unsetenv(input[i], term->env))
 		{
 			if (!pid)
 				exit(0);

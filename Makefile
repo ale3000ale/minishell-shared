@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+         #
+#    By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/24 16:22:27 by alexmarcell      ###   ########.fr        #
+#    Updated: 2021/07/08 16:18:19 by mobrycki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_lstnew.c	\
 			minilibft/ft_lstsize.c	\
 			minilibft/ft_matsort.c	\
-			minilibft/mat_dup.c
+			minilibft/mat_dup.c		\
+			minilibft/ft_strcmp.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \

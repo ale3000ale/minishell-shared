@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_libft.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:32:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/28 18:43:58 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/08 16:12:49 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
