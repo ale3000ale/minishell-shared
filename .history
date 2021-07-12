@@ -100,3 +100,33 @@ git status
 git commit -m "fix export env ctrl-C no leaks"
 git push
 exit
+echo 
+echo \n
+bash
+exit
+cd
+exit
+cd 
+./minishell
+./minishell
+exit
+ss
+exit
+./minishell
+$?
+exit
+ss
+exit
+./minishell
+exit
+ao
+exit
+./minishell
+exit
+22
+cd
+cd 3113
+$?
+sasas
+$?
+exit

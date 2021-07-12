@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/02 15:43:26 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:50:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,12 @@ int	pwd(int pid, int fd[2])
 
 int	cd(t_op *op, int pid)
 {
-	change_path(op->argv[0]);
+	int	ret;
+
+	ret = change_path(op->argv[0]);
 	if (!pid)
-		exit(0);
-	return (0);
+		exit(ret);
+	return (ret);
 }
 
 int	clear_cmd(int pid)

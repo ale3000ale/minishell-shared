@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
-/*   Updated: 2021/07/02 17:41:02 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:30:39 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*find_path(void)
 
 int	change_path(char *new_path)
 {
-	if (!new_path[0] || new_path[0] == '~')
+	if (!new_path || !new_path[0] || new_path[0] == '~')
 		new_path = getenv("HOME");
 	if (chdir(new_path) != 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/08 15:49:46 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:30:18 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	unset(char **input, int pid, t_term *term)
 	int	i;
 
 	i = 0;
-	while(input[i])
+	while (input[i])
 	{
 		if (ft_unsetenv(input[i], term->env))
 		{

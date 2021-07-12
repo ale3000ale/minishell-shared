@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/08 16:21:38 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:47:11 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	exec_manager(t_clist *queque, t_term *term)
 			close(get_op(queque)->fd[READ]);
 	}
 	term->last_status = term->last_status >> 8;
-	if (term->last_status == 127)
+	if (cmd_id(get_op(queque)->cmd) != -1 && term->last_status == 127)
 		error404(get_op(queque)->cmd, 1, term);
 }
 

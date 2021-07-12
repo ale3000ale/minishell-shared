@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:12:51 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/01 18:08:29 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:46:27 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	exec_cmd(t_op *op, int pid, char **env)
 		if (execve(op->cmd, args, env) == -1)
 		{
 			free_table(args);
+			printf("minishell: %s: command not found\n", op->cmd);
 			exit(127);
 		}
 	}

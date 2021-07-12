@@ -31,7 +31,7 @@ void	double_quotes(int *iter, char *input, char **new)
 
 void	get_red(t_term *term, int *iter, t_clist **red, int type)
 {
-	int	iter2;
+	int		iter2;
 	t_red	*new;
 	char	*tmp;
 
@@ -41,7 +41,7 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 	iter2 = *iter;
 	while (term->input[iter2] && term->input[iter2] != '|' && term->input[iter2] != '>' && term->input[iter2] != '<' && term->input[iter2] != ' ')
 		iter2++;
-	new->input  = ft_calloc(iter2 - *iter + 2, 1);
+	new->input = ft_calloc(iter2 - *iter + 2, 1);
 	if (term->input[*iter] == '\"')
 		double_quotes(iter, term->input, &new->input);
 	iter2 = 0;
@@ -53,7 +53,6 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 	tmp = ft_translate(new->input, term);
 	free(new->input);
 	new->input = tmp;
-	//printf("red input = %s\n", new->input);
 	new->type = type;
 	if (*red)
 		ft_clstadd_back(red, ft_clstnew(new));
@@ -84,7 +83,6 @@ void	find_cmd(t_term *term, int *iter, t_op **new)
 	temp = (*new)->cmd;
 	(*new)->cmd = ft_translate((*new)->cmd, term);
 	free(temp);
-	printf("\ncmd = %s\n", (*new)->cmd);
 }
 
 void	find_cmd_input(t_term *term, int *iter, t_op **new)
@@ -111,8 +109,7 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 	iter2 = ft_strlen((*new)->input) - 1;
 	while ((*new)->input[iter2] == ' ')
 		(*new)->input[iter2--] = 0;
-	printf("input = %s\n", (*new)->input);
-	(*new)->argv  = arg_matrix((*new)->input, term);
+	(*new)->argv = arg_matrix((*new)->input, term);
 }
 
 void	find_red(t_term *term, int *iter, t_op **new)
