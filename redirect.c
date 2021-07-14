@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 17:45:45 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/01 17:10:29 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 15:38:52 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,19 @@ static int	red_support(t_op *op, t_red *tmp)
 			return (1);
 	}
 	else if (tmp->type == RED_STDIN)
-		return(red_stdin(op, tmp));
+		return (red_stdin(op, tmp));
 	return (0);
 }
 
 int	redirection(t_op *op, char **fd_error)
 {
 	t_red	*tmp;
-	int	ex;
+	int		ex;
 
 	ex = 0;
 	while (!ex)
 	{
 		tmp = (t_red *)op->red->content;
-		//printf("red = %s", tmp->input);
 		if (red_support(op, tmp))
 		{
 			*fd_error = ft_strjoin("", tmp->input);

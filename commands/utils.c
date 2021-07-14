@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/01 17:27:13 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 15:46:45 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	my_echo(t_op *op, int pid)
 		ft_putstr_fd(op->argv[i++], op->fd[WRITE]);
 	}
 	if (!n)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", op->fd[WRITE]);
 	if (!pid)
 		exit(0);
 	return (0);

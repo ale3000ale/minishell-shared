@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 17:51:57 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 15:58:07 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		find_command(t_term *term);
 void	ft_signal_manager(void);
 void	my_clear_screen(void);
 int		ft_parsing_hub(t_term *term);
-void	ft_execute_commands(t_clist *queque, t_term *term, int pid, int red);
+void	ft_execute_commands(t_clist *queque, t_term *term, int pid);
 void	exec_manager(t_clist *queque, t_term *term);
 t_op	*get_op(t_clist *cls);
 char	*ft_translate(char *input, t_term *term);

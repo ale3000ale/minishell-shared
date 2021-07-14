@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/02 12:39:04 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 15:55:21 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_str2
 	char		*s2;
 }			t_str2;
 
-typedef struct		s_red
+typedef struct s_red
 {
 	char		*input;
 	int			type;
@@ -67,7 +67,7 @@ typedef struct s_term
 	struct termios	cconf;
 	t_queque		queque;
 	char			*input;
-	int				cursor; 	// indice del cursore
+	int				cursor;
 	int				last_status;
 	t_history		history;
 	char			**env;

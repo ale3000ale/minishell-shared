@@ -130,3 +130,116 @@ $?
 sasas
 $?
 exit
+> ao echo gay
+cat ao
+echo gay > ao
+cat ao
+bash
+> vv ls > ao
+cat vv
+cat ao
+>> ff > ff > aa ls
+cat aa
+>> ff > ff < aa ls
+>> ff > ff < aa lsca
+> ff cat < aa
+cat ff
+exit
+ls < rr
+bash
+bash
+exit
+ls < 22
+ls < 22 || cat < 22
+bash
+ls < 22 | cat < 22
+echo AA > 22
+bash
+ls asfjnagf jasf nfasjl 
+ls > ss | cat
+echos aa < 44
+echo aa < 44
+bash
+cat < aa < ff < gg
+cat < ss < .history < ss
+cat < ss < .history < test
+cat < ss < .history < test.out
+cat < ss < .historys < test.out
+< ss < .history cat < test.out
+< ss < .history cat < test.out
+cds  | cd  | pwd
+bash
+cds
+cds  | cd  | pwd
+env
+cds
+$?
+cds  < 22| cd  | pwd
+$?
+cd  < 22[3~[3~| cd  | pwd
+cd  < 22[3~[3~| cd  | pwd
+cd  < 22[3~[3~| cd  | p
+cd < 22
+$?
+$?
+$?
+cd < 228
+$?
+cd < 228
+$?
+cd < 228
+exit
+ls < 22
+ls < 22 || cat < 22
+bash
+ls < 22 | cat < 22
+echo AA > 22
+bash
+ls asfjnagf jasf nfasjl 
+ls > ss | cat
+echos aa < 44
+echo aa < 44
+bash
+cat < aa < ff < gg
+cat < ss < .history < ss
+cat < ss < .history < test
+cat < ss < .history < test.out
+cat < ss < .historys < test.out
+< ss < .history cat < test.out
+< ss < .history cat < test.out
+cds  | cd  | pwd
+bash
+cds
+cds  | cd  | pwd
+env
+cds
+$?
+cds  < 22| cd  | pwd
+$?
+cd  < 22[3~[3~| cd  | pwd
+cd  < 22[3~[3~| cd  | pwd
+cd  < 22[3~[3~| cd  | p
+make
+exit
+cds 11
+cds 11 | pwd
+cds < 11
+$?
+cds < 11 | pwd
+$? 
+exit
+cds < 11 | pwd
+$?
+cds 11 | pwd
+bash
+cds 11 | pwd
+$?
+exit
+cds 11 | pwd
+ exit
+cds 11 | pwd
+cds < 11 | pwd
+cds < 11
+$?
+cds < 11 | pwd
+exit 33
