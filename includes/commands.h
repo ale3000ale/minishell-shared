@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 16:11:27 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:36:32 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int		clear_cmd(int pid);
 int		exec_cmd(t_op *op, int pid, char **env);
 int		cmd_id(char *cmd);
 int		my_echo(t_op *op, int pid);
+int		export_view(int pid, char **environ, int fd[2]);
 
 #endif

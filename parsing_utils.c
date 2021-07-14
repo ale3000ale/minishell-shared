@@ -39,13 +39,17 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 	while (term->input[*iter] == ' ')
 		(*iter)++;
 	iter2 = *iter;
-	while (term->input[iter2] && term->input[iter2] != '|' && term->input[iter2] != '>' && term->input[iter2] != '<' && term->input[iter2] != ' ')
+	while (term->input[iter2] && term->input[iter2] != '|' \
+	 && term->input[iter2] != '>' && term->input[iter2] != '<' \
+	 && term->input[iter2] != ' ')
 		iter2++;
 	new->input = ft_calloc(iter2 - *iter + 2, 1);
 	if (term->input[*iter] == '\"')
 		double_quotes(iter, term->input, &new->input);
 	iter2 = 0;
-	while (term->input[*iter] && term->input[*iter] != '|' && term->input[*iter] != '>' && term->input[*iter] != '<' && term->input[*iter] != ' ')
+	while (term->input[*iter] && term->input[*iter] != '|' \
+	 && term->input[*iter] != '>' && term->input[*iter] != '<' \
+	 && term->input[*iter] != ' ')
 		new->input[iter2++] = term->input[(*iter)++];
 	iter2--;
 	while (new->input[iter2] == ' ')
@@ -57,7 +61,7 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 	if (*red)
 		ft_clstadd_back(red, ft_clstnew(new));
 	else
-		*red = ft_clstnew(new);	
+		*red = ft_clstnew(new);
 }
 
 void	find_cmd(t_term *term, int *iter, t_op **new)
@@ -114,8 +118,8 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 
 void	find_red(t_term *term, int *iter, t_op **new)
 {
-	if (term->input[*iter] == '>' && (term->input[*iter + 1]
-		&& term->input[*iter + 1] == '>'))
+	if (term->input[*iter] == '>' && (term->input[*iter + 1] \
+		 && term->input[*iter + 1] == '>'))
 	{
 		*iter += 2;
 		get_red(term, iter, &(*new)->red, RED_APPEND);
@@ -125,8 +129,8 @@ void	find_red(t_term *term, int *iter, t_op **new)
 		(*iter)++;
 		get_red(term, iter, &(*new)->red, RED_WRITE);
 	}
-	else if (term->input[*iter] == '<' && (term->input[*iter +  1]
-		&& term->input[*iter + 1] == '<'))
+	else if (term->input[*iter] == '<' && (term->input[*iter + 1] \
+		 && term->input[*iter + 1] == '<'))
 	{
 		*iter += 2;
 		get_red(term, iter, &(*new)->red, RED_STDIN);

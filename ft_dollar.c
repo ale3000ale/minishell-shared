@@ -38,7 +38,7 @@ void	find_var(char **input, char **env, char **arg)
 {
 	char	*find;
 	int		i;
-	int	n;
+	int		n;
 
 	i = 0;
 	while ((*input)[i] && (*input)[i] != ' ' && (*input)[i] != '\"'
@@ -58,7 +58,7 @@ void	find_var(char **input, char **env, char **arg)
 	{
 		n = 0;
 		while (env[i][n] != '=')
-		       n++;
+			n++;
 		if (!ft_strncmp(find, env[i], n))
 			break ;
 	}
@@ -83,7 +83,8 @@ void	ft_dollar(char **input, t_term *term, char **trans, int *iter)
 		find_var(input, term->env, &arg);
 		if (arg)
 		{
-			new = ft_calloc(ft_strlen(*trans) + ft_strlen(arg) + ft_strlen(*input), 1);	
+			new = ft_calloc(ft_strlen(*trans) + ft_strlen(arg) \
+			 + ft_strlen(*input), 1);
 			new = ft_strjoin(*trans, arg);
 			free(*trans);
 			free(arg);

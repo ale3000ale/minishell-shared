@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_gnl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:23:22 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 16:12:07 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/07/14 18:25:50 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	echo_input(char *buff, t_term *term)
 		composer(buff, term);
 	else
 	{
-		//term->cursor +=  1 + (!ft_strncmp(buff, "/t", 1) * 3);
 		term->cursor++;
 		temp = term->input;
 		term->input = ft_strjoin(temp, buff);

@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 16:13:53 by dlanotte          #+#    #+#              #
-#    Updated: 2021/07/14 16:50:02 by amarcell         ###   ########.fr        #
+#    Updated: 2021/07/14 19:19:09 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,16 +59,18 @@ GRAPH	=	graphic_functions/graphic_main.c
 
 COMMAND	=	commands/easy_cmd.c\
 			commands/env_cmd.c	\
+			commands/env_cmd2.c	\
 			commands/common_cmd.c\
 			commands/utils.c
 
 ENV		=	env/env_manager.c \
 			env/env_util0.c
 
-HISTORY	=	history/history.c
+HISTORY	=	history/history.c	
 
 SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c \
-			translate.c ft_dollar.c redirect.c parsing_utils.c matrix_arg.c
+			translate.c ft_dollar.c redirect.c parsing_utils.c matrix_arg.c main_utils.c	\
+			parsing_utils2.c
 
 OBJ := ${SRC:.c=.o}
 
@@ -108,3 +110,14 @@ fclean: clean
 	@ rm -f .history
 	@ find . -name ".DS_Store" -delete
 	@ echo $(RED)"fclean completed."$(COLOR_OFF)
+
+re: fclean
+	@ make
+
+norme:
+		@ echo $(BBLUE) "-------|norme $(NAME)|-------" $(COLOR_OFF) $(BLUE)
+		@ norminette $(SRC)
+		@ norminette *.h
+		@ echo $(COLOR_OFF)
+
+.PHONY: 	all clean fclean re norme 

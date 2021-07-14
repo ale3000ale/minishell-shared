@@ -22,12 +22,12 @@ void	alloc_matrix(char ***matrix, char *input)
 		if (input[i])
 			i++;
 	}
-	*matrix = ft_calloc(size + 2, sizeof(char *));;
+	*matrix = ft_calloc(size + 2, sizeof(char *));
 }
 
 char	*get_to_trans(int *iter, char *input)
 {
-	int	tmp;
+	int		tmp;
 	char	*str;
 
 	if (input[*iter] == ' ')
@@ -43,8 +43,8 @@ char	*get_to_trans(int *iter, char *input)
 char	**arg_matrix(char *input, t_term *term)
 {
 	char	**matrix;
-	int	i;
-	int	iter;
+	int		i;
+	int		iter;
 	char	*to_trans;
 
 	alloc_matrix(&matrix, input);

@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/12 18:50:55 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:32:09 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	error404(char *line, int pid, t_term *term)
 	if (line)
 	{
 		tmp = ft_translate(line, term);
-		printf("%s: command not found\n", tmp);
+		printf("minishell: %s: command not found\n", tmp);
 		free(tmp);
 	}
 	if (!pid)
@@ -27,17 +27,11 @@ int	error404(char *line, int pid, t_term *term)
 	return (127);
 }
 
-// some eventual free
-
-int	quit(t_op *op, t_term *term)
+static void	quit_exit(t_op *op, t_term *term)
 {
 	int		neg;
 
 	neg = 0;
-	if (mat_row((void **)op->argv) > 1)
-		return (ft_putstr_fd("exit: too many argument\n", 1) * 0 + 1);
-	close_history(&term->history);
-	free(term->input);
 	if (!mat_row((void **)op->argv))
 	{
 		ft_putstr_fd("exit\n", 1);
@@ -48,8 +42,10 @@ int	quit(t_op *op, t_term *term)
 		neg = 1;
 	if (!ft_strdigit(&op->argv[0][neg]))
 	{
-		ft_putstr_fd(op->argv[0], 1);
-		ft_putstr_fd("exit: numeric argument required\n", 1);
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(op->argv[0], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 		ft_clstclear(&term->queque.first, free_op);
 		exit (255);
 	}
@@ -57,6 +53,16 @@ int	quit(t_op *op, t_term *term)
 	ft_clstclear(&term->queque.first, free_op);
 	ft_putstr_fd("exit\n", 1);
 	exit(neg);
+}
+
+int	quit(t_op *op, t_term *term)
+{
+	if (mat_row((void **)op->argv) > 1)
+		return (ft_putstr_fd("minishell: exit: too many argument\n", 1) * 0 + 1);
+	close_history(&term->history);
+	free(term->input);
+	quit_exit(op, term);
+	return (0);
 }
 
 int	pwd(int pid, int fd[2])
@@ -76,12 +82,4 @@ int	cd(t_op *op, int pid)
 	if (!pid)
 		exit(ret);
 	return (ret);
-}
-
-int	clear_cmd(int pid)
-{
-	my_clear_screen();
-	if (!pid)
-		exit(0);
-	return (0);
 }

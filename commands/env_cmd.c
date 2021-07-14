@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/12 17:30:18 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:36:16 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ck_input(char *input)
 		cut = ft_strcut(input, ft_strchrid(input, '='));
 		plus = (cut[0][ft_strchrid(input, '=') - 1] == '+');
 		len = ft_strlen(cut[0]) - plus;
-		if (len && (ft_isalpha(cut[0][0]) || cut[0][0] ==  '_'))
+		if (len && (ft_isalpha(cut[0][0]) || cut[0][0] == '_'))
 		{
 			free_table(cut);
 			cut = ft_strcut(input, len);
@@ -77,46 +77,28 @@ static int	ck_input(char *input)
 		free_table(cut);
 		return (0);
 	}
-	return ((ft_isalpha(input[0]) || input[0] ==  '_' )&& strck(&input[1]));
+	return ((ft_isalpha(input[0]) || input[0] == '_' ) && strck(&input[1]));
 }
 
-static int	export_view(int pid, char **environ, int fd[2])
+static void	export2(char **input, t_term *term, int i)
 {
-	int		i;
-	char	**spl;
-	char	**tmp;
+	char	**var;
+	int		equal;
 
-	tmp = mat_dup(environ);
-	ft_sort_matrix(tmp, mat_row((void **)tmp));
-	i = 0;
-	while (tmp[i])
-	{
-		ft_putstr_fd("declare -x ", fd[WRITE]);
-		if (ft_strchrid(tmp[i], '=') != -1)
-		{
-			spl = ft_strcut(tmp[i], ft_strchrid(tmp[i], '=') + 1);
-			ft_putstr_fd(spl[0], fd[WRITE]);
-			ft_putstr_fd("\"", fd[WRITE]);
-			ft_putstr_fd(spl[1], fd[WRITE]);
-			ft_putstr_fd("\"", fd[WRITE]);
-			free_table(spl);
-		}
-		else
-			ft_putstr_fd(tmp[i], fd[WRITE]);
-		ft_putstr_fd("\n", fd[WRITE]);
-		i++;
-	}
-	free_table(tmp);
-	if (!pid)
-		exit(0);
-	return (0);
+	var = export_segmentation(input[i]);
+	equal = ft_strchrid(input[i], '=');
+	if (equal == -1)
+		ft_setenv(var[0], var[1], EMPTY, term);
+	else if (input[i][equal - 1] == '+')
+		ft_setenv(var[0], var[1], JOIN, term);
+	else
+		ft_setenv(var[0], var[1], OVERWRITE, term);
+	free_table(var);
 }
 
 int	export(char **input, int pid, t_term *term, int *fd)
 {
-	char	**var;
 	int		ck;
-	int		equal;
 	int		i;
 
 	i = 0;
@@ -125,23 +107,13 @@ int	export(char **input, int pid, t_term *term, int *fd)
 	while (input[i])
 	{
 		ck = ck_input(input[i]);
-		//printf("|%s|\n", input[i]);
 		if (ck)
-		{
-			var = export_segmentation(input[i]);
-			//printf("name: |%s|  cont: |%s|\n", var[0], var[1]);
-			equal = ft_strchrid(input[i], '=');
-			if (equal == -1)
-				ft_setenv(var[0], var[1], EMPTY, term);
-			else if (input[i][equal - 1] == '+')
-				ft_setenv(var[0], var[1], JOIN, term);
-			else
-				ft_setenv(var[0], var[1], OVERWRITE, term);
-			free_table(var);
-		}
+			export2(input, term, i);
 		else
 		{
-			printf("export: '%s': not a valid identifier\n", input[i]);
+			ft_putstr_fd("minishell: export: '", 2);
+			ft_putstr_fd(input[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			break ;
 		}
 		i++;
@@ -149,42 +121,4 @@ int	export(char **input, int pid, t_term *term, int *fd)
 	if (!pid)
 		exit(!ck);
 	return (!ck);
-}
-
-int	env(int pid, char **environ, int fd[2])
-{
-	int	i;
-
-	i = 0;
-	while (environ[i])
-	{
-		if ((ft_strccount(environ[i], '=') > 0))
-		{
-			ft_putstr_fd(environ[i], fd[WRITE]);
-			ft_putstr_fd("\n", fd[WRITE]);
-		}
-		i++;
-	}
-	if (!pid)
-		exit(0);
-	return (0);
-}
-
-int	unset(char **input, int pid, t_term *term)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		if (ft_unsetenv(input[i], term->env))
-		{
-			if (!pid)
-				exit(0);
-			return (0);
-		}
-	}
-	if (!pid)
-		exit(1);
-	return (1);
 }
