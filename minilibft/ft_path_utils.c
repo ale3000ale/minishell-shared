@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zxcvbinz <zxcvbinz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
-/*   Updated: 2021/05/21 23:16:51 by zxcvbinz         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:30:39 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//
 
 char	*find_path(void)
 {
@@ -26,12 +28,18 @@ char	*find_path(void)
 	return (current_path);
 }
 
+//
+
 int	change_path(char *new_path)
 {
+	if (!new_path || !new_path[0] || new_path[0] == '~')
+		new_path = getenv("HOME");
 	if (chdir(new_path) != 0)
 	{
-		printf("cd: no such file or directory: %s\n", new_path);
-		return (0);
+		printf("cd: %s: No such file or directory\n", new_path);
+		return (1);
 	}
-	return (1);
+	ft_setenv("OLDPWD", getenv("PWD"), OVERWRITE, g_term);
+	ft_setenv("PWD", find_path(), OVERWRITE, g_term);
+	return (0);
 }

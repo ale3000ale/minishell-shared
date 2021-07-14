@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strdigit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 14:51:28 by amarcell         ###   ########.fr       */
+/*   Created: 2021/05/31 15:00:11 by amarcell          #+#    #+#             */
+/*   Updated: 2021/05/31 15:18:26 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/errno.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <fcntl.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "my_main_functions.h"
-# include "commands.h"
-# include "struct.h"
-# include "history.h"
-# include "env.h"
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
 
-t_term	*g_term;
+int	ft_strdigit(char *s)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i++]))
+			return (0);
+	}
+	return (1);
+}

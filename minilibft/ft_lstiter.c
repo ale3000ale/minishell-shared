@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 14:51:28 by amarcell         ###   ########.fr       */
+/*   Created: 2021/01/16 19:20:51 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 17:34:49 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/errno.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <fcntl.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "my_main_functions.h"
-# include "commands.h"
-# include "struct.h"
-# include "history.h"
-# include "env.h"
+void	ft_clstiter(t_clist *lst, void (*f)(void *))
+{
+	int	finish;
 
-t_term	*g_term;
-
-#endif
+	finish = 0;
+	if (lst && f)
+	{
+		while (!finish)
+		{
+			(*f)(lst->content);
+			finish = lst->last;
+			lst = lst->next;
+		}
+	}
+}

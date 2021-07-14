@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 17:08:58 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/12 15:20:20 by amarcell         ###   ########.fr       */
+/*   Created: 2021/01/16 18:40:42 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 17:34:51 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_clstdelone(t_clist *lst, void (*del)(void*))
 {
-	int		i;
-	int		len[2];
-	char	*str;
-
-	len[0] = ft_strlen(s1);
-	len[1] = ft_strlen(s2);
-	i = 0;
-	str = (char *)malloc(len[0] + len[1] + 1);
-	if (!str)
-		return (0);
-	i = 0;
-	while (i < len[0] + len[1])
+	if (lst && del)
 	{
-		if (i < len[0])
-			str[i] = s1[i];
-		else
-			str[i] = s2[i - len[0]];
-		i++;
+		(*del)(lst->content);
+		lst->next->pre = lst->pre;
+		lst->pre->next = lst->next;
+		if (lst->last)
+			lst->pre->last = 1;
+		free(lst);
 	}
-	str[i] = '\0';
-	return (str);
+}
+
+t_clist	*ft_clst_export(t_clist *lst)
+{
+	if (lst)
+	{
+		lst->next->pre = lst->pre;
+		lst->pre->next = lst->next;
+		if (lst->last)
+			lst->pre->last = 1;
+	}
+	lst->next = lst;
+	lst->pre = lst;
+	return (lst);
 }

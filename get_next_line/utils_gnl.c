@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_gnl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:23:22 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/29 15:08:05 by fd-agnes         ###   ########.fr       */
+/*   Updated: 2021/07/14 16:12:07 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static	void	composer(char *buff, t_term *term)
 	free(temp);
 	free_table(cut);
 	write(1, term->input, ft_strlen(term->input));
+	history_change(&term->history, ft_strjoin("", term->input));
 	term->cursor = ft_strlen(term->input);
 	cursorto(ex_pos, term);
 }
@@ -52,6 +53,7 @@ int	delete(t_term *term)
 	write(1, "\033[0K", 4);
 	free(term->input);
 	term->input = ft_strjoin(cut[0], cut[1]);
+	history_change(&term->history, ft_strjoin("", term->input));
 	free_table(cut);
 	write(1, term->input, ft_strlen(term->input));
 	term->cursor = ft_strlen(term->input);
@@ -71,8 +73,19 @@ int	echo_input(char *buff, t_term *term)
 		term->cursor++;
 		temp = term->input;
 		term->input = ft_strjoin(temp, buff);
+		history_change(&term->history, ft_strdup(term->input));
 		free(temp);
 		write(1, buff, ft_strlen(buff));
 	}
 	return (2);
+}
+
+void	move_history(t_term *term, int dir)
+{
+	free(term->input);
+	term->input = ft_strjoin("", get_history(dir, &term->history));
+	cursorto(0, term);
+	write(1, "\033[0K", 4);
+	ft_putstr_fd(term->input, 1);
+	term->cursor = ft_strlen(term->input);
 }

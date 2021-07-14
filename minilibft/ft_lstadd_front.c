@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 14:51:28 by amarcell         ###   ########.fr       */
+/*   Created: 2021/01/16 16:23:01 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 17:34:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/errno.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <fcntl.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "my_main_functions.h"
-# include "commands.h"
-# include "struct.h"
-# include "history.h"
-# include "env.h"
-
-t_term	*g_term;
-
-#endif
+void	ft_clstadd_front(t_clist **lst, t_clist *new)
+{
+	if (lst)
+	{
+		if (lst[0])
+		{
+			new->next = lst[0];
+			new->pre = lst[0]->pre;
+			new->last = 0;
+			lst[0]->pre = new;
+			new->pre->next = new;
+			lst[0] = new;
+		}
+		else
+		{
+			lst[0] = new;
+			new->last = 1;
+		}
+	}
+}

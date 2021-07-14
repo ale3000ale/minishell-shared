@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 14:51:28 by amarcell         ###   ########.fr       */
+/*   Created: 2021/06/16 16:38:35 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/21 17:01:40 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/errno.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <fcntl.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "my_main_functions.h"
-# include "commands.h"
-# include "struct.h"
-# include "history.h"
-# include "env.h"
+# define	EMPTY			0
+# define	OVERWRITE		1
+# define	JOIN			2
 
-t_term	*g_term;
-
+int		ft_unsetenv(char *name, char **env);
+int		ft_setenv(char *name, char *content, int option, t_term *terms);
+char	*ft_getenv(char *name, char **env);
 #endif

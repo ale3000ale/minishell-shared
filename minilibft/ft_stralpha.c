@@ -1,38 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_stralpha.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 17:08:58 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/12 15:20:20 by amarcell         ###   ########.fr       */
+/*   Created: 2021/06/03 16:58:43 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/17 18:42:21 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_isalpha(int c)
 {
-	int		i;
-	int		len[2];
-	char	*str;
+	if ((c >= 'a' && c <= 'z') \
+		 || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
 
-	len[0] = ft_strlen(s1);
-	len[1] = ft_strlen(s2);
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
+int	ft_stralpha(char *s)
+{
+	int	i;
+
 	i = 0;
-	str = (char *)malloc(len[0] + len[1] + 1);
-	if (!str)
-		return (0);
-	i = 0;
-	while (i < len[0] + len[1])
+	while (s[i])
 	{
-		if (i < len[0])
-			str[i] = s1[i];
-		else
-			str[i] = s2[i - len[0]];
-		i++;
+		if (!ft_isalpha(s[i++]))
+			return (0);
 	}
-	str[i] = '\0';
-	return (str);
+	return (1);
+}
+
+int	ft_stralnum(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isalnum(s[i++]))
+			return (0);
+	}
+	return (1);
 }

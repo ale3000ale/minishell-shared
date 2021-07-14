@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/01 14:51:28 by amarcell         ###   ########.fr       */
+/*   Created: 2021/01/16 16:02:06 by amarcell          #+#    #+#             */
+/*   Updated: 2021/06/10 17:34:47 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/errno.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <fcntl.h>
-# include "graphic.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "my_main_functions.h"
-# include "commands.h"
-# include "struct.h"
-# include "history.h"
-# include "env.h"
+t_clist	*ft_clstnew(void *content)
+{
+	t_clist	*l;
 
-t_term	*g_term;
-
-#endif
+	l = (t_clist *)malloc(sizeof(t_clist));
+	if (!l)
+		return (0);
+	l->content = content;
+	l->next = l;
+	l->pre = l;
+	l->last = 1;
+	return (l);
+}

@@ -6,7 +6,7 @@
 #    By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/05/29 15:15:25 by dlanotte         ###   ########.fr        #
+#    Updated: 2021/07/14 16:11:08 by dlanotte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,27 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_memcpy.c \
 			minilibft/ft_strlen.c \
 			minilibft/ft_strcut.c\
-			minilibft/ft_strcpy.c
+			minilibft/ft_strcpy.c\
+			minilibft/ft_itoa.c\
+			minilibft/ft_putstr.c\
+			minilibft/ft_strdigit.c\
+			minilibft/ft_atoi.c	\
+			minilibft/ft_strfind.c\
+			minilibft/mat_row.c\
+			minilibft/ft_stralpha.c\
+			minilibft/mat_join_row.c\
+			minilibft/mat_init.c	\
+			minilibft/ft_lstadd_back.c	\
+			minilibft/ft_lstadd_front.c	\
+			minilibft/ft_lstclear.c	\
+			minilibft/ft_lstdelone.c\
+			minilibft/ft_lstiter.c	\
+			minilibft/ft_lstlast.c	\
+			minilibft/ft_lstnew.c	\
+			minilibft/ft_lstsize.c	\
+			minilibft/ft_matsort.c	\
+			minilibft/mat_dup.c		\
+			minilibft/ft_strcmp.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -40,9 +60,21 @@ GNL		= 	get_next_line/get_next_line.c \
 
 GRAPH	=	graphic_functions/graphic_main.c
 
-COMMAND	=	commands/easy_cmd.c
+COMMAND	=	commands/easy_cmd.c\
+			commands/env_cmd.c	\
+			commands/common_cmd.c\
+			commands/utils.c
 
+ENV		=	env/env_manager.c
+
+<<<<<<< HEAD
 SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} main.c utils.c parsing.c
+=======
+HISTORY	=	history/history.c
+
+SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c \
+			translate.c ft_dollar.c redirect.c parsing_utils.c matrix_arg.c
+>>>>>>> master
 
 OBJ := ${SRC:.c=.o}
 
@@ -61,8 +93,13 @@ $(NAME): $(OBJ)
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
+<<<<<<< HEAD
 	@ echo "  dlanotte | gcarbone | amarcell"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
 	@ echo "  fd-agnes | mobrycki | flwang  "$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+=======
+	@ echo "  amarcell | gcarbone | fwang   "$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+>>>>>>> master
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""
 	#@ say -v Alice benvenuto in asci hell, premi enter per continuare      
@@ -79,6 +116,7 @@ slim:
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
+<<<<<<< HEAD
 	@ echo "  dlanotte | gcarbone | amarcell"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
 	@ echo "  fd-agnes | mobrycki | flwang  "$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
@@ -103,6 +141,32 @@ debug:
 	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
 	@ echo ""
 	@ say -v Alice benvenuto in asci hell versione debag      
+=======
+	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
+	@ echo $(YELLOW)" SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM  " $(COLOR_OFF)
+	@ echo ""
+	@ read -p "Done. Press enter to continue..."
+
+debug: 
+	@ $(CC) $(DFLAGS) $(SRC) -o $(NAME)
+	@ make clean
+	@ echo ""
+	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
+	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
+	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
+	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
+	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
+	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
+	@ echo ""
+	#@ say -v Alice benvenuto in asci hell versione debag      
+>>>>>>> master
 	@ read -p "Done. Press enter to continue..."
 
 clean:   
@@ -118,4 +182,8 @@ debug-clean: fclean
 	@ rm -dir -f minishell.dSYM
 	@ echo "debug-clean completed."
 
+<<<<<<< HEAD
 re: fclean all debug slim
+=======
+re: fclean all debug slim
+>>>>>>> master
