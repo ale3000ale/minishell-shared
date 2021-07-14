@@ -6,7 +6,7 @@
 /*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/14 16:11:58 by dlanotte         ###   ########.fr       */
+/*   Updated: 2021/07/14 16:25:07 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	get_next_line_basic(int fd, char **line)
 
 	if (fd < 0 || !line)
 		return (-1);
-	term->input = ft_calloc(1, 1);
-	if (!(term->input))
+	*line = ft_calloc(1, 1);
+	if (!(*line))
 		return (-1);
 	buff[0] = 0;
 	buff[1] = 0;
@@ -101,5 +101,5 @@ int	get_next_line_basic(int fd, char **line)
 		free(temp);
 		rd = read(fd, buff, 1) > 0;
 	}
-	return (rd);
+	return (0);
 }
