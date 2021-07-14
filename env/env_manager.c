@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 16:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/08 16:29:42 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/14 16:29:37 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static int	id_env(char *name, char **env)
-{
-	int		i;
-	char	**spl;
-
-	i = 0;
-	while (env[i])
-	{
-		spl = ft_split(env[i], '=');
-		if (!ft_strcmp(name, spl[0]))
-		{
-			free_table(spl);
-			return (i);
-		}
-		free_table(spl);
-		i++;
-	}
-	return (-1);
-}
 
 static char	*new_var(char *name, char *content, int empty)
 {

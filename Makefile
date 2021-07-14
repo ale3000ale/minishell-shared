@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+         #
+#    By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/07/08 16:18:19 by mobrycki         ###   ########.fr        #
+#    Updated: 2021/07/14 16:30:32 by gcarbone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ COMMAND	=	commands/easy_cmd.c\
 			commands/common_cmd.c\
 			commands/utils.c
 
-ENV		=	env/env_manager.c
+ENV		=	env/env_manager.c \
+			env/env_util0.c
 
 HISTORY	=	history/history.c
 
