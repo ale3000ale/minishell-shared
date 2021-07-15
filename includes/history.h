@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:56:33 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 19:14:21 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/15 15:52:05 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ int		append_history(t_history *history);
 void	open_history(t_term *term);
 void	move_history(t_term *term, int dir);
 void	print_history(t_clist *cls);
+t_str2	*get_str2(t_clist *cls);
+void	free_str2(void *content);
 
 #endif

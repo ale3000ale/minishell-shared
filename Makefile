@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 16:13:53 by dlanotte          #+#    #+#              #
-#    Updated: 2021/07/14 19:19:09 by amarcell         ###   ########.fr        #
+#    Updated: 2021/07/15 15:53:00 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ COMMAND	=	commands/easy_cmd.c\
 ENV		=	env/env_manager.c \
 			env/env_util0.c
 
-HISTORY	=	history/history.c	
+HISTORY	=	history/history.c	\
+			history/history_utils.c
 
 SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c \
 			translate.c ft_dollar.c redirect.c parsing_utils.c matrix_arg.c main_utils.c	\

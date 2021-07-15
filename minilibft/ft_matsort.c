@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_matsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexmarcelli <alexmarcelli@student.42.f    +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 11:03:16 by alexmarcell       #+#    #+#             */
-/*   Updated: 2021/06/23 11:45:16 by alexmarcell      ###   ########.fr       */
+/*   Updated: 2021/07/15 15:56:07 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_strzocmp(const char *s1, const char *s2)
 
 static void	ft_swap(char **tab, int i, int j)
 {
-	char  *c;
+	char	*c;
 
 	c = tab[i];
 	tab[i] = tab[j];
@@ -47,8 +47,8 @@ static void	ft_swap(char **tab, int i, int j)
 
 void	ft_sort_matrix(char **tab, int size)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	if (size <= 1)
 		return ;
