@@ -44,15 +44,11 @@ void	find_var(char **input, char **env, char **arg)
 	while ((*input)[i] && (*input)[i] != ' ' && (*input)[i] != '\"'
 		&& (*input)[i] != '$' && (*input)[i] != '\'')
 		i++;
-	find = malloc(i + 1);
+	find = ft_calloc(i + 1, 1);
 	i = 0;
 	while (**input && **input != ' ' && **input != '\"' && **input != '$'
 		&& **input != '\'')
-	{
-		find[i++] = **input;
-		(*input)++;
-	}
-	find[i] = 0;
+		find[i++] = (*(*input)++);
 	i = -1;
 	while (env[++i])
 	{
@@ -72,9 +68,8 @@ void	ft_dollar(char **input, t_term *term, char **trans, int *iter)
 	char	*new;
 	char	*arg;
 
-	arg = 0;
-	(*input)++;
-	if (**input == '$')
+	arg = NULL;
+	if (*(++(*input)) == '$')
 		*trans = trans_pid(input, trans, iter);
 	else if (**input == '?')
 		*trans = trans_error(input, trans, iter, term->last_status);
@@ -83,8 +78,6 @@ void	ft_dollar(char **input, t_term *term, char **trans, int *iter)
 		find_var(input, term->env, &arg);
 		if (arg)
 		{
-			new = ft_calloc(ft_strlen(*trans) + ft_strlen(arg) \
-			 + ft_strlen(*input), 1);
 			new = ft_strjoin(*trans, arg);
 			free(*trans);
 			free(arg);
@@ -92,10 +85,6 @@ void	ft_dollar(char **input, t_term *term, char **trans, int *iter)
 			*trans = new;
 		}
 	}
-	else
-	{
-		(*trans)[*iter] = '$';
-		(*iter)++;
-		(*input)++;
-	}
+	else if ((*input)++ || 1)
+		(*trans)[*iter++] = '$';
 }

@@ -6,7 +6,7 @@
 #    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 16:13:53 by dlanotte          #+#    #+#              #
-#    Updated: 2021/07/15 15:53:00 by amarcell         ###   ########.fr        #
+#    Updated: 2021/07/15 17:36:18 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,8 +88,8 @@ title:
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  dlanotte | gcarbone | amarcell"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  fd-agnes | mobrycki | flwang  "$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""
 	@ read -p "Done. Press enter to continue..."
@@ -118,7 +118,7 @@ re: fclean
 norme:
 		@ echo $(BBLUE) "-------|norme $(NAME)|-------" $(COLOR_OFF) $(BLUE)
 		@ norminette $(SRC)
-		@ norminette *.h
+		@ norminette includes/*.h
 		@ echo $(COLOR_OFF)
 
 .PHONY: 	all clean fclean re norme 

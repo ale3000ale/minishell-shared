@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 15:57:36 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/15 15:57:00 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:12:45 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	open_history(t_term *term)
 		ft_clstclear(&term->history.history, free_str2);
 	ft_clstadd_front(&term->history.history, ft_clstnew(line));
 	term->history.count_new = 0;
-	print_history(term->history.history);
 }
 
 void	history_change(t_history *history, char *line)

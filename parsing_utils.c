@@ -29,34 +29,43 @@ void	double_quotes(int *iter, char *input, char **new)
 	free(str);
 }
 
+static int	fucknorm2(char **str, int i, t_term *term, int fuck)
+{
+	char	*s;
+
+	if (!fuck)
+		return (*str[i] && *str[i] != '|' \
+		 && *str[i] != '>' && *str[i] != '<' \
+	 	 && *str[i] != ' ');
+	else
+	{
+		s = ft_translate(*str, term);
+		free(*str);
+		*str = s;
+	}
+	return (0);
+}
+
 void	get_red(t_term *term, int *iter, t_clist **red, int type)
 {
 	int		iter2;
 	t_red	*new;
-	char	*tmp;
 
 	new = ft_calloc(1, sizeof(t_red));
 	while (term->input[*iter] == ' ')
 		(*iter)++;
 	iter2 = *iter;
-	while (term->input[iter2] && term->input[iter2] != '|' \
-	 && term->input[iter2] != '>' && term->input[iter2] != '<' \
-	 && term->input[iter2] != ' ')
+	while (fucknorm2(&term->input, iter2, term, 0))
 		iter2++;
 	new->input = ft_calloc(iter2 - *iter + 2, 1);
 	if (term->input[*iter] == '\"')
 		double_quotes(iter, term->input, &new->input);
 	iter2 = 0;
-	while (term->input[*iter] && term->input[*iter] != '|' \
-	 && term->input[*iter] != '>' && term->input[*iter] != '<' \
-	 && term->input[*iter] != ' ')
+	while (fucknorm2(&term->input, *iter, term, 0))
 		new->input[iter2++] = term->input[(*iter)++];
-	iter2--;
-	while (new->input[iter2] == ' ')
-		new->input[iter2--] = 0;
-	tmp = ft_translate(new->input, term);
-	free(new->input);
-	new->input = tmp;
+	while (new->input[--iter2] == ' ')
+		new->input[iter2] = 0;
+	fucknorm2(&new->input, 0, term, 1);
 	new->type = type;
 	if (*red)
 		ft_clstadd_back(red, ft_clstnew(new));
@@ -114,30 +123,4 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 	while ((*new)->input[iter2] == ' ')
 		(*new)->input[iter2--] = 0;
 	(*new)->argv = arg_matrix((*new)->input, term);
-}
-
-void	find_red(t_term *term, int *iter, t_op **new)
-{
-	if (term->input[*iter] == '>' && (term->input[*iter + 1] \
-		 && term->input[*iter + 1] == '>'))
-	{
-		*iter += 2;
-		get_red(term, iter, &(*new)->red, RED_APPEND);
-	}
-	else if (term->input[*iter] == '>')
-	{
-		(*iter)++;
-		get_red(term, iter, &(*new)->red, RED_WRITE);
-	}
-	else if (term->input[*iter] == '<' && (term->input[*iter + 1] \
-		 && term->input[*iter + 1] == '<'))
-	{
-		*iter += 2;
-		get_red(term, iter, &(*new)->red, RED_STDIN);
-	}
-	else if (term->input[*iter] == '<')
-	{
-		(*iter)++;
-		get_red(term, iter, &(*new)->red, RED_READ);
-	}
 }

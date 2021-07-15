@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 19:18:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/15 15:57:53 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:43:07 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,30 @@ void	free_op(void *op)
 	tmp->red = 0;
 	free(op);
 	op = 0;
+}
+
+void	find_red(t_term *term, int *iter, t_op **new)
+{
+	if (term->input[*iter] == '>' && (term->input[*iter + 1] \
+		 && term->input[*iter + 1] == '>'))
+	{
+		*iter += 2;
+		get_red(term, iter, &(*new)->red, RED_APPEND);
+	}
+	else if (term->input[*iter] == '>')
+	{
+		(*iter)++;
+		get_red(term, iter, &(*new)->red, RED_WRITE);
+	}
+	else if (term->input[*iter] == '<' && (term->input[*iter + 1] \
+		 && term->input[*iter + 1] == '<'))
+	{
+		*iter += 2;
+		get_red(term, iter, &(*new)->red, RED_STDIN);
+	}
+	else if (term->input[*iter] == '<')
+	{
+		(*iter)++;
+		get_red(term, iter, &(*new)->red, RED_READ);
+	}
 }

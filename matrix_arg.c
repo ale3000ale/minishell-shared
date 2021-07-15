@@ -40,6 +40,13 @@ char	*get_to_trans(int *iter, char *input)
 	return (str);
 }
 
+static	void	*fucknorm(int *a, int *b)
+{
+	*a = 0;
+	*b = 0;
+	return (0);
+}
+
 char	**arg_matrix(char *input, t_term *term)
 {
 	char	**matrix;
@@ -48,9 +55,7 @@ char	**arg_matrix(char *input, t_term *term)
 	char	*to_trans;
 
 	alloc_matrix(&matrix, input);
-	iter = 0;
-	i = 0;
-	to_trans = 0;
+	to_trans = fucknorm(&iter, &i);
 	while (input[iter])
 	{
 		if (input[iter] == '\"')

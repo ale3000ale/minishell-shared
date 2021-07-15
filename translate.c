@@ -6,13 +6,12 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 12:33:21 by mobrycki          #+#    #+#             */
-/*   Updated: 2021/07/14 19:19:45 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/15 17:10:24 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
 
-//search for single quotes
 int	if1(char **input, char **trans, int *iter)
 {
 	int	flag;
@@ -21,13 +20,12 @@ int	if1(char **input, char **trans, int *iter)
 
 	i = -1;
 	quotes = 0;
-	flag = 0;
-	if (**input == 39)
+	flag = (**input == 39);
+	if (flag)
 	{
 		(*input)++;
 		while ((*input)[++i] && !quotes)
-			if ((*input)[i] == '\'')
-				quotes = 1;
+			quotes = (quotes || ((*input)[i] == '\''));
 		if (quotes)
 		{
 			while (**input && **input != 39)
@@ -35,14 +33,28 @@ int	if1(char **input, char **trans, int *iter)
 				(*trans)[(*iter)++] = **input;
 				(*input)++;
 			}
-			if (**input)
-				(*input)++;
+			(*input) = *input + (**input != 0);
 		}
 		else
 			(*trans)[(*iter)++] = '\'';
-		flag = 1;
 	}
 	return (flag);
+}
+
+static void	ifuck2(char **input, char **trans, int *iter, t_term *term)
+{
+	while (**input && **input != '\"')
+	{
+		if (**input == '$')
+			ft_dollar(input, term, trans, iter);
+		else
+		{
+			(*trans)[(*iter)++] = **input;
+			(*input)++;
+		}
+	}
+	if (**input)
+		(*input)++;
 }
 
 //search for double quotes and dollars, else just copy the char in trans
@@ -60,20 +72,7 @@ void	if2(char **input, char **trans, int *iter, t_term *term)
 			if ((*input)[i] == '\"')
 				quotes = 1;
 		if (quotes)
-		{
-			while (**input && **input != '\"')
-			{
-				if (**input == '$')
-					ft_dollar(input, term, trans, iter);
-				else
-				{
-					(*trans)[(*iter)++] = **input;
-					(*input)++;
-				}
-			}
-			if (**input)
-				(*input)++;
-		}
+			ifuck2(input, trans, iter, term);
 		else
 			(*trans)[(*iter)++] = '\"';
 	}

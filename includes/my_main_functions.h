@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/14 16:49:54 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:44:04 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,5 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new);
 void	find_red(t_term *term, int *iter, t_op **new);
 char	**arg_matrix(char *input, t_term *term);
 int		redirection(t_op *op, char **fd_error);
+void	get_red(t_term *term, int *iter, t_clist **red, int type);
 #endif
