@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/07/08 16:16:47 by mobrycki          #+#    #+#             */
+/*   Updated: 2021/07/15 15:56:45 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	ft_strcmp(char *s1, char *s2)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	int	i;
 
-	if (!dest && !src)
-		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
 	i = 0;
-	while (i < n)
-	{
-		ds[i] = sr[i];
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
-	}
-	return (ds);
+	return (s1[i] - s2[i]);
 }

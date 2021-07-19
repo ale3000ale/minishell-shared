@@ -6,45 +6,63 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 15:42:15 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:32:09 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	error404(char *line, int pid)
+int	error404(char *line, int pid, t_term *term)
 {
-	char	**split;
+	char	*tmp;
 
-	split = ft_split(line, ' ');
-	if (split[0])
-		printf("%s: command not found\n", split[0]);
-	free_table(split);
+	if (line)
+	{
+		tmp = ft_translate(line, term);
+		printf("minishell: %s: command not found\n", tmp);
+		free(tmp);
+	}
 	if (!pid)
 		exit(127);
 	return (127);
 }
 
-// some eventual free
-
-void	quit(char *input, t_term *term)
+static void	quit_exit(t_op *op, t_term *term)
 {
-	int	neg;
+	int		neg;
 
-	close_history(&term->history);
-	ft_putstr_fd("exit\n", 1);
 	neg = 0;
-	if (!input[0])
-		exit (0);
-	if (input[0] == '-' && input[1])
-		neg = 1;
-	if (!ft_strdigit(&input[neg]))
+	if (!mat_row((void **)op->argv))
 	{
-		ft_putstr_fd(input, 1);
-		ft_putstr_fd(": numeric argument required\n", 1);
-		exit(255);
+		ft_putstr_fd("exit\n", 1);
+		ft_clstclear(&term->queque.first, free_op);
+		exit(term->last_status);
 	}
-	exit(ft_latoi(input));
+	if (op->argv[0][0] == '-' && op->argv[0][0])
+		neg = 1;
+	if (!ft_strdigit(&op->argv[0][neg]))
+	{
+		ft_putstr_fd("exit\n", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(op->argv[0], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		ft_clstclear(&term->queque.first, free_op);
+		exit (255);
+	}
+	neg = ft_latoi(op->argv[0]);
+	ft_clstclear(&term->queque.first, free_op);
+	ft_putstr_fd("exit\n", 1);
+	exit(neg);
+}
+
+int	quit(t_op *op, t_term *term)
+{
+	if (mat_row((void **)op->argv) > 1)
+		return (ft_putstr_fd("minishell: exit: too many argument\n", 1) * 0 + 1);
+	close_history(&term->history);
+	free(term->input);
+	quit_exit(op, term);
+	return (0);
 }
 
 int	pwd(int pid, int fd[2])
@@ -56,18 +74,12 @@ int	pwd(int pid, int fd[2])
 	return (0);
 }
 
-int	cd(char *input, int pid)
+int	cd(t_op *op, int pid)
 {
-	change_path(input);
-	if (!pid)
-		exit(0);
-	return (0);
-}
+	int	ret;
 
-int	clear_cmd(int pid)
-{
-	my_clear_screen();
+	ret = change_path(op->argv[0]);
 	if (!pid)
-		exit(0);
-	return (0);
+		exit(ret);
+	return (ret);
 }

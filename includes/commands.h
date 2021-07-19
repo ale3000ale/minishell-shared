@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 15:52:08 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:36:32 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,21 @@
 # define WRITE					1
 # define READ					0
 
+# define EOT					4
+
 /* FUNCTIONS */
 
-int		error404(char *line, int pid);
-void	quit(char *input, t_term *term);
-int		export(char *input, int pid);
-int		unset(char *input, int pid);
+int		error404(char *line, int pid, t_term *term);
+int		quit(t_op *op, t_term *term);
+int		export(char **input, int pid, t_term *term, int *fd);
+int		unset(char **input, int pid, t_term *term);
 int		pwd(int pid, int fd[2]);
 int		env(int pid, char **environ, int fd[2]);
-int		cd(char *input, int pid);
+int		cd(t_op *op, int pid);
 int		clear_cmd(int pid);
-int		exec_cmd(char *cmd, char *input, int pid, char **env);
+int		exec_cmd(t_op *op, int pid, char **env);
 int		cmd_id(char *cmd);
+int		my_echo(t_op *op, int pid);
+int		export_view(int pid, char **environ, int fd[2]);
 
 #endif

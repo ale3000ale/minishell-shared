@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:16:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/10 16:32:27 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/01 14:51:28 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@
 # include "commands.h"
 # include "struct.h"
 # include "history.h"
+# include "env.h"
+
+t_term	*g_term;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fd-agnes <fd-agnes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 13:01:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/05/29 15:17:23 by fd-agnes         ###   ########.fr       */
+/*   Updated: 2021/07/14 18:25:40 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	cursorforward(t_term *term)
 {
-	//printf("pos: %d len: %lu\n",term->cursor, ft_strlen(term->input));
 	if ((term->cursor < (int)ft_strlen(term->input)))
 	{
 		write(1, "\033[1C", 4);

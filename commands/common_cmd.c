@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:12:51 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 16:18:28 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 16:59:13 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,29 @@ static void	son_exe(char *cmd, char **args, char **env)
 	free_table(path);
 }
 
-int	exec_cmd(char *cmd, char *input, int pid, char **env)
+int	exec_cmd(t_op *op, int pid, char **env)
 {
 	char	**args;
-	char	*temp;
+	int		i;
 
+	i = 0;
+	args = ft_calloc(mat_row((void **)op->argv) + 2, sizeof(char *));
+	if (op->cmd)
+		args[i] = op->cmd;
+	while (op->argv[i])
+	{
+		args[i + 1] = op->argv[i];
+		i++;
+	}
 	if (!pid)
 	{
-		input = ft_strjoin(" ", input);
-		temp = input;
-		input = ft_strjoin(cmd, input);
-		free(temp);
-		args = ft_split(input, ' ');
-		son_exe(cmd, args, env);
-		if (execve(cmd, args, env) == -1)
+		son_exe(op->cmd, args, env);
+		if (execve(op->cmd, args, env) == -1)
 		{
 			free_table(args);
-			free(cmd);
-			free(input);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(op->cmd, 2);
+			ft_putstr_fd(": command not found\n", 2);
 			exit(127);
 		}
 	}

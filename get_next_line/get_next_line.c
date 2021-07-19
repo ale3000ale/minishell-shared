@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 17:25:56 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/14 17:38:17 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 18:25:46 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,43 @@ static int	switch_special(char *buff, t_term *term)
 	return (1);
 }
 
-static void	check_char(char *buff, t_term *term)
+static int	gnl_utils(t_term *term, char buff[7], int rd)
 {
-	int		ret;
-
-	ret = switch_special(buff, term);
+	term->cursor = 0;
+	while (rd >= 0)
+	{
+		ft_bzero(buff, 7);
+		tcsetattr(0, TCSANOW, &term->cconf);
+		rd = read(0, buff, 6);
+		tcsetattr(0, TCSANOW, &term->dconf);
+		if (buff[0] == EOT && term->input[0])
+			continue ;
+		else if (buff[0] == EOT && !term->input[0])
+		{
+			ft_strlcpy(buff, "exit", 5);
+			switch_special(buff, term);
+			return (append_history(&term->history));
+		}
+		if (buff[0] == '\n' && term->input[0])
+			return (append_history(&term->history));
+		if (buff[0] == '\n' && !term->input[0])
+			return (1);
+		if (rd > 0)
+			switch_special(buff, term);
+	}
+	return (rd);
 }
 
 int	get_next_line(int fd, t_term *term)
 {
 	char	buff[7];
-	int		rd;
 
 	if (fd < 0)
 		return (-1);
 	term->input = ft_calloc(1, 1);
 	if (!(term->input))
 		return (-1);
-	rd = 1;
-	term->cursor = 0;
-	while (rd > 0)
-	{
-		ft_bzero(buff, 6);
-		tcsetattr(0, TCSANOW, &term->cconf);
-		rd = read(fd, buff, 6);
-		tcsetattr(0, TCSANOW, &term->dconf);
-		if (buff[0] == '\n')
-			return (append_history(&term->history, \
-			ft_strjoin("", term->input)));
-		if (rd > 0)
-			check_char(buff, term);
-	}
-	return (rd);
+	return (gnl_utils(term, buff, 1));
 }
 
 int	get_next_line_basic(int fd, char **line)

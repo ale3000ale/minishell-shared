@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlanotte <dlanotte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/15 16:46:19 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 16:11:34 by dlanotte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include "minishell.h"
 
+int				ft_strcmp(char *s1, char *s2);
 char			**ft_split(char const *s, char c);
 size_t			ft_strlen(const char *s);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -42,6 +43,8 @@ int				ft_stralpha(char *s);
 int				ft_isalpha(int c);
 void			**mat_join_row(void **mat, void *row);
 void			**mat_init(int dim, int h);
+char			**mat_dup(char **mat);
+void			ft_sort_matrix(char **tab, int size);
 
 t_clist			*ft_clstnew(void *content);
 void			ft_clstadd_front(t_clist **lst, t_clist *new);
@@ -54,5 +57,7 @@ void			ft_clstiter(t_clist *lst, void (*f)(void *));
 t_clist			*ft_clst_export(t_clist *lst);
 char			*ft_strdup(char *s);
 char			**table_dup(char **mat);
+int				ft_isalnum(int c);
+int				ft_stralnum(char *s);
 
 #endif

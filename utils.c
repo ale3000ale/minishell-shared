@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/15 19:00:53 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 19:19:53 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,33 @@ void	init(t_term *term, char **env)
 	char	*level;
 
 	level = getenv("SHLVL");
-	level[0]++;
-	setenv("SHLVL", level, 1);
 	term->type = getenv("TERM");
 	tcgetattr(0, &term->dconf);
 	ft_memcpy(&term->cconf, &term->dconf, sizeof(struct termios));
 	term->cconf.c_lflag &= ~(ECHO | ICANON);
 	term->cursor = 0;
-	term->env = env;
+	term->env = table_dup(env);
 	open_history(term);
+	level = ft_itoa(ft_atoi(level) + 1);
+	ft_setenv("SHLVL", level, 1, term);
+	free(level);
 }
 
 static void	intHandler(int signal)
 {
-	if (signal == 2)
+	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
 		graphic_hub(2, find_path());
-		ft_signal_manager();
+		free(g_term->input);
+		g_term->input = ft_strdup("");
+		g_term->cursor = 0;
+		g_term->last_status = 1;
 	}
 }
 
 void	ft_signal_manager(void)
 {
 	signal(SIGINT, intHandler);
+	signal(SIGQUIT, intHandler);
 }

@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/09 18:44:21 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:12:24 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,53 @@ int	cmd_id(char *cmd)
 		ret = ERROR;
 	free_table(cmds);
 	return (ret);
+}
+
+int	n_flag(char *input)
+{
+	int		i;
+	int		n;
+
+	i = 1;
+	n = 0;
+	if (input && !ft_strncmp(input, "-n", 1))
+	{
+		n = 1;
+		while (i != -1 && input[i])
+		{
+			if (input[i++] != 'n')
+				return (0);
+		}
+	}
+	return (n);
+}
+
+int	my_echo(t_op *op, int pid)
+{
+	int	i;
+	int	n;
+
+	i = 0;
+	while (n_flag(op->argv[i]))
+		i++;
+	n = i;
+	while (op->argv[i])
+	{
+		if (n != i)
+			ft_putstr_fd(" ", op->fd[WRITE]);
+		ft_putstr_fd(op->argv[i++], op->fd[WRITE]);
+	}
+	if (!n)
+		ft_putstr_fd("\n", op->fd[WRITE]);
+	if (!pid)
+		exit(0);
+	return (0);
+}
+
+int	clear_cmd(int pid)
+{
+	my_clear_screen();
+	if (!pid)
+		exit(0);
+	return (0);
 }

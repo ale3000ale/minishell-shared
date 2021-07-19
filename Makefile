@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/20 17:11:47 by dlanotte          #+#    #+#              #
-#    Updated: 2021/06/16 17:00:00 by mobrycki         ###   ########.fr        #
+#    Created: 2021/07/14 16:13:53 by dlanotte          #+#    #+#              #
+#    Updated: 2021/07/15 17:36:18 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,9 @@ COLOR_OFF	= "\033[0m"       # Text Reset
 RED			= "\033[0;31m"    # Red
 YELLOW		= "\033[0;33m"    # Yellow
 
-
 NAME	=	minishell
 
 CC		=	gcc
-
-DFLAGS	=	-Wall -Wextra -Werror -g
 
 CFLAGS	=	-Wall -Wextra -Werror
 
@@ -49,7 +46,10 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_lstiter.c	\
 			minilibft/ft_lstlast.c	\
 			minilibft/ft_lstnew.c	\
-			minilibft/ft_lstsize.c
+			minilibft/ft_lstsize.c	\
+			minilibft/ft_matsort.c	\
+			minilibft/mat_dup.c		\
+			minilibft/ft_strcmp.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -59,12 +59,19 @@ GRAPH	=	graphic_functions/graphic_main.c
 
 COMMAND	=	commands/easy_cmd.c\
 			commands/env_cmd.c	\
+			commands/env_cmd2.c	\
 			commands/common_cmd.c\
 			commands/utils.c
 
-HISTORY	=	history/history.c
+ENV		=	env/env_manager.c \
+			env/env_util0.c
 
-SRC		=	${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c parsing_3.c ft_dollar.c
+HISTORY	=	history/history.c	\
+			history/history_utils.c
+
+SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c parsing.c \
+			translate.c ft_dollar.c redirect.c parsing_utils.c matrix_arg.c main_utils.c	\
+			parsing_utils2.c
 
 OBJ := ${SRC:.c=.o}
 
@@ -72,72 +79,46 @@ OBJ := ${SRC:.c=.o}
 	@ $(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
-	
+
+title:
+	@ echo ""
+	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
+	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
+	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
+	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
+	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
+	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
+	@ echo ""
+	@ read -p "Done. Press enter to continue..."
+
 $(NAME): $(OBJ)
-	@ $(CC) $(CFLAGS) $(SRC) -o $(NAME)
-	@ make clean
-	@ echo ""
-	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
-	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
-	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
-	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
-	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
-	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
-	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
-	@ echo ""
-	#@ say -v Alice benvenuto in asci hell, premi enter per continuare      
-	@ read -p "Done. Press enter to continue..."
-
-slim: 
-	@ $(CC) -g $(SRC) -o $(NAME)
-	@ make clean
-	@ echo ""
-	@ echo $(YELLOW)" SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM  " $(COLOR_OFF)
-	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
-	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
-	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
-	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
-	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
-	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
-	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
-	@ echo $(YELLOW)" SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM SLIM  " $(COLOR_OFF)
-	@ echo ""
-	@ read -p "Done. Press enter to continue..."
-
-debug: 
-	@ $(CC) $(DFLAGS) $(SRC) -o $(NAME)
-	@ make clean
-	@ echo ""
-	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
-	@ echo "   █████  ███████  ██████ ██ ██"$(RED)" ██░ ██ ▓█████  ██▓     ██▓     " $(COLOR_OFF)
-	@ echo "  ██   ██ ██      ██      ██ ██"$(RED)"▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒     " $(COLOR_OFF)
-	@ echo "  ███████ ███████ ██      ██ ██"$(RED)"▒██▀▀██░▒███   ▒██░    ▒██░     " $(COLOR_OFF)
-	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
-	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
-	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
-	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
-	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
-	@ echo $(YELLOW)" DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG  " $(COLOR_OFF)
-	@ echo ""
-	@ say -v Alice benvenuto in asci hell versione debag      
-	@ read -p "Done. Press enter to continue..."
+	@ echo $(RED)"Wait..."$(COLOR_OFF)
+	@ $(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@ make title
 
 clean:   
 	@ rm -f ${OBJ}
+	@ echo $(YELLOW)"clean completed."$(COLOR_OFF)
 
 fclean: clean
 	@ rm -f $(NAME)
 	@ rm -f ${OBJ}
-	@ echo ""
-	@ echo "fclean completed."
+	@ rm -dir -f *.dSYM
+	@ rm -f *.out
+	@ rm -f .history
+	@ find . -name ".DS_Store" -delete
+	@ echo $(RED)"fclean completed."$(COLOR_OFF)
 
-debug-clean: fclean
-	@ rm -dir -f minishell.dSYM
-	@ echo "debug-clean completed."
+re: fclean
+	@ make
 
-re: fclean all debug slim
+norme:
+		@ echo $(BBLUE) "-------|norme $(NAME)|-------" $(COLOR_OFF) $(BLUE)
+		@ norminette $(SRC)
+		@ norminette includes/*.h
+		@ echo $(COLOR_OFF)
+
+.PHONY: 	all clean fclean re norme 

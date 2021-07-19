@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   env_util0.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/24 16:49:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/05/24 16:49:40 by amarcell         ###   ########.fr       */
+/*   Created: 2021/07/14 16:29:17 by gcarbone          #+#    #+#             */
+/*   Updated: 2021/07/14 18:25:32 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	id_env(char *name, char **env)
 {
-	unsigned char	*ds;
-	unsigned char	*sr;
-	size_t			i;
+	int		i;
+	char	**spl;
 
-	if (!dest && !src)
-		return (0);
-	ds = (unsigned char *)dest;
-	sr = (unsigned char *)src;
 	i = 0;
-	while (i < n)
+	while (env[i])
 	{
-		ds[i] = sr[i];
+		spl = ft_split(env[i], '=');
+		if (!ft_strcmp(name, spl[0]))
+		{
+			free_table(spl);
+			return (i);
+		}
+		free_table(spl);
 		i++;
 	}
-	return (ds);
+	return (-1);
 }

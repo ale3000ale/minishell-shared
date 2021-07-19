@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:49:37 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/15 18:37:38 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/06/16 16:44:23 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**table_dup(char **mat)
 	int		i;
 	char	**new;
 
-	new = ft_calloc(mat_row((void **)mat) + 1, 1);
+	new = ft_calloc(mat_row((void **)mat) + 1, sizeof(char *));
 	i = 0;
 	while (mat[i])
 	{

@@ -6,104 +6,119 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:49:54 by amarcell          #+#    #+#             */
-/*   Updated: 2021/06/16 15:43:35 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/14 17:36:16 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	**export_segmentation(char *input, int size)
+static int	strck(char *s)
 {
-	char	**seg;
-	int		i;
+	int	i;
 
-	seg = ft_calloc(sizeof(char *), 4);
-	seg[0] = ft_calloc(sizeof(char *), size + 1);
-	seg[1] = ft_calloc(sizeof(char *), size + 1);
-	seg[2] = ft_calloc(sizeof(char *), size + 1);
 	i = 0;
-	while (!input[i])
-		if (input[i] == EXPORT_OP[0] || input[i++] == EXPORT_OP[1])
-			break ;
-	ft_strlcpy(seg[0], input, i);
-	input += i;
-	i = 0;
-	while (!input[i])
-		if (input[i] != EXPORT_OP[0] || input[i++] != EXPORT_OP[1])
-			break ;
-	ft_strlcpy(seg[1], input, i);
-	input += i;
-	ft_strlcpy(seg[2], input, size);
-	return (seg);
+	while (s[i])
+	{
+		if (!(ft_isalnum(s[i]) || s[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-int	export(char *input, int pid)
+static char	**export_segmentation(char *input)
 {
-	char	**ck;
-	int		rows;
+	char	**cut;
+	int		plus;
+	int		len;
+	char	**ret;
 
-	if (!input[0])
-		exit(0);
-	ck = ft_split(input, ' ');
-	if (mat_row((void **)ck) > 1)				// todo print of all segment
+	ret = ft_calloc(3, sizeof(char *));
+	if (ft_strchrid(input, '=') != -1)
 	{
-		if (!pid)
-			exit(printf("export: '%s': not a valid identifier\n", input) * 0 * \
-				free_table(ck) + 1);
-		return (printf("export: '%s': not a valid identifier\n", input) * 0 * \
-				free_table(ck) + 1);
+		cut = ft_strcut(input, ft_strchrid(input, '=') + 1);
+		ret[1] = ft_strdup(cut[1]);
+		plus = (cut[0][ft_strchrid(input, '=') - 1] == '+');
+		len = ft_strlen(cut[0]) - plus;
+		free_table(cut);
+		cut = ft_strcut(input, len - 1);
+		ret[0] = ft_strdup(cut[0]);
+		free_table(cut);
 	}
-	free_table(ck);
-	ck = export_segmentation(input, ft_strlen(input));
-	rows = mat_row((void **)ck);
-	if (rows == 1 && ft_stralpha(ck[0]))
+	else
 	{
-		if (!pid)
-			exit(free_table(ck) * 0);
-		else
-			return (free_table(ck) * 0);
+		ret[0] = ft_strdup(input);
+		ret[1] = ft_strdup("");
 	}
-	else if (rows == 2 && strlen(ck[1]) < 3 \
-	 && ((ck[1][0] == EXPORT_OP[0] && ck[1][1] == EXPORT_OP[1]) \
-	 || (ck[1][0] == EXPORT_OP[1] && !ck[1][1])))
-		if (!setenv(ck[0], ck[2], 1))
+	return (ret);
+}
+
+static int	ck_input(char *input)
+{
+	char	**cut;
+	int		plus;
+	int		len;
+	int		equal;
+
+	equal = ft_strchrid(input, '=');
+	if (equal != -1)
+	{
+		cut = ft_strcut(input, ft_strchrid(input, '='));
+		plus = (cut[0][ft_strchrid(input, '=') - 1] == '+');
+		len = ft_strlen(cut[0]) - plus;
+		if (len && (ft_isalpha(cut[0][0]) || cut[0][0] == '_'))
 		{
-			if (!pid)
-				exit(0);
-			else
-				return(0);
+			free_table(cut);
+			cut = ft_strcut(input, len);
+			len = strck(&cut[0][1]);
+			free_table(cut);
+			return (len);
 		}
-	if (!pid)
-		exit(printf("export: '%s': not a valid identifier\n", input) * 0 * \
-			free_table(ck) + 1);
-	return (printf("export: '%s': not a valid identifier\n", input) * 0 * \
-			free_table(ck) + 1);
-}
-
-int	env(int pid, char **environ, int fd[2])
-{
-	int			i;
-
-	i = 0;
-	while (environ[i])
-	{
-		ft_putstr_fd(environ[i++], fd[WRITE]);
-		ft_putstr_fd("\n", fd[WRITE]);
-	}
-	if (!pid)
-		exit(0);
-	return (0);
-}
-
-int	unset(char *input, int pid)
-{
-	if (!unsetenv(input))
-	{
-		if (!pid)
-			exit(0);
+		free_table(cut);
 		return (0);
 	}
+	return ((ft_isalpha(input[0]) || input[0] == '_' ) && strck(&input[1]));
+}
+
+static void	export2(char **input, t_term *term, int i)
+{
+	char	**var;
+	int		equal;
+
+	var = export_segmentation(input[i]);
+	equal = ft_strchrid(input[i], '=');
+	if (equal == -1)
+		ft_setenv(var[0], var[1], EMPTY, term);
+	else if (input[i][equal - 1] == '+')
+		ft_setenv(var[0], var[1], JOIN, term);
+	else
+		ft_setenv(var[0], var[1], OVERWRITE, term);
+	free_table(var);
+}
+
+int	export(char **input, int pid, t_term *term, int *fd)
+{
+	int		ck;
+	int		i;
+
+	i = 0;
+	if (!input[i])
+		ck = export_view(pid, term->env, fd);
+	while (input[i])
+	{
+		ck = ck_input(input[i]);
+		if (ck)
+			export2(input, term, i);
+		else
+		{
+			ft_putstr_fd("minishell: export: '", 2);
+			ft_putstr_fd(input[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			break ;
+		}
+		i++;
+	}
 	if (!pid)
-		exit(1);
-	return (1);
+		exit(!ck);
+	return (!ck);
 }

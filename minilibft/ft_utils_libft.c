@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_libft.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:32:19 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/06/14 16:35:16 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/08 16:12:49 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ int	free_table(char **table)
 	{
 		i = ft_table_len(table);
 		while (--i >= 0)
+		{
 			free(table[i]);
+			table[i] = 0;
+		}
 		free(table);
+		table = 0;
 	}
 	return (1);
 }
@@ -45,13 +49,15 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	i;
 
 	i = 0;
-	if (!n)
-		return (0);
-	while (i < n - 1 && s1[i] && (s1[i] == s2[i]))
+	while (s1[i] && s2[i] && i < n)
 	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	if (i < n)
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
 }
 
 void	my_clear_screen(void)
