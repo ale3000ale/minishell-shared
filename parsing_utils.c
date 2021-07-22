@@ -1,32 +1,18 @@
 #include "includes/minishell.h"
 
-void	double_quotes(int *iter, char *input, char **new)
+void	quotes(int *iter, char *input, char **new, char quote)
 {
-	int		iter2;
-	char	*str;
-	char	*tmp;
+	int	start;
+	int	end;
 
-	iter2 = *iter;
-	iter2++;
-	while (input[iter2] && input[iter2] != '\"')
-		iter2++;
-	str = ft_calloc(iter2 - *iter + 2, 1);
-	str[0] = input[(*iter)++];
-	iter2 = 1;
-	while (input[*iter] && input[*iter] != '\"')
-		str[iter2++] = input[(*iter)++];
-	str[iter2] = input[*iter];
-	if (input[*iter])
-		(*iter)++;
-	if (*new)
-	{
-		tmp = ft_strjoin(str, *new);
-		free(*new);
-		*new = tmp;
-	}
+	start = *iter;
+	end = ft_strchrid(input + start + 1, quote);
+	if (end == -1)
+		end = ft_strlen(input + start) - 1;
 	else
-		*new = ft_strjoin(str, "");
-	free(str);
+		end++;
+	*new = ft_substr(input, start, end - start + 1);
+	*iter = end + 1;
 }
 
 static int	fucknorm2(char **str, int i, t_term *term, int fuck)
@@ -59,7 +45,7 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 		iter2++;
 	new->input = ft_calloc(iter2 - *iter + 2, 1);
 	if (term->input[*iter] == '\"')
-		double_quotes(iter, term->input, &new->input);
+		quotes(iter, term->input, &new->input, '\"');
 	iter2 = 0;
 	while (fucknorm2(&term->input, *iter, term, 0))
 		new->input[iter2++] = term->input[(*iter)++];
@@ -73,26 +59,41 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 		*red = ft_clstnew(new);
 }
 
+int	count_row2(char *input, int *iter)
+{
+	int		size;
+	int		flag;
+	char	c;
+
+	//printf("input count = %s\n", input);
+	size = 0;
+	flag = 0;
+	c = input[*iter];
+	while (c && ((c != ' ' && c != '>' && c != '<') || (flag % 2)))
+	{
+		flag += (c == '\"');
+		(*iter)++;
+		size++;
+		c = input[*iter];
+	}
+	return (size);
+}
+
 void	find_cmd(t_term *term, int *iter, t_op **new)
 {
-	int		iter2;
+	int		size;
 	char	*temp;
+	int		iter2;
 
 	if ((*new)->cmd)
 		free((*new)->cmd);
 	while (term->input[*iter] && term->input[*iter] == ' ')
 		(*iter)++;
 	iter2 = *iter;
-	while (term->input[iter2] && term->input[iter2] != ' '
-		&& term->input[iter2] != '>' && term->input[iter2] != '<')
-		iter2++;
-	(*new)->cmd = ft_calloc(iter2 + 1, 1);
-	if (term->input[*iter] == '\"')
-		double_quotes(iter, term->input, &(*new)->cmd);
-	iter2 = ft_strlen((*new)->cmd);
-	while (term->input[*iter] && term->input[*iter] != ' '
-		&& term->input[*iter] != '>' && term->input[*iter] != '<')
-		(*new)->cmd[iter2++] = term->input[(*iter)++];
+	size = count_row2(term->input, iter);
+	(*new)->cmd = ft_calloc(size + 1, 1);
+	ft_strlcpy((*new)->cmd, term->input + iter2, size + 1);
+	//("cmd = %s\n", (*new)->cmd);
 	temp = (*new)->cmd;
 	(*new)->cmd = ft_translate((*new)->cmd, term);
 	free(temp);
@@ -100,7 +101,8 @@ void	find_cmd(t_term *term, int *iter, t_op **new)
 
 void	find_cmd_input(t_term *term, int *iter, t_op **new)
 {
-	int	iter2;
+	int		size;
+	char	*tmp;
 
 	if ((*new)->input)
 		free((*new)->input);
@@ -108,19 +110,16 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 		free_table((*new)->argv);
 	while (term->input[*iter] && term->input[*iter] == ' ')
 		(*iter)++;
-	iter2 = *iter;
-	while (term->input[iter2] && term->input[iter2] != '|'
-		&& term->input[iter2] != '>' && term->input[iter2] != '<')
-		iter2++;
-	(*new)->input = ft_calloc(iter2 - *iter + 2, 1);
-	if (term->input[*iter] == '\"')
-		double_quotes(iter, term->input, &(*new)->input);
-	iter2 = ft_strlen((*new)->input);
-	while (term->input[*iter] && term->input[*iter] != '|'
-		&& term->input[*iter] != '>' && term->input[*iter] != '<')
-		((*new)->input)[iter2++] = term->input[(*iter)++];
-	iter2 = ft_strlen((*new)->input) - 1;
-	while ((*new)->input[iter2] == ' ')
-		(*new)->input[iter2--] = 0;
+	size = 0;
+	while (term->input[*iter + size] && term->input[*iter + size] != '|'
+		&& term->input[*iter + size] != '>' && term->input[*iter + size] != '<')
+		size++;
+	(*new)->input = ft_calloc(size + 2, 1);
+	ft_strlcpy((*new)->input, term->input + *iter, size + 1);
+	*iter = *iter + size;
+	tmp = (*new)->input;
+	(*new)->input = ft_strtrim((*new)->input, " ");
+	//("input = %s\n", (*new)->input);
 	(*new)->argv = arg_matrix((*new)->input, term);
+	free(tmp);
 }

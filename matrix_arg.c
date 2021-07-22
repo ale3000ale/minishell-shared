@@ -1,76 +1,176 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix_arg.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/21 18:33:31 by amarcell          #+#    #+#             */
+/*   Updated: 2021/07/22 20:23:10 by amarcell         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/minishell.h"
 #include "includes/my_main_functions.h"
+#include <stdio.h>
 
-void	alloc_matrix(char ***matrix, char *input)
+/*int	count_row(char *input, int *iter)
 {
-	int	i;
 	int	size;
 
+	printf("input count = %s\n", input);
+	size = 0;
+	while (input[*iter] && input[*iter] != ' ')
+	{
+		if (input[*iter] == '\"')
+		{
+			(*iter)++;
+			size++;
+			while (input[*iter] && input[(*iter)++] != '\"')
+				size++;
+			(*iter)++;
+			size++;
+		}
+		if (input[*iter] && input[*iter] != ' ' && input[*iter] != '\"')
+		{
+			(*iter)++;
+			size++;
+		}
+	}
+	return (size);
+}*/
+
+int	count_row(char *input, int *iter)
+{
+	int	size;
+	int	flag;
+
+	//printf("input count = %s\n", input);
+	size = 0;
+	flag = 0;
+	while (input[*iter] && (input[*iter] != ' ' || (flag % 2)))
+	{
+		flag += (input[*iter] == '\"');
+		(*iter)++;
+		size++;
+	}
+	return (size);
+}
+
+/* void	split_input(char *input, t_term *term, char ***split)
+{
+	int	iter;
+	int	i;
+	int	iter2;
+	int	size;
+	char	*tmp;
+	t_term *a;
+	tmp = 0;
+	iter = 0;
+	iter2 = 0;
 	i = 0;
 	size = 0;
-	while (input[i])
+	a = term;
+	while (input[iter])
 	{
-		if (input[i] == ' ')
-			size++;
-		if (input[i] == '\"')
+		iter2 = iter;
+		//printf("INPUT = |%s|\n", input);
+		size = count_row(input, &iter);
+		if ((input[iter] && input[iter] == ' ') || !input[iter])
 		{
-			size++;
+			tmp = ft_calloc(size + 2, 1);
+			ft_strlcpy(tmp, &input[iter2], iter - iter2 + 1);
+			(*split)[i] = ft_translate(tmp, term);
+			//printf("split[%d] = |%s| in: |%s|\n",i, (*split)[i], input);
 			i++;
-			while (input[i] && input[i] != '\"')
-				i++;
+			free(tmp);
+			while (input[iter] && input[iter] == ' ')
+				iter++;
 		}
-		if (input[i])
-			i++;
 	}
-	*matrix = ft_calloc(size + 2, sizeof(char *));
-}
+	(*split)[i] = 0;
+} */
 
-char	*get_to_trans(int *iter, char *input)
+void	split_input(char *input, t_term *term, char ***split)
 {
-	int		tmp;
-	char	*str;
+	int		iter;
+	int		size;
+	int		i;
+	char	*tmp;
+	int		iter2;
 
-	if (input[*iter] == ' ')
-		(*iter)++;
-	tmp = *iter;
-	while (input[*iter] && input[*iter] != ' ')
-		(*iter)++;
-	str = ft_calloc(*iter - tmp + 1, 1);
-	ft_memcpy(str, input + tmp, *iter - tmp);
-	return (str);
-}
-
-static	void	*fucknorm(int *a, int *b)
-{
-	*a = 0;
-	*b = 0;
-	return (0);
+	iter = 0;
+	i = 0;
+	while (input[iter])
+	{
+		iter2 = iter;
+		size = count_row(input, &iter);
+		if (size)
+		{
+			tmp = ft_calloc(size + 1, 1);
+			ft_strlcpy(tmp, &input[iter2], size + 1);
+			//printf("tmp = %s\n", tmp);
+			(*split)[i++] = ft_translate(tmp, term);
+			//printf("\nsplit[%d] = |%s|\n", i, (*split)[i]);
+			free(tmp);
+		}
+		while (input[iter] == ' ')
+			iter++;
+	}
+	(*split)[i] = 0;
 }
 
 char	**arg_matrix(char *input, t_term *term)
 {
 	char	**matrix;
-	int		i;
+	int		count;
 	int		iter;
-	char	*to_trans;
 
-	alloc_matrix(&matrix, input);
-	to_trans = fucknorm(&iter, &i);
+	count = 0;
+	iter = 0;
+	//printf("\ninput = %s\n", input);
+	while (input[iter])
+	{
+		if (count_row(input, &iter))
+			count++;
+		while (input[iter] == ' ')
+			iter++;
+	}
+	matrix = ft_calloc(count + 1, sizeof(char *));
+	split_input(input, term, &matrix);
+	//printf("matrix 1 = %s\n", matrix[1]);
+	return (matrix);
+}
+
+/* char	**arg_matrix(char *input, t_term *term)
+{
+	char	**matrix;
+	int	count;
+	int	iter;
+
+	count = 0;
+	iter = 0;
+	//printf("\ninput = %s\n", input);
 	while (input[iter])
 	{
 		if (input[iter] == '\"')
 		{
-			double_quotes(&iter, input, &to_trans);
-			matrix[i++] = ft_translate(to_trans, term);
-			free(to_trans);
-		}
-		else
-		{	
-			to_trans = get_to_trans(&iter, input);
-			matrix[i++] = ft_translate(to_trans, term);
-			free(to_trans);
+			iter++;
+			while (input[iter] && input[iter] != '\"')
+				iter++;
 			iter++;
 		}
+		if (input[iter] == ' ')
+		{
+			count++;
+			while (input[iter] == ' ')
+				iter++;
+		}
+		if (input[iter])
+			iter++;
 	}
+	matrix = ft_calloc(count + 2, sizeof(char *));
+	split_input(input, term, &matrix);
+	//printf("matrix 1 = %s\n", matrix[1]);
 	return (matrix);
-}
+} */

@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 17:07:33 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/21 20:07:28 by amarcell         ###   ########.fr       */
+/*   Created: 2021/07/22 17:13:01 by amarcell          #+#    #+#             */
+/*   Updated: 2021/07/22 17:13:12 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
+	unsigned int	i;
+	char			*sub;
 
-	i = 0;
-	//printf("cpy src: %s\n", src);
-	while (src[i] && i + 1 < size)
+	if (start >= ft_strlen(s))
 	{
-		dest[i] = src[i];
-		//printf("dest[%ld]: %c  ===  src[%ld] %c\n", i, dest[i], i, src[i]);
+		sub = (char *)malloc(1);
+		if (!sub)
+			return (0);
+		sub[0] = 0;
+		return (sub);
+	}
+	sub = (char *)malloc(len + 1);
+	if (!sub)
+		return (0);
+	i = 0;
+	while (i < len && s[i + start])
+	{
+		sub[i] = s[i + start];
 		i++;
 	}
-	if (size)
-		dest[i] = '\0';
-	return (ft_strlen(dest));
+	sub[i] = '\0';
+	return (sub);
 }

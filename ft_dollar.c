@@ -38,7 +38,7 @@ void	find_var(char **input, char **env, char **arg)
 {
 	char	*find;
 	int		i;
-	int		n;
+//	int		n;
 
 	i = 0;
 	while ((*input)[i] && (*input)[i] != ' ' && (*input)[i] != '\"'
@@ -49,7 +49,10 @@ void	find_var(char **input, char **env, char **arg)
 	while (**input && **input != ' ' && **input != '\"' && **input != '$'
 		&& **input != '\'')
 		find[i++] = (*(*input)++);
-	i = -1;
+	*arg = ft_getenv(find, env);
+	if (*arg)
+		*arg = ft_strdup(ft_getenv(find, env));
+	/*i = -1;
 	while (env[++i])
 	{
 		n = 0;
@@ -59,7 +62,8 @@ void	find_var(char **input, char **env, char **arg)
 			break ;
 	}
 	if (env[i] && !ft_strncmp(find, env[i], n))
-		*arg = ft_strdup(env[i] + ft_strlen(find) + 1);
+		*arg = ft_strdup(ft_getenv(find, env));
+	*/
 	free(find);
 }
 

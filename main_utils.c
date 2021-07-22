@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 18:19:20 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 18:25:20 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/22 20:26:33 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 	int	commands;
 
 	commands = cmd_id(get_op(queque)->cmd);
+	printf("\n CMD: %d == %d\n", commands, MY_ECHO);
 	if (commands != -1)
 		ft_execute_buildin(commands, pid, queque, term);
 	else

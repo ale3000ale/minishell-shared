@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/15 16:44:04 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/22 17:34:14 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exec_manager(t_clist *queque, t_term *term);
 t_op	*get_op(t_clist *cls);
 char	*ft_translate(char *input, t_term *term);
 void	ft_dollar(char **input, t_term *term, char **trans, int *iter);
-void	double_quotes(int *iter, char *input, char **new);
+void	quotes(int *iter, char *input, char **new, char quote);
 void	free_op(void *op);
 
 void	find_cmd(t_term *term, int *iter, t_op **new);
