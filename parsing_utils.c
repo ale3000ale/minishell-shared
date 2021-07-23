@@ -1,28 +1,13 @@
 #include "includes/minishell.h"
 
-void	quotes(int *iter, char *input, char **new, char quote)
-{
-	int	start;
-	int	end;
-
-	start = *iter;
-	end = ft_strchrid(input + start + 1, quote);
-	if (end == -1)
-		end = ft_strlen(input + start) - 1;
-	else
-		end++;
-	*new = ft_substr(input, start, end - start + 1);
-	*iter = end + 1;
-}
-
 static int	fucknorm2(char **str, int i, t_term *term, int fuck)
 {
 	char	*s;
 
 	if (!fuck)
-		return (*str[i] && *str[i] != '|' \
-		 && *str[i] != '>' && *str[i] != '<' \
-	 	 && *str[i] != ' ');
+		return ((*str)[i] && (*str)[i] != '|' \
+		 && (*str)[i] != '>' && (*str)[i] != '<' \
+	 	 && (*str)[i] != ' ');
 	else
 	{
 		s = ft_translate(*str, term);
@@ -65,7 +50,6 @@ int	count_row2(char *input, int *iter)
 	int		flag;
 	char	c;
 
-	//printf("input count = %s\n", input);
 	size = 0;
 	flag = 0;
 	c = input[*iter];
@@ -93,7 +77,6 @@ void	find_cmd(t_term *term, int *iter, t_op **new)
 	size = count_row2(term->input, iter);
 	(*new)->cmd = ft_calloc(size + 1, 1);
 	ft_strlcpy((*new)->cmd, term->input + iter2, size + 1);
-	//("cmd = %s\n", (*new)->cmd);
 	temp = (*new)->cmd;
 	(*new)->cmd = ft_translate((*new)->cmd, term);
 	free(temp);
@@ -119,7 +102,6 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 	*iter = *iter + size;
 	tmp = (*new)->input;
 	(*new)->input = ft_strtrim((*new)->input, " ");
-	//("input = %s\n", (*new)->input);
 	(*new)->argv = arg_matrix((*new)->input, term);
 	free(tmp);
 }

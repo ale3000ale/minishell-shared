@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/22 20:24:06 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:54:17 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,11 @@ int	my_echo(t_op *op, int pid)
 	int	n;
 
 	i = 0;
-		printf("\nECHO: %s\n", op->argv[i]);
 	while (n_flag(op->argv[i]))
 		i++;
 	n = i;
-
 	while (op->argv[i])
 	{
-
-		printf("\nECHO: %s\n", op->argv[i]);
 		if (n != i)
 			ft_putstr_fd(" ", op->fd[WRITE]);
 		ft_putstr_fd(op->argv[i++], op->fd[WRITE]);

@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 12:33:21 by mobrycki          #+#    #+#             */
-/*   Updated: 2021/07/15 17:10:24 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 18:00:26 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minishell.h"
+
+char	*freejoin(char *s1, char *s2, int n)
+{
+	char	*new;
+
+	new = ft_strjoin(s1, s2);
+	if (n == 1)
+		free(s1);
+	else if (n == 2)
+		free(s2);
+	else if (n)
+	{
+		free(s1);
+		free(s2);
+	}
+	return (new);
+}
 
 int	if1(char **input, char **trans, int *iter)
 {
@@ -18,71 +35,63 @@ int	if1(char **input, char **trans, int *iter)
 	int	quotes;
 	int	i;
 
-	i = -1;
+	i = 0;
 	quotes = 0;
-	flag = (**input == 39);
+	flag = ((*input)[*iter] == 39);
 	if (flag)
 	{
-		(*input)++;
-		while ((*input)[++i] && !quotes)
-			quotes = (quotes || ((*input)[i] == '\''));
+		(*iter)++;
+		while ((*input)[*iter + i] && !quotes)
+			quotes = (quotes || ((*input)[*iter + i++] == '\''));
 		if (quotes)
 		{
-			while (**input && **input != 39)
-			{
-				(*trans)[(*iter)++] = **input;
-				(*input)++;
-			}
-			(*input) = *input + (**input != 0);
+			*trans = freejoin(*trans, ft_substr(*input, *iter, i), 3);
+			(*iter) = *iter + i + (*input[i] != 0);
 		}
 		else
-			(*trans)[(*iter)++] = '\'';
+		{
+			*trans = freejoin(*trans, "\'", 1);
+			(*iter)++;
+		}
 	}
 	return (flag);
 }
 
 static void	ifuck2(char **input, char **trans, int *iter, t_term *term)
 {
-	while (**input && **input != '\"')
+	while ((*input)[*iter] && (*input)[*iter] != '\"')
 	{
-		if (**input == '$')
+		if ((*input)[*iter] == '$')
 			ft_dollar(input, term, trans, iter);
 		else
-		{
-			(*trans)[(*iter)++] = **input;
-			(*input)++;
-		}
+			*trans = freejoin(*trans, ft_substr(*input, (*iter)++, 1), 3);
 	}
-	if (**input)
-		(*input)++;
+	if ((*input)[*iter])
+		(*iter)++;
 }
 
-//search for double quotes and dollars, else just copy the char in trans
 void	if2(char **input, char **trans, int *iter, t_term *term)
 {
 	int	i;
-	int	quotes;
 
-	quotes = 0;
-	i = -1;
-	if (**input == '\"')
+	i = 0;
+	if ((*input)[*iter] == '\"')
 	{
-		(*input)++;
-		while ((*input)[++i] && !quotes)
-			if ((*input)[i] == '\"')
-				quotes = 1;
-		if (quotes)
+		(*iter)++;
+		while ((*input)[i + *iter] && (*input)[*iter + i] != '\"')
+			i++;
+		if ((*input)[*iter + i] == '\"')
 			ifuck2(input, trans, iter, term);
 		else
-			(*trans)[(*iter)++] = '\"';
+		{
+			*trans = freejoin(*trans, "\"", 1);
+			(*iter)++;
+		}
 	}
-	else if (**input == '$')
+	else if ((*input)[*iter] == '$')
 		ft_dollar(input, term, trans, iter);
-	else if (**input)
-	{
-		(*trans)[(*iter)++] = **input;
-		(*input)++;
-	}
+	else if ((*input)[*iter])
+		*trans = freejoin(*trans, ft_substr(*input, (*iter)++, 1), 3);
 }
 
 //look over the string for special char and translate them
@@ -92,19 +101,16 @@ char	*ft_translate(char *input, t_term *term)
 	int		iter;	
 
 	iter = 0;
-	trans = malloc(ft_strlen(input));
-	ft_bzero(trans, ft_strlen(input));
-	while (*input)
+	trans = ft_strdup("");
+	while (input[iter])
 	{
-		if (*input == ' ')
+		if (input[iter] == ' ')
 		{
-			trans[iter++] = *input;
-			while (*input && *input == ' ')
-				input++;
+			trans = freejoin(trans, " ", 1);
+			ft_skip(input, &iter, ' ');
 		}
 		if (!if1(&input, &trans, &iter))
 			if2(&input, &trans, &iter, term);
 	}
-	trans[iter] = 0;
 	return (trans);
 }

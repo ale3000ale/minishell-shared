@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 19:18:26 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/15 16:43:07 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:58:52 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,19 @@ void	find_red(t_term *term, int *iter, t_op **new)
 		(*iter)++;
 		get_red(term, iter, &(*new)->red, RED_READ);
 	}
+}
+
+void	quotes(int *iter, char *input, char **new, char quote)
+{
+	int	start;
+	int	end;
+
+	start = *iter;
+	end = ft_strchrid(input + start + 1, quote);
+	if (end == -1)
+		end = ft_strlen(input + start) - 1;
+	else
+		end++;
+	*new = ft_substr(input, start, end - start + 1);
+	*iter = end + 1;
 }

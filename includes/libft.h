@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:25:33 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/22 19:36:07 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 15:32:08 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ int				ft_isalnum(int c);
 int				ft_stralnum(char *s);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s1, char const *set);
+void			ft_skip(char *s, int *iter, char c);
 #endif

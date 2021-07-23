@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_main_functions.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:54:25 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/22 17:34:14 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 17:38:42 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	find_red(t_term *term, int *iter, t_op **new);
 char	**arg_matrix(char *input, t_term *term);
 int		redirection(t_op *op, char **fd_error);
 void	get_red(t_term *term, int *iter, t_clist **red, int type);
+char	*freejoin(char *s1, char *s2, int n);
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
+#    By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 16:13:53 by dlanotte          #+#    #+#              #
-#    Updated: 2021/07/22 19:38:30 by amarcell         ###   ########.fr        #
+#    Updated: 2021/07/23 15:31:28 by gcarbone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/mat_dup.c		\
 			minilibft/ft_strcmp.c	\
 			minilibft/ft_substr.c	\
-			minilibft/ft_strtrim.c
+			minilibft/ft_strtrim.c	\
+			minilibft/ft_skip.c	\
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -90,7 +91,7 @@ title:
 	@ echo "  ██   ██      ██ ██      ██ ██"$(RED)"░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░     " $(COLOR_OFF)
 	@ echo "  ██   ██ ███████  ██████ ██ ██"$(RED)"░▓█▒░██▓░▒████▒░██████▒░██████▒ " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░ " $(COLOR_OFF)
-	@ echo "  amarcell | gcarbone | dlaaanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
+	@ echo "  amarcell | gcarbone | dlanotte"$(RED)"▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░ " $(COLOR_OFF)
 	@ echo "  flwang   | mobrycki | fd-agnes"$(RED)"░  ░░ ░   ░     ░ ░     ░ ░    " $(COLOR_OFF)
 	@ echo "                               "$(RED)" ░  ░  ░   ░  ░    ░  ░    ░  ░ " $(COLOR_OFF)           
 	@ echo ""

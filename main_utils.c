@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 18:19:20 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/22 20:26:33 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 16:22:53 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@
 int	find_command(t_term *term)
 {
 	int		flag_stop;
-	char	**commands;
 	char	*current_path;
 
-	commands = ft_split(COMMANDS, ',');
 	flag_stop = 1;
 	while (flag_stop > 0)
 	{
@@ -30,7 +28,6 @@ int	find_command(t_term *term)
 		flag_stop = get_next_line(0, term);
 		ft_parsing_hub(term);
 	}
-	free_table(commands);
 	return (1);
 }
 
@@ -79,7 +76,6 @@ void	ft_execute_commands(t_clist *queque, t_term *term, int pid)
 	int	commands;
 
 	commands = cmd_id(get_op(queque)->cmd);
-	printf("\n CMD: %d == %d\n", commands, MY_ECHO);
 	if (commands != -1)
 		ft_execute_buildin(commands, pid, queque, term);
 	else

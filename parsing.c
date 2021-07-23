@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 15:02:58 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/14 19:18:45 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/23 18:57:06 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	new_node(t_term *term, int *iter, t_op **new)
 		ft_clstadd_back(&(term->queque.first), ft_clstnew(*new));
 		if (term->input[*iter + 1])
 			(*iter)++;
-		while (term->input[*iter] && term->input[*iter] == ' ')
-			(*iter)++;
+		ft_skip(term->input, iter, ' ');
 		*new = ft_calloc(1, sizeof(t_op));
 	}
 	else if (!term->input[*iter])
@@ -35,13 +34,11 @@ void	new_node(t_term *term, int *iter, t_op **new)
 static void	parse_cmd(t_term *term)
 {
 	int		iter;
-	int		iter2;
 	t_op	*new;
 
 	iter = 0;
 	while (term->input[iter] == ' ')
 		iter++;
-	iter2 = iter;
 	new = ft_calloc(1, sizeof(t_op));
 	while (term->input[iter])
 	{
