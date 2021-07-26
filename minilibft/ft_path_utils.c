@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
-/*   Updated: 2021/07/24 15:57:41 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/26 18:17:19 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	change_path(char *new_path, t_term *term)
 		new_path = ft_getenv("HOME", term->env);
 	if (chdir(new_path) != 0)
 	{
-		printf("cd: %s: No such file or directory\n", new_path);
+		printf("minishell: cd: %s: No such file or directory\n", new_path);
 		return (1);
 	}
-	ft_setenv("OLDPWD", getenv("PWD"), OVERWRITE, g_term);
+	ft_setenv("OLDPWD", ft_getenv("PWD", g_term->env), OVERWRITE, g_term);
 	ft_setenv("PWD", find_path(), OVERWRITE, g_term);
 	return (0);
 }

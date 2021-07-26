@@ -6,7 +6,7 @@
 /*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/26 16:29:24 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/26 18:17:57 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	son_generation(t_clist *queque)
 		get_op(queque->next)->fd[READ] = pp[READ];
 	}
 	pid = getpid();
+	g_term->pid = pid;
 	if (get_op(queque)->cmd[0] && (get_op(queque)->pipe \
 	 || cmd_id(get_op(queque)->cmd) == -1))
 	{
@@ -53,6 +54,7 @@ static void	exec_file_error(t_term *term, \
 static void	exec_fd_close(t_clist *queque, t_term *term, int pid)
 {
 	waitpid(pid, &term->last_status, 0);
+	g_term->pid = getpid();
 	if (get_op(queque)->fd[WRITE] > WRITE)
 		close(get_op(queque)->fd[WRITE]);
 	if (get_op(queque)->fd[READ] > READ)
@@ -61,7 +63,6 @@ static void	exec_fd_close(t_clist *queque, t_term *term, int pid)
 
 static void	exec_status(t_clist *queque, t_term *term)
 {
-	term->last_status = term->last_status >> 8;
 	if (cmd_id(get_op(queque)->cmd) != -1 && term->last_status == 127)
 		error404(get_op(queque)->cmd, 1, term);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 18:19:20 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/24 15:55:23 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/26 17:34:32 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **env)
 	init(&term, env);
 	g_term = &term;
 	write(1, "", 1);
+	g_term->pid = getpid();
 	my_clear_screen();
 	ft_signal_manager();
 	find_command(&term);

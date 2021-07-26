@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 17:45:45 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 15:38:52 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/26 19:12:54 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+static void	mortacci(int pp[2], t_red *tmp)
+{
+	char	*line;
+
+	while (get_next_line_basic(0, &line) != -1 \
+		 && ft_strncmp(line, tmp->input, ft_strlen(tmp->input) + 1))
+	{
+		ft_putstr_fd(line, pp[WRITE]);
+		ft_putstr_fd("\n", pp[WRITE]);
+		ft_putstr_fd(">", 1);
+		free(line);
+	}
+	if (line)
+		free(line);
+	exit(0);
+}
 
 static int	red_stdin(t_op *op, t_red *tmp)
 {
@@ -24,20 +41,13 @@ static int	red_stdin(t_op *op, t_red *tmp)
 	op->fd[READ] = pp[READ];
 	ft_putstr_fd(">", 1);
 	line = 0;
-	while (get_next_line_basic(0, &line) != -1 \
-	 && ft_strncmp(line, tmp->input, ft_strlen(tmp->input) + 1))
+	g_term->pid = fork();
+	if (!g_term->pid)
 	{
-		ft_putstr_fd(line, pp[WRITE]);
-		ft_putstr_fd("\n", pp[WRITE]);
-		ft_putstr_fd(">", 1);
-		free(line);
-		line = 0;
+		mortacci(pp, tmp);
 	}
+	waitpid(g_term->pid, &g_term->last_status, 0);
 	close(pp[WRITE]);
-	if (!line)
-		return (1);
-	free(line);
-	line = 0;
 	return (0);
 }
 

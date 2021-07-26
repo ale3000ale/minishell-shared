@@ -55,12 +55,12 @@ void	ft_dollar(char **input, t_term *term, char **trans, int *iter)
 	else if ((*input)[*iter] == '?')
 		trans_error(input, trans, iter, term->last_status);
 	else if ((*input)[*iter] != 0 && (*input)[*iter] != ' ' \
-	 && (*input)[*iter] != '\"')
+	 && (*input)[*iter] != '\"' && (*input)[*iter] != '\'')
 	{
 		find_var(input, term->env, &arg, iter);
 		if (arg)
 			*trans = freejoin(*trans, arg, 3);
 	}
-	else if ((*input)[*iter])
+	else
 		 *trans = freejoin(*trans, "$", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/26 16:32:10 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/26 17:44:30 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	intHandler(int signal)
 {
 	if (signal == SIGINT)
 	{
+		if (!g_term->pid)
+			exit(1);
 		write(1, "\n", 1);
 		if (getpid() != g_term->pid)
 			return ;
