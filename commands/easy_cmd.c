@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 17:32:09 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:56:34 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ int	pwd(int pid, int fd[2])
 	return (0);
 }
 
-int	cd(t_op *op, int pid)
+int	cd(t_op *op, int pid, t_term *term)
 {
 	int	ret;
 
-	ret = change_path(op->argv[0]);
+	ret = change_path(op->argv[0], term);
 	if (!pid)
 		exit(ret);
 	return (ret);

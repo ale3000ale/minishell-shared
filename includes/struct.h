@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 18:53:57 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/14 16:49:55 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/26 16:28:29 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_term
 	int				last_status;
 	t_history		history;
 	char			**env;
+	int				pid;
 }	t_term;
 
 #endif

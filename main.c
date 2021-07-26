@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/14 18:25:21 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/26 16:29:24 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	son_generation(t_clist *queque)
 	pid = getpid();
 	if (get_op(queque)->cmd[0] && (get_op(queque)->pipe \
 	 || cmd_id(get_op(queque)->cmd) == -1))
+	{
 		pid = fork();
+		g_term->pid = pid;
+	}
 	return (pid);
 }
 

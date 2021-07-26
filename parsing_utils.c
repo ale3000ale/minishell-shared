@@ -91,13 +91,12 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 		free((*new)->input);
 	if ((*new)->argv)
 		free_table((*new)->argv);
-	while (term->input[*iter] && term->input[*iter] == ' ')
-		(*iter)++;
+	ft_skip(term->input, iter, ' ');
 	size = 0;
 	while (term->input[*iter + size] && term->input[*iter + size] != '|'
 		&& term->input[*iter + size] != '>' && term->input[*iter + size] != '<')
 		size++;
-	(*new)->input = ft_calloc(size + 2, 1);
+	(*new)->input = ft_calloc(size + 1, 1);
 	ft_strlcpy((*new)->input, term->input + *iter, size + 1);
 	*iter = *iter + size;
 	tmp = (*new)->input;

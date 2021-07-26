@@ -6,7 +6,7 @@
 /*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 12:33:21 by mobrycki          #+#    #+#             */
-/*   Updated: 2021/07/23 18:00:26 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/26 16:14:13 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	if1(char **input, char **trans, int *iter)
 			quotes = (quotes || ((*input)[*iter + i++] == '\''));
 		if (quotes)
 		{
-			*trans = freejoin(*trans, ft_substr(*input, *iter, i), 3);
-			(*iter) = *iter + i + (*input[i] != 0);
+			*trans = freejoin(*trans, ft_substr(*input, *iter, i - 1), 3);
+			(*iter) = *iter + i;
 		}
 		else
 		{

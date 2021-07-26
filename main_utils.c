@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 18:19:20 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/23 16:22:53 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:55:23 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	ft_execute_buildin(int commands, int pid, \
 	else if (commands == MY_EXIT)
 		term->last_status = quit(get_op(queque), term);
 	else if (commands == MY_CD)
-		term->last_status = cd(get_op(queque), pid);
+		term->last_status = cd(get_op(queque), pid, term);
 	else if (commands == MY_PWD)
 		term->last_status = pwd(pid, get_op(queque)->fd);
 	else if (commands == MY_EXPORT)

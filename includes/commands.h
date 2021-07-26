@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/14 17:36:32 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:56:46 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		export(char **input, int pid, t_term *term, int *fd);
 int		unset(char **input, int pid, t_term *term);
 int		pwd(int pid, int fd[2]);
 int		env(int pid, char **environ, int fd[2]);
-int		cd(t_op *op, int pid);
+int		cd(t_op *op, int pid, t_term *term);
 int		clear_cmd(int pid);
 int		exec_cmd(t_op *op, int pid, char **env);
 int		cmd_id(char *cmd);

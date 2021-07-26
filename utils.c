@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 18:52:41 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/14 19:19:53 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/26 16:32:10 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	intHandler(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
+		if (getpid() != g_term->pid)
+			return ;
 		graphic_hub(2, find_path());
 		free(g_term->input);
 		g_term->input = ft_strdup("");

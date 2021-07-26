@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 23:04:11 by zxcvbinz          #+#    #+#             */
-/*   Updated: 2021/07/12 17:30:39 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/24 15:57:41 by mobrycki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ char	*find_path(void)
 
 //
 
-int	change_path(char *new_path)
+int	change_path(char *new_path, t_term *term)
 {
 	if (!new_path || !new_path[0] || new_path[0] == '~')
-		new_path = getenv("HOME");
+		new_path = ft_getenv("HOME", term->env);
 	if (chdir(new_path) != 0)
 	{
 		printf("cd: %s: No such file or directory\n", new_path);
