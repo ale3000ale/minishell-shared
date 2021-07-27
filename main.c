@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/26 18:17:57 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/27 16:24:35 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,17 @@ int	son_generation(t_clist *queque)
 // Maneging the cmd request, create son process and manege it
 
 static void	exec_file_error(t_term *term, \
-	char *fd_error, int pid)
+	char *fd_error, int pid, int red)
 {
 	term->last_status = 1;
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(fd_error, 1);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	if (red == 1)
+	{
+		ft_putstr_fd(fd_error, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
+	else
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 	if (!pid)
 		exit(1);
 }
@@ -81,15 +86,15 @@ void	exec_manager(t_clist *queque, t_term *term)
 	if (get_op(queque)->cmd[0] && ((pid && !get_op(queque)->pipe \
 		&& cmd_id(get_op(queque)->cmd) > -1) || (!pid)))
 	{
-		if (red == -1)
-			exec_file_error(term, fd_error, pid);
+		if (red)
+			exec_file_error(term, fd_error, pid, red);
 		else
 			ft_execute_commands(queque, term, pid);
 	}
 	else
 	{
-		if (red == -1 && getpid() == pid)
-			exec_file_error(term, fd_error, pid);
+		if (red && getpid() == pid)
+			exec_file_error(term, fd_error, pid, red);
 		exec_fd_close(queque, term, pid);
 	}
 	exec_status(queque, term);

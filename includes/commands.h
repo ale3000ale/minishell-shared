@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:42 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/24 15:56:46 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/27 16:59:49 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMANDS_H
 # define COMMANDS_H
 
-# define COMMANDS	"clear,env,echo,exit,cd,pwd,export,unset"
+# define COMMANDS	"clear,env,echo,exit,cd,pwd,export,unset,PWD,ENV,ECHO"
 
 # define ERROR				-1
 # define MY_CLEAR			0
@@ -24,6 +24,9 @@
 # define MY_PWD				5
 # define MY_EXPORT			6
 # define MY_UNSET			7
+# define MY_PWD2			8
+# define MY_ENV2			9
+# define MY_ECHO2			10
 
 /* SPECIAL */
 

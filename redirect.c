@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 17:45:45 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/26 19:12:54 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/27 16:30:47 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int	red_stdin(t_op *op, t_red *tmp)
 
 static int	red_support(t_op *op, t_red *tmp)
 {
+	if ((tmp->input && !tmp->input[0]) || !tmp->input)
+		return (-1);
 	if (tmp->type == RED_WRITE || tmp->type == RED_APPEND)
 	{
 		if (op->fd[WRITE] > 1)
@@ -77,19 +79,40 @@ static int	red_support(t_op *op, t_red *tmp)
 	return (0);
 }
 
-int	redirection(t_op *op, char **fd_error)
+static	int	ck_token(t_op *op)
 {
 	t_red	*tmp;
 	int		ex;
+	int		error;
 
 	ex = 0;
 	while (!ex)
 	{
 		tmp = (t_red *)op->red->content;
-		if (red_support(op, tmp))
+		error = (tmp->input && !tmp->input[0]) || !tmp->input;
+		ex = op->red->last;
+		op->red = op->red->next;
+	}
+	return (error);
+}
+
+int	redirection(t_op *op, char **fd_error)
+{
+	t_red	*tmp;
+	int		ex;
+	int		error;
+
+	if (ck_token(op))
+		return (-1);
+	ex = 0;
+	while (!ex)
+	{
+		tmp = (t_red *)op->red->content;
+		error = red_support(op, tmp);
+		if (error)
 		{
 			*fd_error = ft_strjoin("", tmp->input);
-			return (-1);
+			return (error);
 		}
 		ex = op->red->last;
 		op->red = op->red->next;

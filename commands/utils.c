@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/23 17:54:17 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/27 17:01:54 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	other_id(char *cmd, char **cmds)
+{
+	int	ret;
+
+	if (!ft_strncmp(cmd, cmds[MY_EXIT], 10))
+		ret = MY_EXIT;
+	else if (!ft_strncmp(cmd, cmds[MY_EXPORT], 10))
+		ret = MY_EXPORT;
+	else if (!ft_strncmp(cmd, cmds[MY_PWD], 10) \
+	 || !ft_strncmp(cmd, cmds[MY_PWD2], 10))
+		ret = MY_PWD;
+	else if (!ft_strncmp(cmd, cmds[MY_UNSET], 10))
+		ret = MY_UNSET;
+	else
+		ret = ERROR;
+	return (ret);
+}
 
 int	cmd_id(char *cmd)
 {
@@ -22,20 +40,14 @@ int	cmd_id(char *cmd)
 		ret = MY_CD;
 	else if (!ft_strncmp(cmd, cmds[MY_CLEAR], 10))
 		ret = MY_CLEAR;
-	else if (!ft_strncmp(cmd, cmds[MY_ECHO], 10))
+	else if (!ft_strncmp(cmd, cmds[MY_ECHO], 10) \
+		 || !ft_strncmp(cmd, cmds[MY_ECHO2], 10))
 		ret = MY_ECHO;
-	else if (!ft_strncmp(cmd, cmds[MY_ENV], 10))
+	else if (!ft_strncmp(cmd, cmds[MY_ENV], 10) \
+	 || !ft_strncmp(cmd, cmds[MY_ENV2], 10))
 		ret = MY_ENV;
-	else if (!ft_strncmp(cmd, cmds[MY_EXIT], 10))
-		ret = MY_EXIT;
-	else if (!ft_strncmp(cmd, cmds[MY_EXPORT], 10))
-		ret = MY_EXPORT;
-	else if (!ft_strncmp(cmd, cmds[MY_PWD], 10))
-		ret = MY_PWD;
-	else if (!ft_strncmp(cmd, cmds[MY_UNSET], 10))
-		ret = MY_UNSET;
 	else
-		ret = ERROR;
+		ret = other_id(cmd, cmds);
 	free_table(cmds);
 	return (ret);
 }
