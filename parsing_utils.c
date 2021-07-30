@@ -60,7 +60,7 @@ int	count_row2(char *input, int *iter)
 		(*iter)++;
 		c = input[*iter];
 	}
-	size = *iter - size + 1;
+	size = *iter - size;
 	return (size);
 }
 
@@ -107,8 +107,7 @@ void	find_cmd(t_term *term, int *iter, t_op **new)
 
 	if ((*new)->cmd)
 		free((*new)->cmd);
-	while (term->input[*iter] && term->input[*iter] == ' ')
-		(*iter)++;
+	ft_skip(term->input, iter, ' ');
 	iter2 = *iter;
 	size = count_row2(term->input, iter);
 	(*new)->cmd = ft_calloc(size + 1, 1);

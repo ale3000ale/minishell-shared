@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 18:36:59 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/28 12:46:13 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/30 15:02:15 by gcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	n_flag(char *input)
 
 	i = 1;
 	n = 0;
-	if (input && !ft_strncmp(input, "-n", 1))
+	if (input && !ft_strncmp(input, "-n", 2))
 	{
 		n = 1;
 		while (i != -1 && input[i])
