@@ -6,7 +6,7 @@
 /*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 15:45:54 by dlanotte          #+#    #+#             */
-/*   Updated: 2021/07/27 16:24:35 by amarcell         ###   ########.fr       */
+/*   Updated: 2021/07/28 18:03:43 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	exec_file_error(t_term *term, \
 static void	exec_fd_close(t_clist *queque, t_term *term, int pid)
 {
 	waitpid(pid, &term->last_status, 0);
+	term->last_status = term->last_status >> 8;
 	g_term->pid = getpid();
 	if (get_op(queque)->fd[WRITE] > WRITE)
 		close(get_op(queque)->fd[WRITE]);
@@ -75,26 +76,27 @@ static void	exec_status(t_clist *queque, t_term *term)
 void	exec_manager(t_clist *queque, t_term *term)
 {
 	int		pid;
-	int		red;
 	char	*fd_error;
 
-	fd_error = 0;
-	red = 0;
+	fd_error = ft_shint(&g_term->red, 0);
 	if (get_op(queque)->red)
-		red = redirection(get_op(queque), &fd_error);
+		g_term->red = redirection(get_op(queque), &fd_error);
 	pid = son_generation(queque);
 	if (get_op(queque)->cmd[0] && ((pid && !get_op(queque)->pipe \
 		&& cmd_id(get_op(queque)->cmd) > -1) || (!pid)))
 	{
-		if (red)
-			exec_file_error(term, fd_error, pid, red);
+		if (g_term->red)
+			exec_file_error(term, fd_error, pid, g_term->red);
 		else
 			ft_execute_commands(queque, term, pid);
 	}
 	else
 	{
-		if (red && getpid() == pid)
-			exec_file_error(term, fd_error, pid, red);
+		if (g_term->red && getpid() == pid)
+			exec_file_error(term, fd_error, pid, g_term->red);
+		if ((ft_strchrid(term->input, '\"') > -1 || \
+		 ft_strchrid(term->input, '\'') > -1) && !get_op(queque)->cmd[0])
+			error404("", pid, term);
 		exec_fd_close(queque, term, pid);
 	}
 	exec_status(queque, term);

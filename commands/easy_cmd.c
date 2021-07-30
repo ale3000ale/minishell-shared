@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   easy_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobrycki <mobrycki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 11:42:06 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/24 15:56:34 by mobrycki         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:58:05 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	quit_exit(t_op *op, t_term *term)
 		ft_putstr_fd(op->argv[0], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		ft_clstclear(&term->queque.first, free_op);
-		exit (255);
+		exit (1);
 	}
 	neg = ft_latoi(op->argv[0]);
 	ft_clstclear(&term->queque.first, free_op);

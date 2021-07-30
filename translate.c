@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 12:33:21 by mobrycki          #+#    #+#             */
-/*   Updated: 2021/07/26 16:14:13 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/28 11:58:55 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ int	if1(char **input, char **trans, int *iter)
 			(*iter) = *iter + i;
 		}
 		else
-		{
 			*trans = freejoin(*trans, "\'", 1);
-			(*iter)++;
-		}
 	}
 	return (flag);
 }
@@ -83,10 +80,7 @@ void	if2(char **input, char **trans, int *iter, t_term *term)
 		if ((*input)[*iter + i] == '\"')
 			ifuck2(input, trans, iter, term);
 		else
-		{
 			*trans = freejoin(*trans, "\"", 1);
-			(*iter)++;
-		}
 	}
 	else if ((*input)[*iter] == '$')
 		ft_dollar(input, term, trans, iter);

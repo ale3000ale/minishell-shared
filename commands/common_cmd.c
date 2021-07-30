@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:12:51 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/26 19:01:59 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/28 18:31:40 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,39 @@ static void	son_exe(char *cmd, char **args, char **env)
 	free_table(path);
 }
 
-int	exec_cmd(t_op *op, int pid, char **env)
+static void	loop(t_op *op, char **args)
 {
-	char	**args;
-	int		i;
+	int	i;
 
 	i = -1;
-	args = ft_calloc(mat_row((void **)op->argv) + 2, sizeof(char *));
 	if (op->cmd)
 		args[0] = op->cmd;
 	while (op->argv[++i])
 		args[i + 1] = op->argv[i];
+}
+
+int	exec_cmd(t_op *op, int pid, char **env)
+{
+	char	**args;
+
+	args = ft_calloc(mat_row((void **)op->argv) + 2, sizeof(char *));
+	loop(op, args);
 	if (!pid)
 	{
 		son_exe(op->cmd, args, env);
 		if (execve(op->cmd, args, env) == -1)
 		{
-			free_table(args);
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(op->cmd, 2);
-			if (!ft_getenv("PATH", env))
-				ft_putstr_fd(": No such file or directory\n", 2);
-			else
-				ft_putstr_fd(": command not found:\n", 2);
-			exit(127);
+			if (!((!g_term->red && (op->cmd[0] == '<' || op->cmd[0] == '>')) \
+			 || op->cmd[0] == '|'))
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(op->cmd, 2);
+				if (!ft_getenv("PATH", env))
+					ft_putstr_fd(": No such file or directory\n", 2);
+				else
+					ft_putstr_fd(": command not found:\n", 2);
+			}
+			exit((free_table(args) * 0) + 127);
 		}
 	}
 	return (1);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+         #
+#    By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/14 16:13:53 by dlanotte          #+#    #+#              #
-#    Updated: 2021/07/23 15:31:28 by gcarbone         ###   ########.fr        #
+#    Updated: 2021/07/28 17:43:36 by amarcell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ LIBFT	=	minilibft/ft_split.c \
 			minilibft/ft_substr.c	\
 			minilibft/ft_strtrim.c	\
 			minilibft/ft_skip.c	\
+			minilibft/ft_shint.c
 
 GNL		= 	get_next_line/get_next_line.c \
 			get_next_line/utils_gnl.c \
@@ -79,7 +80,7 @@ SRC		=	${ENV} ${GRAPH} ${GNL} ${LIBFT} ${COMMAND} ${HISTORY} main.c utils.c pars
 OBJ := ${SRC:.c=.o}
 
 %.o: %.c
-	@ $(CC) $(CFLAGS) -g -c $< -o $@
+	@ $(CC) $(CFLAGS) -g -c $< -o $@ 
 
 all: $(NAME)
 

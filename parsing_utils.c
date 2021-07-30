@@ -47,27 +47,63 @@ void	get_red(t_term *term, int *iter, t_clist **red, int type)
 int	count_row2(char *input, int *iter)
 {
 	int		size;
-	int		flag;
 	char	c;
 
+	size = *iter;
+	c = input[*iter];
+	while (c && ((c != ' ' && c != '>' && c != '<' && c != '|')))
+	{
+		if ((c == '\"') && ft_strchrid(input + *iter + 1, '\"') > -1)
+			*iter += ft_strchrid(input + *iter + 1, '\"') + 1;
+		else if ((c == '\'') && ft_strchrid(input + *iter + 1, '\'') > -1)
+			*iter += ft_strchrid(input + *iter + 1, '\'') + 1;
+		(*iter)++;
+		c = input[*iter];
+	}
+	size = *iter - size + 1;
+	return (size);
+}
+
+/* int	count_row2(char *input, int *iter)
+{
+	int		size;
+	int		flag;
+	//int		quotes;
+	char	c;
+	int		i;
+
+	i = *iter;
 	size = 0;
 	flag = 0;
 	c = input[*iter];
-	while (c && ((c != ' ' && c != '>' && c != '<') || (flag % 2)))
+	while (c)
 	{
-		flag += (c == '\"');
+		if (c == ' ' || c == '>' || c == '<' || c == '|')
+		{
+			if ((flag == 1) && flag %2 && (ft_strchrid(input + *iter + 1, '\"') < 0))
+				break;
+			else if ((flag == 2) && (ft_strchrid(input + *iter + 1, '\'') < 0))
+				break;
+			else if (!flag)
+				break;
+		}
+		if (!flag)
+			flag = (c == '\"');
+		if (!flag)
+			flag = (c == '\'') * 3;
 		(*iter)++;
 		size++;
 		c = input[*iter];
 	}
 	return (size);
-}
+} */
 
 void	find_cmd(t_term *term, int *iter, t_op **new)
 {
 	int		size;
 	char	*temp;
 	int		iter2;
+	int		len;
 
 	if ((*new)->cmd)
 		free((*new)->cmd);
@@ -78,6 +114,9 @@ void	find_cmd(t_term *term, int *iter, t_op **new)
 	(*new)->cmd = ft_calloc(size + 1, 1);
 	ft_strlcpy((*new)->cmd, term->input + iter2, size + 1);
 	temp = (*new)->cmd;
+	len = ft_strlen((*new)->cmd) - 1;
+	while ((*new)->cmd[len] == ' ')
+		(*new)->cmd[len--] = 0;
 	(*new)->cmd = ft_translate((*new)->cmd, term);
 	free(temp);
 }
@@ -86,19 +125,23 @@ void	find_cmd_input(t_term *term, int *iter, t_op **new)
 {
 	int		size;
 	char	*tmp;
+	int		iter2;
 
+	size = 0;
 	if ((*new)->input)
 		free((*new)->input);
 	if ((*new)->argv)
 		free_table((*new)->argv);
 	ft_skip(term->input, iter, ' ');
-	size = 0;
-	while (term->input[*iter + size] && term->input[*iter + size] != '|'
-		&& term->input[*iter + size] != '>' && term->input[*iter + size] != '<')
-		size++;
+	iter2 = *iter;
+	while (term->input[*iter] && term->input[*iter] != '>' \
+		&& term->input[*iter] != '<' && term->input[*iter] != '|')
+	{
+		size += count_row2(term->input, iter) + (term->input[*iter] == ' ');
+		*iter += (term->input[*iter] == ' ');
+	}
 	(*new)->input = ft_calloc(size + 1, 1);
-	ft_strlcpy((*new)->input, term->input + *iter, size + 1);
-	*iter = *iter + size;
+	ft_strlcpy((*new)->input, term->input + iter2, size + 1);
 	tmp = (*new)->input;
 	(*new)->input = ft_strtrim((*new)->input, " ");
 	(*new)->argv = arg_matrix((*new)->input, term);

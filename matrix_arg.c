@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_arg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcarbone <gcarbone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amarcell <amarcell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 18:33:31 by amarcell          #+#    #+#             */
-/*   Updated: 2021/07/23 16:21:32 by gcarbone         ###   ########.fr       */
+/*   Updated: 2021/07/28 15:09:37 by amarcell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_row(char *input, int *iter)
 	flag = 0;
 	while (input[*iter] && (input[*iter] != ' ' || (flag % 2)))
 	{
-		flag += (input[*iter] == '\"');
+		flag += (input[*iter] == '\"' || input[*iter] == '\'');
 		(*iter)++;
 		size++;
 	}
