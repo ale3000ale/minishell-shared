@@ -10,7 +10,7 @@ To use: mv `program_name` ../
 
 Result: 
 ```
-I finded this files: 
+I find this files: 
 1
 ./.DS_Store
 ```
@@ -19,7 +19,7 @@ I finded this files:
 
 Result: 
 ```
-I finded this files: 
+I find this files: 
 1
 ./.DS_Store
 
